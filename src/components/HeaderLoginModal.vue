@@ -19,7 +19,8 @@
         </table>
       </div>
       <div class="login_id_remember">
-        <input type="checkbox" id="remember_check" v-model="rememberId" /><label for="remember_check"
+        <input type="checkbox" id="remember_check" v-model="rememberId" /><label
+          for="remember_check"
           >아이디 기억하기</label
         >
       </div>
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http-common";
 
 export default {
   name: "HeaderLoginModal",
@@ -47,20 +48,20 @@ export default {
   },
   methods: {
     modalDown() {
-      const reg_modal = document.querySelector(".login_modal");
+      const login_modal = document.querySelector(".login_modal");
       const body = document.querySelector("body");
 
-      reg_modal.classList.toggle("show");
-      if (!reg_modal.classList.contains("show")) {
+      login_modal.classList.toggle("show");
+      if (!login_modal.classList.contains("show")) {
         body.style.overflow = "auto";
       }
     },
     login() {
-      const baseUrl = "http://localhost:8080";
-      const subUrl = "/login";
-      let data = { id: this.id, pw: this.pw };
-      axios
-        .post(baseUrl + subUrl, data)
+      //   const baseUrl = "http://localhost:8080";
+      const subUrl = "member/login";
+      let userInfo = { id: this.id, pw: this.pw };
+      http
+        .post(`${subUrl}`, userInfo)
         .then((res) => {
           console.log(res);
         })

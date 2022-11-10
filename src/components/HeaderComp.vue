@@ -10,8 +10,16 @@
               <li><a href="#">공지사항</a></li>
               <li><a href="#">실거래가조회</a></li>
               <li><a href="#">관심목록</a></li>
-              <li><a href="#" class="btn_open_popup" @click="popupRegist">회원가입</a></li>
-              <li><a href="#" class="login_btn_open_popup" @click="popupLogin">로그인</a></li>
+              <li>
+                <a href="#" class="btn_open_popup" @click="popupRegist"
+                  >회원가입</a
+                >
+              </li>
+              <li>
+                <a href="#" class="login_btn_open_popup" @click="popupLogin"
+                  >로그인</a
+                >
+              </li>
               <li><a href="#">로그아웃</a></li>
             </ul>
           </div>
@@ -41,6 +49,7 @@ export default {
         body.style.overflow = "hidden";
       }
     },
+
     popupLogin() {
       const body = document.querySelector("body");
       const login_modal = document.querySelector(".login_modal");
