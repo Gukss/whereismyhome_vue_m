@@ -1,0 +1,108 @@
+html {
+  font-size: 14px;
+}
+@font-face {
+  font-family: "S-CoreDream-5Medium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  text-decoration: none;
+  border-collapse: collapse;
+  color: #000;
+  font-family: S-CoreDream-5Medium;
+  box-sizing: border-box;
+}
+/* =========================== */
+/* =                         = */
+/* =      여백 초기화        = */
+/* =                         = */
+/* =========================== */
+body,
+div,
+ul,
+li,
+dl,
+dd,
+dt,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+fieldset,
+legend,
+p,
+select,
+table,
+th,
+td,
+tr,
+textarea,
+button,
+form,
+figure,
+figcaption {
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================== */
+/* =                         = */
+/* =      링크 초기화        = */
+/* =                         = */
+/* =========================== */
+a {
+  color: #222;
+  text-decoration: none;
+}
+a:hover {
+  color: #2698cb;
+}
+
+body {
+  background: #fff;
+}
+
+#wrap {
+  width: 100%;
+  /* height: 100vh; */
+  margin: 0 auto;
+}
+/* 화면 너비 0 ~ 1200px */
+@media (max-width: 1220px) {
+  #wrap {
+    width: 95%;
+  }
+}
+
+/* 화면 너비 0 ~ 768px */
+@media (max-width: 768px) {
+  #wrap {
+    width: 100%;
+  }
+}
+
+/* 화면 너비 0 ~ 480px */
+@media (max-width: 480px) {
+  #wrap {
+    width: 100%;
+  }
+  /* header {height: 300px;}
+    aside {float: none; width: 100%; height: 300px;}
+    section {float: none; width: 100%; height: 300px;} */
+}
+.container {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  /* background: rgba(0, 0, 0, 0.3); */
+  position: relative;
+}

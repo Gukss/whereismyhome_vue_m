@@ -1,0 +1,62 @@
+/* =========================== */
+/* =                         = */
+/* =          헤더           = */
+/* =                         = */
+/* =========================== */
+header {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.container .header_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  padding: 0 1.25rem;
+}
+
+.header .header_menu {
+  text-align: left;
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+.header .header_menu ul {
+  display: flex;
+}
+
+.header .header_container .title {
+  margin-left: 2rem;
+}
+
+.header .header_container .title h1 {
+  color: #1e88e5;
+}
+
+.header .header_menu a {
+  color: #1e88e5;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+  margin-bottom: 1px;
+}
+.header .header_menu a:hover {
+  color: #0d47a1;
+  border-bottom: #0d47a1 solid 1px;
+}
+
+.header .header_container .login_container {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  /* width: 100%; */
+  flex-direction: column;
+  background-color: #fff;
+  padding: 2rem 3rem;
+  display: none;
+}

@@ -1,0 +1,13 @@
+.section .banner_container .banner_info {
+  width: 100%;
+  /* padding-top: 5.625rem; */
+  padding-top: 4rem;
+  margin-bottom: 1.875rem;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.section .banner_container .banner_info .nickname {
+  color: #1e88e5;
+}

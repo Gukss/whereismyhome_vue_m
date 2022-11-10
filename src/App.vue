@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="hellp" />
+    <header-comp></header-comp>
+    <section-comp></section-comp>
+    <footer-comp></footer-comp>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import HeaderComp from "./components/HeaderComp.vue";
+import SectionComp from "./components/SectionComp.vue";
+import FooterComp from "./components/FooterComp.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    HeaderComp,
+    SectionComp,
+    FooterComp,
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "./assets/css/main.css";
 </style>
