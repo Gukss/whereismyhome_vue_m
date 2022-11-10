@@ -1,0 +1,62 @@
+<template>
+  <div class="login_modal">
+    <div class="input_container">
+      <div class="login_title">로그인</div>
+      <div class="login_modal_container">
+        <table class="form_table">
+          <colgroup>
+            <col style="width: 30%" />
+            <col style="width: 70%" />
+          </colgroup>
+          <tr>
+            <td>아이디</td>
+            <td><input type="text" v-model="id" /></td>
+          </tr>
+          <tr>
+            <td>비밀번호</td>
+            <td><input type="password" v-model="password" /></td>
+          </tr>
+        </table>
+      </div>
+      <div class="login_id_remember">
+        <input type="checkbox" id="remember_check" v-model="rememberId" /><label for="remember_check"
+          >아이디 기억하기</label
+        >
+      </div>
+      <div class="login_btn_container">
+        <input type="button" value="로그인" />
+      </div>
+      <div class="login_btn_container">
+        <input type="button" value="취소" @click="modalDown" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "HeaderLoginModal",
+  data() {
+    return {
+      id: "",
+      password: "",
+      rememberId: "",
+    };
+  },
+  methods: {
+    modalDown() {
+      const reg_modal = document.querySelector(".login_modal");
+      const body = document.querySelector("body");
+
+      reg_modal.classList.toggle("show");
+      if (!reg_modal.classList.contains("show")) {
+        body.style.overflow = "auto";
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+@import "../assets/css/headerLoginModal.css";
+</style>

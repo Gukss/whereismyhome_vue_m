@@ -1,0 +1,124 @@
+/* =========================== */
+/* =                         = */
+/* =       로그인 모달       = */
+/* =                         = */
+/* =========================== */
+.header .header_container .login_modal.show {
+  display: block;
+}
+
+.login_modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.login_modal.show {
+  display: block;
+}
+
+.login_modal .input_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  /* height: 600px; */
+  padding: 40px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.input_container div {
+  color: #1e88e5;
+}
+
+.input_container .login_title {
+  font-size: 1.5rem;
+}
+
+.login_modal .login_modal_container {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.login_modal .input_container {
+  text-align: center;
+}
+.login_modal .login_title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1e88e5;
+}
+
+.login_modal .input_container {
+  display: flex;
+  flex-flow: column wrap;
+  /* text-align-last: left; */
+  font-size: 1rem;
+}
+
+.login_modal .input_container .form_table input {
+  width: 100%;
+  height: 2.5rem;
+  margin: 0.25rem 0;
+  border-style: none;
+  border-bottom: #aaa 1px solid;
+}
+.login_modal .input_container .form_table input:focus {
+  outline: none;
+  border-bottom: #0d47a1 1px solid;
+}
+
+.login_modal .input_container td {
+  text-align: left;
+  color: #1e88e5;
+}
+
+.login_modal .login_id_remember {
+  text-align: left;
+  margin-top: 0.3rem;
+}
+
+.login_modal .login_id_remember label {
+  color: #1e88e5;
+}
+
+.login_modal .login_id_remember input {
+  border-top: #fff;
+}
+.login_modal .login_btn_container {
+  text-align: center;
+}
+
+.login_modal .login_btn_container input {
+  width: 100%;
+  height: 2.5rem;
+  border-style: none;
+  background-color: #e3f2fd;
+  line-height: 1.5rem;
+  border-radius: 2rem;
+  padding: 0 0.5rem;
+  margin-top: 1rem;
+  color: #1e88e5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+.login_modal .login_btn_container input:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0d47a1;
+}
