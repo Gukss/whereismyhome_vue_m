@@ -14,7 +14,7 @@
           </tr>
           <tr>
             <td>비밀번호</td>
-            <td><input type="password" v-model="password" /></td>
+            <td><input type="password" v-model="pw" /></td>
           </tr>
         </table>
       </div>
@@ -24,7 +24,7 @@
         >
       </div>
       <div class="login_btn_container">
-        <input type="button" value="로그인" />
+        <input type="button" value="로그인" @click="login" />
       </div>
       <div class="login_btn_container">
         <input type="button" value="취소" @click="modalDown" />
@@ -34,12 +34,14 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "HeaderLoginModal",
   data() {
     return {
       id: "",
-      password: "",
+      pw: "",
       rememberId: "",
     };
   },
@@ -52,6 +54,19 @@ export default {
       if (!reg_modal.classList.contains("show")) {
         body.style.overflow = "auto";
       }
+    },
+    login() {
+      const baseUrl = "http://localhost:8080";
+      const subUrl = "/login";
+      let data = { id: this.id, pw: this.pw };
+      axios
+        .post(baseUrl + subUrl, data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
