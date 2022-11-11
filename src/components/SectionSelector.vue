@@ -76,7 +76,6 @@ export default {
   mounted() {
     this.getSido();
     this.getYear();
-    this.getMonth();
   },
   methods: {
     getSido: async function () {
@@ -91,13 +90,6 @@ export default {
         this.yearList.push(i);
       }
     },
-    // getMonth: function () {
-    //   let date = new Date();
-    //   let year = date.getFullYear();
-    //   for (let i = year; i > year - 10; i--) {
-    //     this.yearList.push(i);
-    //   }
-    // },
   },
   watch: {
     sidoVal: async function (sidoVal) {
