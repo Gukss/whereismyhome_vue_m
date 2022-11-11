@@ -26,7 +26,7 @@
                   >로그인</a
                 >
               </li>
-              <li><a href="#">로그아웃</a></li>
+              <li><a href="#" @click="logout">로그아웃</a></li>
             </ul>
           </div>
           <div class="userinfo">
@@ -46,11 +46,11 @@
             </colgroup>
             <tr>
               <td>아이디</td>
-              <td><input type="text" v-model="id" ref="loginInputId" /></td>
+              <td><input type="text" v-model="loginId" ref="loginInputId" /></td>
             </tr>
             <tr>
               <td>비밀번호</td>
-              <td><input type="password" v-model="pw" /></td>
+              <td><input type="password" v-model="loginPw" /></td>
             </tr>
           </table>
         </div>
@@ -95,12 +95,12 @@
               <td><input type="text" v-model="email" /></td>
             </tr>
             <tr>
-              <td>주소</td>
-              <td><input type="text" v-model="address" /></td>
+              <td>전화번호</td>
+              <td><input type="text" v-model="phone" /></td>
             </tr>
           </table>
           <div class="reg_btn_container">
-            <input type="button" value="확인" />
+            <input type="button" value="확인" @click="regist" />
             <input
               type="button"
               value="취소"
@@ -129,7 +129,9 @@ export default {
       rememberId: "",
       name: "",
       email: "",
-      address: "",
+      phone: "",
+      loginId: "",
+      loginPw: ""
     };
   },
   methods: {
@@ -177,16 +179,51 @@ export default {
     login() {
       //   const baseUrl = "http://localhost:8080";
       const subUrl = "member/login";
-      let userInfo = { id: this.id, pw: this.pw };
+      let userInfo = { id: this.loginId, pw: this.loginPw };
       http
         .post(`${subUrl}`, userInfo)
         .then((res) => {
           console.log(res);
+          this.loginModalDown();
         })
         .catch((err) => {
           console.log(err);
         });
+
+      this.loginId = "";
+      this.loginPw = "";
     },
+
+    regist(){
+      let member = {
+        id: this.id,
+        pw: this.pw,
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+      };
+
+      http.post("/member", member)
+          .then(({data}) => {
+            console.log(data);
+            this.regModalDown();
+            this.popupLogin();
+          });
+
+      this.id = "";
+      this.pw = "";
+      this.rememberId = "";
+      this.name = "";
+      this.email = "";
+      this.phone = "";
+    },
+
+    logout(){
+      console.log(sessionStorage.get);
+      http.get("/member/logout").then(
+        console.log("로그아웃")
+      );
+    }
   },
   components: {
     // HeaderRegistModal,
