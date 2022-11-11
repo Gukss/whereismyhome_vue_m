@@ -1,3 +1,8 @@
+/* =========================== */
+/* =                         = */
+/* =      회원가입 모달      = */
+/* =                         = */
+/* =========================== */
 .reg_modal {
   position: absolute;
   top: 0;
@@ -79,8 +84,8 @@
   text-decoration: none;
   vertical-align: middle;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .reg_modal .reg_modal_container .reg_btn_container input:hover {
   cursor: pointer;

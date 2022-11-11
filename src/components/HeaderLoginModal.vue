@@ -10,7 +10,7 @@
           </colgroup>
           <tr>
             <td>아이디</td>
-            <td><input type="text" v-model="id" /></td>
+            <td><input type="text" v-model="id" ref="inputId" /></td>
           </tr>
           <tr>
             <td>비밀번호</td>
@@ -69,6 +69,9 @@ export default {
           console.log(err);
         });
     },
+  },
+  mounted() {
+    this.$refs.inputId.focus();
   },
 };
 </script>
