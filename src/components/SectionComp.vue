@@ -18,7 +18,11 @@ import SectionSelector from "./SectionSelector.vue";
 
 export default {
   name: "SectionComp",
-  components: { SectionBannerTitle, SectionBannerContent, SectionSelector },
+  components: {
+    SectionBannerTitle,
+    SectionBannerContent,
+    SectionSelector,
+  },
 };
 </script>
 <style scope>

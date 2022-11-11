@@ -28,7 +28,9 @@
       </div>
       <div class="form_group">
         <div class="button_container">
-          <input type="button" value="검색" id="list-btn" />
+          <router-link to="/search"
+            ><input type="button" value="검색" id="list-btn"
+          /></router-link>
           <input type="button" value="관심지역 등록" id="interest-btn2" />
         </div>
       </div>

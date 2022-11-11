@@ -7,9 +7,15 @@
           <div class="header_menu">
             <ul>
               <!-- <li><a href="#">Home</a></li> -->
-              <li><a href="#">공지사항</a></li>
-              <li><a href="#">실거래가조회</a></li>
-              <li><a href="#">관심목록</a></li>
+              <li>
+                <router-link to="/">공지사항</router-link>
+              </li>
+              <li>
+                <router-link to="/">실거래가조회</router-link>
+              </li>
+              <li>
+                <router-link to="/">관심목록</router-link>
+              </li>
               <li>
                 <a href="#" class="btn_open_popup" @click="popupRegist"
                   >회원가입</a
@@ -78,7 +84,7 @@
             </tr>
             <tr>
               <td>비밀번호</td>
-              <td><input type="password" v-model="password" /></td>
+              <td><input type="password" v-model="pw" /></td>
             </tr>
             <tr>
               <td>이름</td>
