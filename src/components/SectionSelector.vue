@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="area_select_container">
+    <form action="submit" class="area_select_container">
       <div class="form_group">
         <select class="form_select" name="sido" id="sido" v-model="sidoVal">
           <!-- Todo: focus가면 시도선택 없어지게 하기 -->
@@ -45,12 +45,12 @@
       <div class="form_group">
         <div class="button_container">
           <router-link to="/search"
-            ><input type="button" value="검색" id="list-btn"
+            ><input type="button" value="검색" id="list-btn" @click="reqAplList"
           /></router-link>
           <input type="button" value="관심지역 등록" id="interest-btn2" />
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -67,10 +67,13 @@ export default {
       sidoVal: "",
       gugunVal: "",
       dongVal: "",
+      //------
       yearList: [],
       monthList: [],
       yearVal: "",
       monthVal: "",
+      //---
+      aptList: [],
     };
   },
   mounted() {
@@ -81,7 +84,7 @@ export default {
     getSido: async function () {
       const subUrl = "search/sido";
       let resSido = await http.get(`${subUrl}`);
-      this.sidoList = resSido.data.data;
+      this.sidoList = resSido.data;
     },
     getYear: function () {
       let date = new Date();
@@ -90,21 +93,25 @@ export default {
         this.yearList.push(i);
       }
     },
+    //아파트 리스트를 props로 넘긴다.
+    reqAplList: async function () {
+      const subUrl = "search/aptlist";
+      let resAptList = await http.get(`${subUrl}`);
+      this.sidoList = resAptList.data;
+    },
   },
   watch: {
     sidoVal: async function (sidoVal) {
-      console.log(sidoVal);
       const subUrl = "search/gugun";
       const reqData = { sido: sidoVal };
       let resGugun = await http.get(`${subUrl}`, { params: reqData });
-      this.gugunList = resGugun.data.data;
+      this.gugunList = resGugun.data;
     },
     gugunVal: async function (gugunVal) {
       const subUrl = "search/dong";
       const reqData = { sido: this.sidoVal, gugun: gugunVal };
-      console.log(reqData);
       let resDong = await http.get(`${subUrl}`, { params: reqData });
-      this.dongList = resDong.data.data;
+      this.dongList = resDong.data;
     },
     yearVal: function () {
       let date = new Date();
