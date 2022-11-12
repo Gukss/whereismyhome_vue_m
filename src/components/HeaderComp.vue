@@ -4,7 +4,7 @@
       <div class="container">
         <div class="header_container">
           <router-link to="/" class="title"
-            ><img src="../assets/img/logo_medium.svg" alt="whereismyhome"
+            ><img src="../assets/img/fabicon_medium.svg" alt="whereismyhome"
           /></router-link>
           <!-- <a href="#" class="title"><h1>title</h1></a> -->
           <div class="header_menu">
