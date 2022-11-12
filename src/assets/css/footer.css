@@ -9,3 +9,15 @@
   height: 150px;
   background: #0d47a1;
 }
+.footer .footer_container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  padding: 0.5rem 2rem;
+}
+.footer .footer_container .footer_title_container {
+}
+.footer .footer_container .footer_title_container .footer_title {
+  color: #fff;
+}

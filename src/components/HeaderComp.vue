@@ -3,7 +3,10 @@
     <header class="header">
       <div class="container">
         <div class="header_container">
-          <a href="#" class="title"><h1>title</h1></a>
+          <router-link to="/" class="title"
+            ><img src="../assets/img/logo_medium.svg" alt="whereismyhome"
+          /></router-link>
+          <!-- <a href="#" class="title"><h1>title</h1></a> -->
           <div class="header_menu">
             <ul>
               <!-- <li><a href="#">Home</a></li> -->
@@ -17,14 +20,10 @@
                 <router-link to="/">관심목록</router-link>
               </li>
               <li>
-                <a href="#" class="btn_open_popup" @click="popupRegist"
-                  >회원가입</a
-                >
+                <a href="#" class="btn_open_popup" @click="popupRegist">회원가입</a>
               </li>
               <li>
-                <a href="#" class="login_btn_open_popup" @click="popupLogin"
-                  >로그인</a
-                >
+                <a href="#" class="login_btn_open_popup" @click="popupLogin">로그인</a>
               </li>
               <li><a href="#" @click="logout">로그아웃</a></li>
             </ul>
@@ -55,11 +54,10 @@
           </table>
         </div>
         <div class="login_id_remember">
-          <input
-            type="checkbox"
-            id="remember_check"
-            v-model="rememberId"
-          /><label for="remember_check">아이디 기억하기</label>
+          <input type="checkbox" id="remember_check" v-model="rememberId" /><label
+            for="remember_check"
+            >아이디 기억하기</label
+          >
         </div>
         <div class="login_btn_container">
           <input type="button" value="로그인" @click="login" />
@@ -101,12 +99,7 @@
           </table>
           <div class="reg_btn_container">
             <input type="button" value="확인" @click="regist" />
-            <input
-              type="button"
-              value="취소"
-              class="reg_modal_close"
-              @click="regModalDown"
-            />
+            <input type="button" value="취소" class="reg_modal_close" @click="regModalDown" />
           </div>
         </div>
       </div>
@@ -131,7 +124,7 @@ export default {
       email: "",
       phone: "",
       loginId: "",
-      loginPw: ""
+      loginPw: "",
     };
   },
   methods: {
@@ -194,7 +187,7 @@ export default {
       this.loginPw = "";
     },
 
-    regist(){
+    regist() {
       let member = {
         id: this.id,
         pw: this.pw,
@@ -203,12 +196,11 @@ export default {
         phone: this.phone,
       };
 
-      http.post("/member", member)
-          .then(({data}) => {
-            console.log(data);
-            this.regModalDown();
-            this.popupLogin();
-          });
+      http.post("/member", member).then(({ data }) => {
+        console.log(data);
+        this.regModalDown();
+        this.popupLogin();
+      });
 
       this.id = "";
       this.pw = "";
@@ -218,12 +210,10 @@ export default {
       this.phone = "";
     },
 
-    logout(){
+    logout() {
       console.log(sessionStorage.get);
-      http.get("/member/logout").then(
-        console.log("로그아웃")
-      );
-    }
+      http.get("/member/logout").then(console.log("로그아웃"));
+    },
   },
   components: {
     // HeaderRegistModal,
