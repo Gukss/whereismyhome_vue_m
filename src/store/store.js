@@ -69,6 +69,14 @@ export const store = new Vuex.Store({
     getAptList(state) {
       return state.aptList;
     },
+    reqYearList(state) {
+      let date = new Date();
+      let year = date.getFullYear();
+      for (let i = year; i > year - 10; i--) {
+        state.yearList.push(i);
+      }
+      return state.yearList;
+    },
   },
   //동기적 로직
   mutations: {
@@ -103,13 +111,20 @@ export const store = new Vuex.Store({
     setMonthVal(state, payload) {
       return (state.monthVal = payload);
     },
-    ReqYear(state) {
+
+    setAptList(state, payload) {
+      return (state.aptList = payload);
+    },
+    reqMonthList(state) {
       let date = new Date();
-      let year = date.getFullYear();
-      for (let i = year; i > year - 10; i--) {
-        state.yearList.push(i);
+      let month = date.getMonth() + 1;
+      let m = state.yearVal == date.getFullYear() ? month : 13;
+      state.monthList = [];
+      for (let i = 1; i < m; i++) {
+        // let temp = i < 10 ? "0" + i : i;
+        state.monthList.push(i);
       }
-      return state.yearList;
+      return state.monthList;
     },
   },
   //비동기적 로직
@@ -134,6 +149,18 @@ export const store = new Vuex.Store({
       const reqData = { sido: sidoVal, gugun: payload };
       let resDong = await http.get(`${subUrl}`, { params: reqData });
       return context.commit("setDongList", resDong.data);
+    },
+    asyncReqAptList: async function (context) {
+      const subUrl = "search/aptlist";
+      const reqData = {
+        sido: context.getters.getSidoVal,
+        gugun: context.getters.getGugunVal,
+        dong: context.getters.getDongVal,
+        year: context.getters.getYearVal,
+        month: context.getters.getMonthVal,
+      };
+      let resAptList = await http.get(`${subUrl}`, { params: reqData });
+      return context.commit("setAptList", resAptList.data);
     },
   },
 });

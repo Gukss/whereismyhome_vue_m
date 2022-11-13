@@ -56,7 +56,9 @@
           class="form_select"
           name="year"
           id="year"
-          @change="$store.commit('setYearVal', $event.target.value)"
+          @change="
+            [$store.commit('setYearVal', $event.target.value), $store.commit('reqMonthList')]
+          "
         >
           <option value="">매매년도선택</option>
           <option :value="item" v-for="(item, index) in $store.getters.getYearList" :key="index">
@@ -80,7 +82,7 @@
       <div class="form_group">
         <div class="button_container">
           <router-link to="/search"
-            ><input type="button" value="검색" id="list-btn" @click="reqAplList"
+            ><input type="button" value="검색" id="list-btn" @click="asyncReqAptList"
           /></router-link>
           <input type="button" value="관심지역 등록" id="interest-btn2" />
         </div>
@@ -97,20 +99,8 @@ export default {
   name: "SectionSelector",
   // data() {
   //   return {
-  //     sidoList: [],
-  //     gugunList: [],
-  //     dongList: [],
-  //     sidoVal: "",
-  //     gugunVal: "",
-  //     dongVal: "",
-  //     //------
-  //     yearList: [],
-  //     monthList: [],
-  //     yearVal: "",
-  //     monthVal: "",
-  //     //---
-  //     aptList: [],
-  //   };
+  //
+  // };
   // },
   mounted() {
     this.getSido();
@@ -129,6 +119,7 @@ export default {
       "getMonthVal",
       "getMonthList",
       "getAptList",
+      "reqYearList",
     ]),
   },
   methods: {
@@ -143,14 +134,15 @@ export default {
       "setYearVal",
       "setMonthList",
       "setMonthVal",
-      "ReqYear",
+      "setAptList",
+      "reqMonthList",
     ]),
-    ...mapActions(["asyncReqSido", "asyncReqGugun", "asyncReqDong"]),
+    ...mapActions(["asyncReqSido", "asyncReqGugun", "asyncReqDong", "asyncReqAptList"]),
     getSido: function () {
       this.$store.dispatch("asyncReqSido");
     },
     getYear: function () {
-      this.$store.commit("ReqYear");
+      this.$store.getters.reqYearList;
     },
     //아파트 리스트를 props로 넘긴다.
     reqAplList: async function () {
@@ -159,35 +151,9 @@ export default {
       this.sidoList = resAptList.data;
     },
   },
-  watch: {
-    sidoVal: async function (sidoVal) {
-      const subUrl = "search/gugun";
-      const reqData = { sido: sidoVal };
-      let resGugun = await http.get(`${subUrl}`, { params: reqData });
-      this.gugunList = resGugun.data;
-    },
-    // sidoVal: async function (sidoVal) {
-    //   const subUrl = "search/gugun";
-    //   const reqData = { sido: sidoVal };
-    //   let resGugun = await http.get(`${subUrl}`, { params: reqData });
-    //   this.gugunList = resGugun.data;
-    // },
-    gugunVal: async function (gugunVal) {
-      const subUrl = "search/dong";
-      const reqData = { sido: this.sidoVal, gugun: gugunVal };
-      let resDong = await http.get(`${subUrl}`, { params: reqData });
-      this.dongList = resDong.data;
-    },
-    // yearVal: function () {
-    //   let date = new Date();
-    //   let month = date.getMonth() + 1;
-    //   let m = this.yearVal === date.getFullYear() ? month : 13;
-    //   for (let i = 1; i < m; i++) {
-    //     // let temp = i < 10 ? "0" + i : i;
-    //     this.monthList.push(i);
-    //   }
-    // },
-  },
+  // watch: {
+  //
+  // },
 };
 </script>
 

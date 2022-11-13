@@ -97,6 +97,24 @@
 .section .banner_container .area_select_container .form_group .form_select:focus {
   outline: none;
 }
+.section .banner_container .area_select_container .form_group .form_select::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.section
+  .banner_container
+  .area_select_container
+  .form_group
+  .form_select::-webkit-scrollbar-thumb {
+  background-color: #1e88e5;
+  border-radius: 3rem;
+}
+.section
+  .banner_container
+  .area_select_container
+  .form_group
+  .form_select::-webkit-scrollbar-track {
+  background-color: #eee;
+}
 
 .section .banner_container .area_select_container .form_group .form_select .option {
   -moz-appearance: none;
@@ -125,8 +143,8 @@
   text-decoration: none;
   vertical-align: middle;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .section .banner_container .area_select_container .form_group input:hover {
