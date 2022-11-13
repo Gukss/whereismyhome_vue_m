@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
     // sidoList: [],
     // gugunList: [],
     // dongList: [],
-    sidoVal: "",
+    // sidoVal: "",
     // gugunVal: "",
     // dongVal: "",
     // //---
@@ -35,9 +35,9 @@ export const store = new Vuex.Store({
   /* =========================== */
   getters: {
     //listbox getter
-    getSidoVal(state) {
-      return state.sidoVal;
-    },
+    // getSidoVal(state) {
+    //   return state.sidoVal;
+    // },
     // getSidoList(state) {
     //   return state.sidoList;
     // },
@@ -81,12 +81,12 @@ export const store = new Vuex.Store({
   },
   //비동기적 로직
   actions: {
-    asyncReqSido: async function (context) {
-      const subUrl = "search/sido";
-      let resSido = await http.get(`${subUrl}`);
-      //mutations불러서 사용하기
-      return context.commit("initSidoList", resSido);
-      // this.$store.getter.getSidoList = resSido.data;
-    },
+    // asyncReqSido: async function (context) {
+    //   const subUrl = "search/sido";
+    //   let resSido = await http.get(`${subUrl}`);
+    //   //mutations불러서 사용하기
+    //   return context.commit("initSidoList", resSido);
+    //   // this.$store.getter.getSidoList = resSido.data;
+    // },
   },
 });
