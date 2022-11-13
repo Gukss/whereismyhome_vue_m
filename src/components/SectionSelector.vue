@@ -2,7 +2,17 @@
   <div>
     <form action="submit" class="area_select_container">
       <div class="form_group">
-        <select class="form_select" name="sido" id="sido" v-model="$store.getters.getSidoVal">
+        <select
+          class="form_select"
+          name="sido"
+          id="sido"
+          @change="
+            [
+              $store.commit('setSidoVal', $event.target.value),
+              $store.dispatch('asyncReqGugun', $event.target.value),
+            ]
+          "
+        >
           <!-- Todo: focus가면 시도선택 없어지게 하기 -->
           <option value="">시도선택</option>
           <option :value="item" v-for="(item, index) in $store.getters.getSidoList" :key="index">
@@ -11,35 +21,60 @@
         </select>
       </div>
       <div class="form_group">
-        <select class="form_select" name="gugun" id="gugun">
+        <select
+          class="form_select"
+          name="gugun"
+          id="gugun"
+          @change="
+            [
+              $store.commit('setGugunVal', $event.target.value),
+              $store.dispatch('asyncReqDong', $event.target.value),
+            ]
+          "
+        >
           <option value="">구군선택</option>
-          <!-- <option :value="item" v-for="(item, index) in gugunList" :key="index">
+          <option :value="item" v-for="(item, index) in $store.getters.getGugunList" :key="index">
             {{ item }}
-          </option> -->
+          </option>
         </select>
       </div>
       <div class="form_group">
-        <select class="form_select" name="dong" id="dong">
+        <select
+          class="form_select"
+          name="dong"
+          id="dong"
+          @change="$store.commit('setDongVal', $event.target.value)"
+        >
           <option value="">동선택</option>
-          <!-- <option :value="item" v-for="(item, index) in dongList" :key="index">
+          <option :value="item" v-for="(item, index) in $store.getters.getDongList" :key="index">
             {{ item }}
-          </option> -->
+          </option>
         </select>
       </div>
       <div class="form_group">
-        <select class="form_select" name="year" id="year">
+        <select
+          class="form_select"
+          name="year"
+          id="year"
+          @change="$store.commit('setYearVal', $event.target.value)"
+        >
           <option value="">매매년도선택</option>
-          <!-- <option :value="item" v-for="(item, index) in yearList" :key="index">
+          <option :value="item" v-for="(item, index) in $store.getters.getYearList" :key="index">
             {{ item }} 년
-          </option> -->
+          </option>
         </select>
       </div>
       <div class="form_group">
-        <select class="form_select" name="month" id="month">
+        <select
+          class="form_select"
+          name="month"
+          id="month"
+          @change="$store.commit('setMonthVal', $event.target.value)"
+        >
           <option value="">매매월선택</option>
-          <!-- <option :value="item" v-for="(item, index) in monthList" :key="index">
+          <option :value="item" v-for="(item, index) in $store.getters.getMonthList" :key="index">
             {{ item }} 월
-          </option> -->
+          </option>
         </select>
       </div>
       <div class="form_group">
@@ -79,7 +114,7 @@ export default {
   // },
   mounted() {
     this.getSido();
-    // this.getYear();
+    this.getYear();
   },
   computed: {
     ...mapGetters([
@@ -97,23 +132,26 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations(["initSidoList"]),
-    ...mapActions(["asyncReqSido"]),
+    ...mapMutations([
+      "setSidoList",
+      "setSidoVal",
+      "setGugunList",
+      "setGugunVal",
+      "setDongList",
+      "setDongVal",
+      "setYearList",
+      "setYearVal",
+      "setMonthList",
+      "setMonthVal",
+      "ReqYear",
+    ]),
+    ...mapActions(["asyncReqSido", "asyncReqGugun", "asyncReqDong"]),
     getSido: function () {
       this.$store.dispatch("asyncReqSido");
     },
-    // getSido: async function () {
-    //   const subUrl = "search/sido";
-    //   let resSido = await http.get(`${subUrl}`);
-    //   this.sidoList = resSido.data;
-    // },
-    // getYear: function () {
-    //   let date = new Date();
-    //   let year = date.getFullYear();
-    //   for (let i = year; i > year - 10; i--) {
-    //     this.yearList.push(i);
-    //   }
-    // },
+    getYear: function () {
+      this.$store.commit("ReqYear");
+    },
     //아파트 리스트를 props로 넘긴다.
     reqAplList: async function () {
       const subUrl = "search/aptlist";
@@ -128,6 +166,12 @@ export default {
       let resGugun = await http.get(`${subUrl}`, { params: reqData });
       this.gugunList = resGugun.data;
     },
+    // sidoVal: async function (sidoVal) {
+    //   const subUrl = "search/gugun";
+    //   const reqData = { sido: sidoVal };
+    //   let resGugun = await http.get(`${subUrl}`, { params: reqData });
+    //   this.gugunList = resGugun.data;
+    // },
     gugunVal: async function (gugunVal) {
       const subUrl = "search/dong";
       const reqData = { sido: this.sidoVal, gugun: gugunVal };

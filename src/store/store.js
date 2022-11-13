@@ -72,8 +72,44 @@ export const store = new Vuex.Store({
   },
   //동기적 로직
   mutations: {
-    initSidoList(state, payload) {
+    setSidoList(state, payload) {
       return (state.sidoList = payload);
+    },
+    setSidoVal(state, payload) {
+      console.log(payload);
+      return (state.sidoVal = payload);
+    },
+    setGugunList(state, payload) {
+      return (state.gugunList = payload);
+    },
+    setGugunVal(state, payload) {
+      return (state.gugunVal = payload);
+    },
+    setDongList(state, payload) {
+      return (state.dongList = payload);
+    },
+    setDongVal(state, payload) {
+      return (state.dongVal = payload);
+    },
+    setYearList(state, payload) {
+      return (state.yearList = payload);
+    },
+    setYearVal(state, payload) {
+      return (state.yearVal = payload);
+    },
+    setMonthList(state, payload) {
+      return (state.monthList = payload);
+    },
+    setMonthVal(state, payload) {
+      return (state.monthVal = payload);
+    },
+    ReqYear(state) {
+      let date = new Date();
+      let year = date.getFullYear();
+      for (let i = year; i > year - 10; i--) {
+        state.yearList.push(i);
+      }
+      return state.yearList;
     },
   },
   //비동기적 로직
@@ -82,8 +118,22 @@ export const store = new Vuex.Store({
       const subUrl = "search/sido";
       let resSido = await http.get(`${subUrl}`);
       //mutations불러서 사용하기
-      return context.commit("initSidoList", resSido.data);
+      return context.commit("setSidoList", resSido.data);
       // this.$store.getter.getSidoList = resSido.data;
+    },
+    asyncReqGugun: async function (context, payload) {
+      const subUrl = "search/gugun";
+      const reqData = { sido: payload };
+      let resGugun = await http.get(`${subUrl}`, { params: reqData });
+      return context.commit("setGugunList", resGugun.data);
+    },
+    asyncReqDong: async function (context, payload) {
+      const subUrl = "search/dong";
+      const sidoVal = context.getters.getSidoVal;
+      console.log(sidoVal);
+      const reqData = { sido: sidoVal, gugun: payload };
+      let resDong = await http.get(`${subUrl}`, { params: reqData });
+      return context.commit("setDongList", resDong.data);
     },
   },
 });
