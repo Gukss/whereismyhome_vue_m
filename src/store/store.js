@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import http from "@/util/http-common";
+// import http from "@/util/http-common";
 
 Vue.use(Vuex);
 
@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
   /* =                         = */
   /* =========================== */
   state: {
+    count: 0,
     //listbox axios state
     // sidoList: [],
     // gugunList: [],
@@ -34,6 +35,9 @@ export const store = new Vuex.Store({
   /* =                         = */
   /* =========================== */
   getters: {
+    getCount(state) {
+      return state.count;
+    },
     //listbox getter
     // getSidoVal(state) {
     //   return state.sidoVal;
@@ -72,9 +76,9 @@ export const store = new Vuex.Store({
   },
   //동기적 로직
   mutations: {
-    // addCounter: function (state, payload) {
-    //   return state.counter++;
-    // },
+    addCounter: function (state, payload) {
+      return (state.coun += payload);
+    },
     // initSidoList(state, payload) {
     //   return (state.sidoList = payload);
     // },
