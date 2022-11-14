@@ -76,10 +76,10 @@
             v-model="rememberId"
           /><label for="remember_check">아이디 기억하기</label>
         </div>
-        <div class="login_btn_container">
+        <div class="login_btn_container_login">
           <input type="button" value="로그인" @click="login" />
         </div>
-        <div class="login_btn_container">
+        <div class="login_btn_container_cancel">
           <input type="button" value="취소" @click="loginModalDown" />
         </div>
       </div>

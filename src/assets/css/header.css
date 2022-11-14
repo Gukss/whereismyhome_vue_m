@@ -163,11 +163,14 @@ header {
 .login_modal .login_id_remember input {
   border-top: #fff;
 }
-.login_modal .login_btn_container {
+.login_modal .login_btn_container_login {
+  text-align: center;
+}
+.login_modal .login_btn_container_cancel {
   text-align: center;
 }
 
-.login_modal .login_btn_container input {
+.login_modal .login_btn_container_login input {
   width: 100%;
   height: 2.5rem;
   border-style: none;
@@ -184,7 +187,29 @@ header {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.login_modal .login_btn_container input:hover {
+.login_modal .login_btn_container_login input:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0d47a1;
+}
+.login_modal .login_btn_container_cancel input {
+  width: 100%;
+  height: 2.5rem;
+  border-style: none;
+  background-color: #eee;
+  line-height: 1.5rem;
+  border-radius: 2rem;
+  padding: 0 0.5rem;
+  margin-top: 1rem;
+  color: #1e88e5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.login_modal .login_btn_container_cancel input:hover {
   cursor: pointer;
   color: #fff;
   background-color: #0d47a1;
