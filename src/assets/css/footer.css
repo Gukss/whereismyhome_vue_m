@@ -21,3 +21,7 @@
 .footer .footer_container .footer_title_container .footer_title {
   color: #fff;
 }
+
+.footer .footer_container .footer_title_container .footer_title a {
+  color: #fff;
+}
