@@ -49,7 +49,7 @@
             </tr>
             <tr>
               <td>비밀번호</td>
-              <td><input type="password" v-model="loginPw" /></td>
+              <td><input type="password" v-model="loginPw" @keyup.enter="login()" /></td>
             </tr>
           </table>
         </div>
@@ -177,9 +177,15 @@ export default {
       http
         .post(`${subUrl}`, userInfo)
         .then((res) => {
-          console.log(res.data.id);
-          this.$store.commit('setLoginId', res.data.id);
-          this.loginModalDown();
+          console.log(res);
+          if(res.status == 200){
+              this.$store.commit('setLoginId', res.data.id);
+              this.loginModalDown();
+          }else{
+            // 로그인 정보가 틀렸습니다.
+            
+          }
+        
         })
         .catch((err) => {
           console.log(err);
