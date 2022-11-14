@@ -43,6 +43,9 @@ export const store = new Vuex.Store({
     /* =========================== */
     //search state
     aptList: [],
+    //---
+    // login
+    loginId: "",
   },
   getters: {
     /* =========================== */
@@ -100,6 +103,10 @@ export const store = new Vuex.Store({
     getAptList(state) {
       return state.aptList;
     },
+
+    isLogin(state) {
+      return state.loginId !== "";
+    },
   },
   //동기적 로직
   mutations: {
@@ -153,6 +160,12 @@ export const store = new Vuex.Store({
         state.monthList.push(i);
       }
       return state.monthList;
+    },
+    setLoginId(state, payload) {
+      state.loginId = payload;
+    },
+    setLogout(state) {
+      state.loginId = "";
     },
   },
   //비동기적 로직
