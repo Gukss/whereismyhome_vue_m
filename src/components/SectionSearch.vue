@@ -107,7 +107,6 @@ export default {
           ),
         });
       }
-      console.log(positions);
       let i;
       for (i = 0; i < positions.length; i++) {
         // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
@@ -115,42 +114,79 @@ export default {
           map: this.map,
           position: positions[i].latlng,
         });
+        let content = `<div class="overlay_wrap" style="position: relative;top:-52px;">
+                        <div
+                          class="overlay_container"
+                          style="border-radius: 0.4rem; background-color: #fff; text-align: center"
+                        >
+                          <div class="overlay_title" style="color: #1e88e5; padding: 0.2rem 0.4rem">${this.$store.getters.getAptList[i].aptName}</div>
+                        </div>
+                      </div>`;
         marker.setMap(this.map);
         // 인포윈도우를 생성합니다
-        let infowindow = new kakao.maps.InfoWindow({
-          content: positions[i].content,
+        // let infowindow = new kakao.maps.InfoWindow({
+        //   content: positions[i].content,
+        // });
+        let overlay = new kakao.maps.CustomOverlay({
+          content: content,
+          map: this.map,
+          position: marker.getPosition(),
         });
+        overlay.setMap(null);
         // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
         // 이벤트 리스너로는 클로저를 만들어 등록합니다
         // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
         kakao.maps.event.addListener(
           marker,
           "mouseover",
-          makeOverListener(this.map, marker, infowindow)
+          makeOverListener(this.map, marker, overlay)
         );
         kakao.maps.event.addListener(
           marker,
           "mouseout",
-          makeOutListener(infowindow)
+          makeOutListener(overlay)
         );
+        // kakao.maps.event.addListener(
+        //   marker,
+        //   "mouseover",
+        //   makeOverListener(this.map, marker, infowindow)
+        // );
+        // kakao.maps.event.addListener(
+        //   marker,
+        //   "mouseout",
+        //   makeOutListener(infowindow)
+        // );
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(positions[i].latlng);
         // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
         // infowindow.open(this.map, marker);
       }
       // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
-      function makeOverListener(map, marker, infowindow) {
+      function makeOverListener(map, marker, overlay) {
         return function () {
-          infowindow.open(map, marker);
+          overlay.setMap(map);
         };
       }
 
       // 인포윈도우를 닫는 클로저를 만드는 함수입니다
-      function makeOutListener(infowindow) {
+      function makeOutListener(overlay) {
         return function () {
-          infowindow.close();
+          overlay.setMap(null);
         };
       }
+      // // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+      // function makeOverListener(map, marker, infowindow) {
+      //   return function () {
+      //     infowindow.open(map, marker);
+      //   };
+      // }
+
+      // // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+      // function makeOutListener(infowindow) {
+      //   return function () {
+      //     infowindow.close();
+      //   };
+      // }
       this.map.setBounds(bounds);
     },
   },
