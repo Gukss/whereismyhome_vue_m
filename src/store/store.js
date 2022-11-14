@@ -1,16 +1,27 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/util/http-common";
-
+import createPersistedState from "vuex-persistedstate";
+// import { SectionSelector } from "../components/SectionSelector";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  /* =========================== */
-  /* =                         = */
-  /* =         state           = */
-  /* =                         = */
-  /* =========================== */
+  //SectionSelector 의 변수만 저장
+  modules: {
+    // SectionSelector: SectionSelector,
+  },
+  plugins: [
+    createPersistedState({
+      // paths: [],
+    }),
+  ],
+
   state: {
+    /* =========================== */
+    /* =                         = */
+    /* =     SectionSelector     = */
+    /* =                         = */
+    /* =========================== */
     //listbox axios state
     sidoList: [],
     gugunList: [],
@@ -25,15 +36,20 @@ export const store = new Vuex.Store({
     yearVal: "",
     monthVal: "",
     //---
+    /* =========================== */
+    /* =                         = */
+    /* =      SectionSearch      = */
+    /* =                         = */
+    /* =========================== */
     //search state
     aptList: [],
   },
-  /* =========================== */
-  /* =                         = */
-  /* =         getter          = */
-  /* =                         = */
-  /* =========================== */
   getters: {
+    /* =========================== */
+    /* =                         = */
+    /* =     SectionSelector     = */
+    /* =                         = */
+    /* =========================== */
     //listbox getter
     getSidoVal(state) {
       return state.sidoVal;
@@ -65,26 +81,37 @@ export const store = new Vuex.Store({
     getMonthList(state) {
       return state.monthList;
     },
-    //---
-    getAptList(state) {
-      return state.aptList;
-    },
     reqYearList(state) {
       let date = new Date();
       let year = date.getFullYear();
+      state.yearList = [];
+      // this.$store.commit("setYearList", []);
       for (let i = year; i > year - 10; i--) {
         state.yearList.push(i);
       }
       return state.yearList;
     },
+    //---
+    /* =========================== */
+    /* =                         = */
+    /* =      SectionSearch      = */
+    /* =                         = */
+    /* =========================== */
+    getAptList(state) {
+      return state.aptList;
+    },
   },
   //동기적 로직
   mutations: {
+    /* =========================== */
+    /* =                         = */
+    /* =     SectionSelector     = */
+    /* =                         = */
+    /* =========================== */
     setSidoList(state, payload) {
       return (state.sidoList = payload);
     },
     setSidoVal(state, payload) {
-      console.log(payload);
       return (state.sidoVal = payload);
     },
     setGugunList(state, payload) {
@@ -120,6 +147,7 @@ export const store = new Vuex.Store({
       let month = date.getMonth() + 1;
       let m = state.yearVal == date.getFullYear() ? month : 13;
       state.monthList = [];
+      // this.$store.commit("setMonthList", []);
       for (let i = 1; i < m; i++) {
         // let temp = i < 10 ? "0" + i : i;
         state.monthList.push(i);
@@ -129,6 +157,11 @@ export const store = new Vuex.Store({
   },
   //비동기적 로직
   actions: {
+    /* =========================== */
+    /* =                         = */
+    /* =     SectionSelector     = */
+    /* =                         = */
+    /* =========================== */
     asyncReqSido: async function (context) {
       const subUrl = "search/sido";
       let resSido = await http.get(`${subUrl}`);
@@ -145,7 +178,6 @@ export const store = new Vuex.Store({
     asyncReqDong: async function (context, payload) {
       const subUrl = "search/dong";
       const sidoVal = context.getters.getSidoVal;
-      console.log(sidoVal);
       const reqData = { sido: sidoVal, gugun: payload };
       let resDong = await http.get(`${subUrl}`, { params: reqData });
       return context.commit("setDongList", resDong.data);
