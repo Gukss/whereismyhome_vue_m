@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="banner_info">
-      <span class="nickname" v-show="$store.getters.isLogin">{{$store.state.loginId}} 님 </span>안녕하세요.
+      <span class="nickname" v-show="$store.getters.isLogin"
+        >{{ $store.state.loginId }} 님 </span
+      >안녕하세요.
     </div>
   </div>
 </template>
@@ -17,5 +19,5 @@ export default {
 };
 </script>
 <style>
-@import "../assets/css/sectionBanner.css";
+@import "@/assets/css/sectionBanner.css";
 </style>

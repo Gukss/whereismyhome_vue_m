@@ -77,5 +77,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/css/headerLoginModal.css";
+@import "@/assets/css/headerLoginModal.css";
 </style>

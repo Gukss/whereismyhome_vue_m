@@ -23,5 +23,5 @@ export default {
 };
 </script>
 <style>
-@import "../assets/css/sectionBannerContent.css";
+@import "@/assets/css/sectionBannerContent.css";
 </style>

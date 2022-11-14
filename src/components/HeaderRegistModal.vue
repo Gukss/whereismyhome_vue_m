@@ -31,7 +31,12 @@
         </table>
         <div class="reg_btn_container">
           <input type="button" value="확인" />
-          <input type="button" value="취소" class="reg_modal_close" @click="modalDown" />
+          <input
+            type="button"
+            value="취소"
+            class="reg_modal_close"
+            @click="modalDown"
+          />
         </div>
       </div>
     </div>
@@ -65,5 +70,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/css/headerRegistModal.css";
+@import "@/assets/css/headerRegistModal.css";
 </style>

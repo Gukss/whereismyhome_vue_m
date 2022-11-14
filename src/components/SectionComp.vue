@@ -26,5 +26,5 @@ export default {
 };
 </script>
 <style scope>
-@import "../assets/css/section.css";
+@import "@/assets/css/section.css";
 </style>

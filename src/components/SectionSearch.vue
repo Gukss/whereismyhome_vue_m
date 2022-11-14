@@ -173,5 +173,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/css/sectionSearch.css";
+@import "@/assets/css/sectionSearch.css";
 </style>
