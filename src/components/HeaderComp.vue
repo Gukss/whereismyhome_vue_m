@@ -14,22 +14,22 @@
                 <router-link to="/">공지사항</router-link>
               </li>
               <li>
-                <router-link to="/">실거래가조회</router-link>
+                <router-link to="/" v-show="$store.getters.isLogin">실거래가조회</router-link>
               </li>
               <li>
-                <router-link to="/">관심목록</router-link>
+                <router-link to="/" v-show="$store.getters.isLogin">관심목록</router-link>
               </li>
               <li>
-                <a href="#" class="btn_open_popup" @click="popupRegist">회원가입</a>
+                <a href="#" class="btn_open_popup" @click="popupRegist" v-show="!$store.getters.isLogin">회원가입</a>
               </li>
               <li>
-                <a href="#" class="login_btn_open_popup" @click="popupLogin">로그인</a>
+                <a href="#" class="login_btn_open_popup" @click="popupLogin"  v-show="!$store.getters.isLogin">로그인</a>
               </li>
-              <li><a href="#" @click="logout">로그아웃</a></li>
+              <li><a href="#" @click="logout" v-show="$store.getters.isLogin">로그아웃</a></li>
             </ul>
           </div>
-          <div class="userinfo">
-            <a href="#"><div class="nickname">x님</div></a>
+          <div class="userinfo" v-show="$store.getters.isLogin">
+            <a href="#"><div class="nickname">{{$store.state.loginId}}님</div></a>
           </div>
         </div>
       </div>
@@ -127,6 +127,7 @@ export default {
       loginPw: "",
     };
   },
+  
   methods: {
     popupRegist() {
       const body = document.querySelector("body");
@@ -176,7 +177,8 @@ export default {
       http
         .post(`${subUrl}`, userInfo)
         .then((res) => {
-          console.log(res);
+          console.log(res.data.id);
+          this.$store.commit('setLoginId', res.data.id);
           this.loginModalDown();
         })
         .catch((err) => {
@@ -211,8 +213,12 @@ export default {
     },
 
     logout() {
-      console.log(sessionStorage.get);
-      http.get("/member/logout").then(console.log("로그아웃"));
+      http
+        .get("/member/logout")
+        .then(
+          console.log("로그아웃"),
+          this.$store.commit('setLogout'),
+        );
     },
   },
   components: {
