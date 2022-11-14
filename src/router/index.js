@@ -15,8 +15,20 @@ const routes = [
     path: "/search",
     name: "SearchView",
     component: SearchView,
+    beforeEnter: (to, from, next) => {
+      isLogin(to, from, next);
+    },
   },
 ];
+
+const isLogin = (to, from, next) => {
+  if (store.getters.isLogin) {
+    next();
+  } else {
+    alert("로그인이 필요합니다.");
+    next("/");
+  }
+};
 
 const router = new VueRouter({
   mode: "history",

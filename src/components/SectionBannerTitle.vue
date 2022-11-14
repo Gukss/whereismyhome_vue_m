@@ -1,9 +1,8 @@
 <template>
   <div>
     <div class="banner_info">
-      <span class="nickname" v-show="$store.getters.isLogin"
-        >{{ $store.state.loginId }} 님 </span
-      >안녕하세요.
+      <span class="nickname" v-show="$store.getters.isLogin">{{$store.state.loginId}} 님 안녕하세요.</span>
+      <span class="nickname" v-show="!$store.getters.isLogin"> 어떤 집을 찾고 계세요? </span>
     </div>
   </div>
 </template>
