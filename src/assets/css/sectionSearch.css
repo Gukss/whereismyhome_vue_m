@@ -33,9 +33,9 @@
   background-color: #e3f2fd;
 }
 .section .search_container .search_list_container .search_list td {
-  text-align: center;
+  text-align: right;
   /* padding-left: 0.5rem; */
-  padding: 0.2rem 0.2rem;
+  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
   border-bottom: 1px solid #e2e2e2;
   overflow: hidden;
   white-space: nowrap;

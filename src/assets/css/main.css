@@ -3,7 +3,8 @@ html {
 }
 @font-face {
   font-family: "S-CoreDream-5Medium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff") format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -105,4 +106,15 @@ body {
   margin: 0 auto;
   /* background: rgba(0, 0, 0, 0.3); */
   position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #1e88e5;
+  border-radius: 3rem;
+}
+::-webkit-scrollbar-track {
+  background-color: #eee;
 }
