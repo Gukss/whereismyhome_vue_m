@@ -14,22 +14,44 @@
                 <router-link to="/">공지사항</router-link>
               </li>
               <li>
-                <router-link to="/" v-show="$store.getters.isLogin">실거래가조회</router-link>
+                <router-link to="/" v-show="$store.getters.isLogin"
+                  >실거래가조회</router-link
+                >
               </li>
               <li>
-                <router-link to="/" v-show="$store.getters.isLogin">관심목록</router-link>
+                <router-link to="/" v-show="$store.getters.isLogin"
+                  >관심목록</router-link
+                >
               </li>
               <li>
-                <a href="#" class="btn_open_popup" @click="popupRegist" v-show="!$store.getters.isLogin">회원가입</a>
+                <a
+                  href="#"
+                  class="btn_open_popup"
+                  @click="popupRegist"
+                  v-show="!$store.getters.isLogin"
+                  >회원가입</a
+                >
               </li>
               <li>
-                <a href="#" class="login_btn_open_popup" @click="popupLogin"  v-show="!$store.getters.isLogin">로그인</a>
+                <a
+                  href="#"
+                  class="login_btn_open_popup"
+                  @click="popupLogin"
+                  v-show="!$store.getters.isLogin"
+                  >로그인</a
+                >
               </li>
-              <li><a href="#" @click="logout" v-show="$store.getters.isLogin">로그아웃</a></li>
+              <li>
+                <a href="#" @click="logout" v-show="$store.getters.isLogin"
+                  >로그아웃</a
+                >
+              </li>
             </ul>
           </div>
           <div class="userinfo" v-show="$store.getters.isLogin">
-            <a href="#"><div class="nickname">{{$store.state.loginId}}님</div></a>
+            <a href="#"
+              ><div class="nickname">{{ $store.state.loginId }}님</div></a
+            >
           </div>
         </div>
       </div>
@@ -45,19 +67,28 @@
             </colgroup>
             <tr>
               <td>아이디</td>
-              <td><input type="text" v-model="loginId" ref="loginInputId" /></td>
+              <td>
+                <input type="text" v-model="loginId" ref="loginInputId" />
+              </td>
             </tr>
             <tr>
               <td>비밀번호</td>
-              <td><input type="password" v-model="loginPw" @keyup.enter="login()" /></td>
+              <td>
+                <input
+                  type="password"
+                  v-model="loginPw"
+                  @keyup.enter="login()"
+                />
+              </td>
             </tr>
           </table>
         </div>
         <div class="login_id_remember">
-          <input type="checkbox" id="remember_check" v-model="rememberId" /><label
-            for="remember_check"
-            >아이디 기억하기</label
-          >
+          <input
+            type="checkbox"
+            id="remember_check"
+            v-model="rememberId"
+          /><label for="remember_check">아이디 기억하기</label>
         </div>
         <div class="login_btn_container">
           <input type="button" value="로그인" @click="login" />
@@ -99,7 +130,12 @@
           </table>
           <div class="reg_btn_container">
             <input type="button" value="확인" @click="regist" />
-            <input type="button" value="취소" class="reg_modal_close" @click="regModalDown" />
+            <input
+              type="button"
+              value="취소"
+              class="reg_modal_close"
+              @click="regModalDown"
+            />
           </div>
         </div>
       </div>
@@ -127,7 +163,7 @@ export default {
       loginPw: "",
     };
   },
-  
+
   methods: {
     popupRegist() {
       const body = document.querySelector("body");
@@ -178,14 +214,12 @@ export default {
         .post(`${subUrl}`, userInfo)
         .then((res) => {
           console.log(res);
-          if(res.status == 200){
-              this.$store.commit('setLoginId', res.data.id);
-              this.loginModalDown();
-          }else{
-            // 로그인 정보가 틀렸습니다.
-            
+          if (res.status == 200) {
+            this.$store.commit("setLoginId", res.data.id);
+            this.loginModalDown();
+          } else {
+            // 로그인 정보가 틀렸습니다. => 비밀번호 밑에 v-show해서 아이디/비밀번호가 틀렸습니다 띄워주기
           }
-        
         })
         .catch((err) => {
           console.log(err);
@@ -221,10 +255,7 @@ export default {
     logout() {
       http
         .get("/member/logout")
-        .then(
-          console.log("로그아웃"),
-          this.$store.commit('setLogout'),
-        );
+        .then(console.log("로그아웃"), this.$store.commit("setLogout"));
     },
   },
   components: {
