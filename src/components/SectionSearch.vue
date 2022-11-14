@@ -16,11 +16,16 @@
             <th>면적</th>
             <th>거래금액</th>
           </tr>
-          <tr v-for="(item, index) in $store.getters.getAptList" :key="index">
+          <tr
+            v-for="(item, index) in $store.getters.getAptList"
+            :key="index"
+            @mouseover="mouseOverTr(index)"
+            @mouseout="mouseOutTr(index)"
+          >
             <td>{{ item.aptName }}</td>
             <td>{{ item.floor }} 층</td>
             <td>{{ item.area }} ㎡</td>
-            <td>{{ item.dealAmount }}만 원</td>
+            <td>{{ item.dealAmount }} 만 원</td>
           </tr>
         </table>
       </div>
@@ -35,6 +40,8 @@ export default {
   data() {
     return {
       map: null,
+      overlayList: [],
+      markerList: [],
     };
   },
   mounted() {
@@ -58,14 +65,23 @@ export default {
   methods: {
     ...mapMutations([]),
     ...mapActions([]),
-    // makeOverListener(map, marker, infowindow) {
+    mouseOverTr(index) {
+      // console.log(this.overlayList[index]);
+      this.overlayList[index].setMap(this.map);
+    },
+    mouseOutTr(index) {
+      this.overlayList[index].setMap(null);
+    },
+    // makeOverListener(map, overlay) {
     //   return function () {
-    //     infowindow.open(map, marker);
+    //     overlay.setMap(map);
     //   };
     // },
-    // makeOutListener(infowindow) {
+
+    // // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+    // makeOutListener(overlay) {
     //   return function () {
-    //     infowindow.close();
+    //     overlay.setMap(null);
     //   };
     // },
     initMap() {
@@ -108,12 +124,15 @@ export default {
         });
       }
       let i;
+      this.overlayList = [];
+      this.markerList = [];
       for (i = 0; i < positions.length; i++) {
         // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
         let marker = new kakao.maps.Marker({
           map: this.map,
           position: positions[i].latlng,
         });
+        this.markerList.push(marker);
         let content = `<div class="overlay_wrap" style="position: relative;top:-52px;">
                         <div
                           class="overlay_container"
@@ -132,6 +151,7 @@ export default {
           map: this.map,
           position: marker.getPosition(),
         });
+        this.overlayList.push(overlay);
         overlay.setMap(null);
         // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
         // 이벤트 리스너로는 클로저를 만들어 등록합니다
@@ -162,7 +182,7 @@ export default {
         // infowindow.open(this.map, marker);
       }
       // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
-      function makeOverListener(map, marker, overlay) {
+      function makeOverListener(map, overlay) {
         return function () {
           overlay.setMap(map);
         };
