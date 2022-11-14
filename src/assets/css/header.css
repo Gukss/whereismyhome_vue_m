@@ -25,6 +25,10 @@ header {
 
 .header .header_menu ul {
   display: flex;
+  flex-flow: row wrap;
+}
+.header .header_menu ul li {
+  min-width: 5rem;
 }
 
 .header .header_container .title {

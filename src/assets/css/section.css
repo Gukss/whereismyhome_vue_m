@@ -84,7 +84,7 @@
 
 .section .banner_container .area_select_container .form_group {
   /* flex: 0 0 auto; */
-  width: 16.66666667%;
+  min-width: 16.66666667%;
   text-align: center;
   /* height: 4rem; */
 }

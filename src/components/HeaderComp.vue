@@ -13,38 +13,24 @@
               <li>
                 <router-link to="/">공지사항</router-link>
               </li>
-              <li>
-                <router-link to="/" v-show="$store.getters.isLogin"
-                  >실거래가조회</router-link
-                >
+              <li v-show="$store.getters.isLogin">
+                <router-link to="/">실거래가조회</router-link>
               </li>
-              <li>
-                <router-link to="/" v-show="$store.getters.isLogin"
-                  >관심목록</router-link
-                >
+              <li v-show="$store.getters.isLogin">
+                <router-link to="/">관심목록</router-link>
               </li>
-              <li>
-                <a
-                  href="#"
-                  class="btn_open_popup"
-                  @click="popupRegist"
-                  v-show="!$store.getters.isLogin"
+              <li v-show="!$store.getters.isLogin">
+                <a href="#" class="btn_open_popup" @click="popupRegist"
                   >회원가입</a
                 >
               </li>
-              <li>
-                <a
-                  href="#"
-                  class="login_btn_open_popup"
-                  @click="popupLogin"
-                  v-show="!$store.getters.isLogin"
+              <li v-show="!$store.getters.isLogin">
+                <a href="#" class="login_btn_open_popup" @click="popupLogin"
                   >로그인</a
                 >
               </li>
-              <li>
-                <a href="#" @click="logout" v-show="$store.getters.isLogin"
-                  >로그아웃</a
-                >
+              <li v-show="$store.getters.isLogin">
+                <a href="#" @click="logout">로그아웃</a>
               </li>
             </ul>
           </div>
