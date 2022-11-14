@@ -58,6 +58,16 @@ export default {
   methods: {
     ...mapMutations([]),
     ...mapActions([]),
+    // makeOverListener(map, marker, infowindow) {
+    //   return function () {
+    //     infowindow.open(map, marker);
+    //   };
+    // },
+    // makeOutListener(infowindow) {
+    //   return function () {
+    //     infowindow.close();
+    //   };
+    // },
     initMap() {
       const container = this.$refs.map_container;
       const options = {
@@ -87,23 +97,59 @@ export default {
       // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
       let bounds = new kakao.maps.LatLngBounds();
       // 버튼을 클릭하면 아래 배열의 좌표들이 모두 보이게 지도 범위를 재설정합니다
-      let points = [];
+      let positions = [];
       for (let i = 0; i < this.$store.getters.getAptList.length; i++) {
-        points.push(
-          new kakao.maps.LatLng(
+        positions.push({
+          content: `<div>${this.$store.getters.getAptList[i].aptName}</div>`,
+          latlng: new kakao.maps.LatLng(
             this.$store.getters.getAptList[i].lat,
             this.$store.getters.getAptList[i].lng
-          )
-        );
+          ),
+        });
       }
-      let i, marker;
-      for (i = 0; i < this.$store.getters.getAptList.length; i++) {
+      console.log(positions);
+      let i;
+      for (i = 0; i < positions.length; i++) {
         // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-        marker = new kakao.maps.Marker({ position: points[i] });
+        let marker = new kakao.maps.Marker({
+          map: this.map,
+          position: positions[i].latlng,
+        });
         marker.setMap(this.map);
-
+        // 인포윈도우를 생성합니다
+        let infowindow = new kakao.maps.InfoWindow({
+          content: positions[i].content,
+        });
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(
+          marker,
+          "mouseover",
+          makeOverListener(this.map, marker, infowindow)
+        );
+        kakao.maps.event.addListener(
+          marker,
+          "mouseout",
+          makeOutListener(infowindow)
+        );
         // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(points[i]);
+        bounds.extend(positions[i].latlng);
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        // infowindow.open(this.map, marker);
+      }
+      // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+      function makeOverListener(map, marker, infowindow) {
+        return function () {
+          infowindow.open(map, marker);
+        };
+      }
+
+      // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+      function makeOutListener(infowindow) {
+        return function () {
+          infowindow.close();
+        };
       }
       this.map.setBounds(bounds);
     },

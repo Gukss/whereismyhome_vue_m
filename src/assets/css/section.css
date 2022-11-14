@@ -11,7 +11,7 @@
   /* background: #1565c0; */
   /* border-top-left-radius: 2rem;
     border-top-right-radius: 2rem; */
-  padding-bottom: 150px;
+  /* padding-bottom: 150px; */
 }
 
 .section .banner_container {
@@ -54,12 +54,22 @@
   margin-top: 2rem;
 }
 
-.section .banner_container .banner_info .banner .banner_introduce .banner_introduce_title {
+.section
+  .banner_container
+  .banner_info
+  .banner
+  .banner_introduce
+  .banner_introduce_title {
   color: #0d47a1;
   font-size: 2rem;
 }
 
-.section .banner_container .banner_info .banner .banner_introduce .banner_introduce_subtitle {
+.section
+  .banner_container
+  .banner_info
+  .banner
+  .banner_introduce
+  .banner_introduce_subtitle {
   margin-top: 1rem;
   font-size: 1rem;
   color: #fff;
@@ -89,15 +99,27 @@
   /* padding-bottom: 1px; */
   /* border-radius: 0.5rem; */
 }
-.section .banner_container .area_select_container .form_group .form_select:hover {
+.section
+  .banner_container
+  .area_select_container
+  .form_group
+  .form_select:hover {
   cursor: pointer;
   /* box-shadow: 2px 2px 3px; */
   border-bottom: #1e88e5 1px solid;
 }
-.section .banner_container .area_select_container .form_group .form_select:focus {
+.section
+  .banner_container
+  .area_select_container
+  .form_group
+  .form_select:focus {
   outline: none;
 }
-.section .banner_container .area_select_container .form_group .form_select::-webkit-scrollbar {
+.section
+  .banner_container
+  .area_select_container
+  .form_group
+  .form_select::-webkit-scrollbar {
   width: 0.4rem;
 }
 .section
@@ -116,7 +138,12 @@
   background-color: #eee;
 }
 
-.section .banner_container .area_select_container .form_group .form_select .option {
+.section
+  .banner_container
+  .area_select_container
+  .form_group
+  .form_select
+  .option {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -124,7 +151,11 @@
   border-bottom: #1e88e5 1px solid;
 }
 
-.section .banner_container .area_select_container .form_group .button_container {
+.section
+  .banner_container
+  .area_select_container
+  .form_group
+  .button_container {
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
