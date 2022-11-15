@@ -110,6 +110,7 @@ export default {
           ),
         });
       }
+      
       let i;
       this.overlayList = [];
       this.markerList = [];
