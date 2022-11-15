@@ -111,7 +111,9 @@
               id="list-btn"
               @click="asyncReqAptList"
           /></router-link>
-          <input type="button" value="관심지역 등록" id="interest-btn2" />
+          <router-link to="/interest">
+            <input type="button" value="관심지역 등록" id="interest-btn2" />
+          </router-link>
         </div>
       </div>
     </form>

@@ -1,7 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import IndexView from "@/views/IndexView.vue";
-import SearchView from "@/views/SearchView.vue";
+// import IndexView from "@/views/IndexView.vue";
+import SectionComp from "@/components/SectionComp.vue";
+import SectionSearch from "@/components/SectionSearch.vue";
+import SectionInterest from "@/components/SectionInterest.vue";
+// import SearchView from "@/views/SearchView.vue";
 import store from "@/store/store";
 
 Vue.use(VueRouter);
@@ -9,13 +12,21 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "IndexView",
-    component: IndexView,
+    name: "SectionComp",
+    component: SectionComp,
   },
   {
     path: "/search",
-    name: "SearchView",
-    component: SearchView,
+    name: "SectionSearch",
+    component: SectionSearch,
+    beforeEnter: (to, from, next) => {
+      isLogin(to, from, next);
+    },
+  },
+  {
+    path: "/interest",
+    name: "SectionInterest",
+    component: SectionInterest,
     beforeEnter: (to, from, next) => {
       isLogin(to, from, next);
     },

@@ -17,7 +17,7 @@
                 <router-link to="/">실거래가조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/">관심목록</router-link>
+                <router-link to="/interest">관심목록</router-link>
               </li>
               <li v-show="!$store.getters.isLogin">
                 <a href="#" class="btn_open_popup" @click="popupRegist"
@@ -47,7 +47,7 @@
         </div>
       </div>
     </header>
-    <div class="login_modal">
+    <div class="login_modal" @keyup.esc="loginModalDown">
       <div class="input_container">
         <div class="login_title">로그인</div>
         <div>
@@ -95,7 +95,7 @@
         </div>
       </div>
     </div>
-    <div class="reg_modal">
+    <div class="reg_modal" @keyup.esc="regModalDown">
       <div class="reg_modal_body">
         <div class="reg_title">회원가입</div>
         <div class="reg_modal_container">
@@ -141,7 +141,7 @@
     <HeaderLoginModal class="login_modal"></HeaderLoginModal> -->
 
     <!-- mypage modal -->
-    <div class="mypage_modal">
+    <div class="mypage_modal" @keyup.esc="mypageModalDown">
       <div class="mypage_modal_body">
         <div class="mypage_title">마이페이지</div>
         <div class="mypage_modal_container">
@@ -228,16 +228,18 @@ export default {
       }
 
       console.log(this.$store.state.loginId);
-      http.get("/member",  {params : {id : this.$store.state.loginId}}).then(({ data }) => {
-        console.log(data);
-        this.id = data.id;
-        this.pw = data.pw;
-        this.name = data.name;
-        this.email = data.email;
-        this.phone = data.phone;
-        // this.regModalDown();
-        // this.popupLogin();
-      });
+      http
+        .get("/member", { params: { id: this.$store.state.loginId } })
+        .then(({ data }) => {
+          console.log(data);
+          this.id = data.id;
+          this.pw = data.pw;
+          this.name = data.name;
+          this.email = data.email;
+          this.phone = data.phone;
+          // this.regModalDown();
+          // this.popupLogin();
+        });
     },
     popupLogin() {
       this.loginId = "";
@@ -261,7 +263,7 @@ export default {
         body.style.overflow = "auto";
       }
     },
-    mypageModalDown(){
+    mypageModalDown() {
       const mypage_modal = document.querySelector(".mypage_modal");
       const body = document.querySelector("body");
 
@@ -269,7 +271,7 @@ export default {
       if (!mypage_modal.classList.contains("show")) {
         body.style.overflow = "auto";
       }
-    },  
+    },
     regModalDown() {
       const reg_modal = document.querySelector(".reg_modal");
       const body = document.querySelector("body");
@@ -332,7 +334,7 @@ export default {
     update() {
       let result = confirm("수정하시겠습니까?");
 
-      if(!result){
+      if (!result) {
         return;
       }
 
@@ -349,22 +351,24 @@ export default {
         this.mypageModalDown();
       });
     },
-    deleteMember(){
+    deleteMember() {
       let result = confirm("탈퇴하시겠습니까?");
 
-      if(!result){
+      if (!result) {
         return;
       }
 
-       http.delete("/member",  {params : {id : this.$store.state.loginId}}).then(( data ) => {
-        if (data.status == 200) {
-          console.log(data.status);
-          this.mypageModalDown();
-          this.$store.commit("setLogout");
+      http
+        .delete("/member", { params: { id: this.$store.state.loginId } })
+        .then((data) => {
+          if (data.status == 200) {
+            console.log(data.status);
+            this.mypageModalDown();
+            this.$store.commit("setLogout");
 
-          alert("탈퇴되었습니다.");
-        }
-      });
+            alert("탈퇴되었습니다.");
+          }
+        });
     },
     logout() {
       http
