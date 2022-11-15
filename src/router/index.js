@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import IndexView from "@/views/IndexView.vue";
 import SearchView from "@/views/SearchView.vue";
-import store from "@/store/store.js";
+import store from "@/store/store";
 
 Vue.use(VueRouter);
 

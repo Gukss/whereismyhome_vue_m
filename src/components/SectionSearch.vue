@@ -75,8 +75,10 @@ export default {
       const container = this.$refs.map_container;
       const options = {
         center: new kakao.maps.LatLng(
-          this.$store.getters.getAptList[0].lat,
-          this.$store.getters.getAptList[0].lng,
+          // this.$store.getters.getAptList[0].lat,
+          // this.$store.getters.getAptList[0].lng,
+          35.8371,
+          128.7156,
           16
         ),
         level: 4,
@@ -110,7 +112,7 @@ export default {
           ),
         });
       }
-      
+
       let i;
       this.overlayList = [];
       this.markerList = [];
