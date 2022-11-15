@@ -30,6 +30,11 @@
                 >
               </li>
               <li v-show="$store.getters.isLogin">
+                <a href="#" class="mypage_btn_open_popup" @click="popupMypage"
+                  >마이페이지</a
+                >
+              </li>
+              <li v-show="$store.getters.isLogin">
                 <a href="#" @click="logout">로그아웃</a>
               </li>
             </ul>
@@ -134,6 +139,51 @@
     </div>
     <!-- <HeaderRegistModal class="reg_modal"></HeaderRegistModal>
     <HeaderLoginModal class="login_modal"></HeaderLoginModal> -->
+
+    <!-- mypage modal -->
+    <div class="mypage_modal">
+      <div class="mypage_modal_body">
+        <div class="mypage_title">마이페이지</div>
+        <div class="mypage_modal_container">
+          <table class="form_table">
+            <colgroup>
+              <col style="width: 20%" />
+              <col style="width: 80%" />
+            </colgroup>
+            <tr>
+              <td>아이디</td>
+              <td><input type="text" v-model="id" readonly /></td>
+            </tr>
+            <tr>
+              <td>비밀번호</td>
+              <td><input type="text" v-model="pw" /></td>
+            </tr>
+            <tr>
+              <td>이름</td>
+              <td><input type="text" v-model="name" /></td>
+            </tr>
+            <tr>
+              <td>이메일</td>
+              <td><input type="text" v-model="email" /></td>
+            </tr>
+            <tr>
+              <td>전화번호</td>
+              <td><input type="text" v-model="phone" /></td>
+            </tr>
+          </table>
+          <div class="mypage_btn_container">
+            <input type="button" value="수정" @click="update" />
+            <input
+              type="button"
+              value="취소"
+              class="mypage_modal_close"
+              @click="mypageModalDown"
+            />
+            <input type="button" value="탈퇴" @click="deleteMember" />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -168,7 +218,27 @@ export default {
         this.$refs.regInputId.focus();
       }
     },
+    popupMypage() {
+      const body = document.querySelector("body");
+      const mypage_modal = document.querySelector(".mypage_modal");
 
+      mypage_modal.classList.toggle("show");
+      if (mypage_modal.classList.contains("show")) {
+        body.style.overflow = "hidden";
+      }
+
+      console.log(this.$store.state.loginId);
+      http.get("/member",  {params : {id : this.$store.state.loginId}}).then(({ data }) => {
+        console.log(data);
+        this.id = data.id;
+        this.pw = data.pw;
+        this.name = data.name;
+        this.email = data.email;
+        this.phone = data.phone;
+        // this.regModalDown();
+        // this.popupLogin();
+      });
+    },
     popupLogin() {
       this.loginId = "";
       this.loginPw = "";
@@ -191,7 +261,15 @@ export default {
         body.style.overflow = "auto";
       }
     },
+    mypageModalDown(){
+      const mypage_modal = document.querySelector(".mypage_modal");
+      const body = document.querySelector("body");
 
+      mypage_modal.classList.toggle("show");
+      if (!mypage_modal.classList.contains("show")) {
+        body.style.overflow = "auto";
+      }
+    },  
     regModalDown() {
       const reg_modal = document.querySelector(".reg_modal");
       const body = document.querySelector("body");
@@ -251,7 +329,43 @@ export default {
       this.email = "";
       this.phone = "";
     },
+    update() {
+      let result = confirm("수정하시겠습니까?");
 
+      if(!result){
+        return;
+      }
+
+      let member = {
+        id: this.id,
+        pw: this.pw,
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+      };
+
+      http.put("/member", member).then(({ data }) => {
+        console.log(data);
+        this.mypageModalDown();
+      });
+    },
+    deleteMember(){
+      let result = confirm("탈퇴하시겠습니까?");
+
+      if(!result){
+        return;
+      }
+
+       http.delete("/member",  {params : {id : this.$store.state.loginId}}).then(( data ) => {
+        if (data.status == 200) {
+          console.log(data.status);
+          this.mypageModalDown();
+          this.$store.commit("setLogout");
+
+          alert("탈퇴되었습니다.");
+        }
+      });
+    },
     logout() {
       http
         .get("/member/logout")
