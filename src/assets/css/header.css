@@ -112,6 +112,10 @@ header {
   font-size: 1.5rem;
 }
 
+.input_container .login_wrong_input {
+  color: #f00;
+}
+
 .login_modal .login_modal_container {
   display: flex;
   flex-flow: column wrap;

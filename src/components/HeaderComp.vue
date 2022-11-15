@@ -45,8 +45,10 @@
     <div class="login_modal">
       <div class="input_container">
         <div class="login_title">로그인</div>
-          <div>
-          <span ref="wrong_input" v-show="wrongLogin">아이디/비밀번호가 틀렸습니다</span>
+        <div>
+          <span ref="wrong_input" v-show="wrongLogin" class="login_wrong_input"
+            >아이디/비밀번호를 확인해주세요.</span
+          >
         </div>
         <div class="login_modal_container">
           <table class="form_table">
@@ -72,7 +74,7 @@
             </tr>
           </table>
         </div>
-      
+
         <div class="login_id_remember">
           <input
             type="checkbox"
@@ -151,7 +153,7 @@ export default {
       phone: "",
       loginId: "",
       loginPw: "",
-      wrongLogin : false,
+      wrongLogin: false,
     };
   },
 
@@ -204,7 +206,7 @@ export default {
       //   const baseUrl = "http://localhost:8080";
       const subUrl = "member/login";
       let userInfo = { id: this.loginId, pw: this.loginPw };
-      
+
       http
         .post(`${subUrl}`, userInfo)
         .then((res) => {
