@@ -44,6 +44,9 @@ export default {
       markerList: [],
     };
   },
+  beforeUpdate() {
+    this.initMap();
+  },
   mounted() {
     if (!window.kakao || !window.kakao.maps) {
       const script = document.createElement("script");
