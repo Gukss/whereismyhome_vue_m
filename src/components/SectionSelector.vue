@@ -6,6 +6,7 @@
           class="form_select"
           name="sido"
           id="sido"
+          v-model="sidoName"
           @change="
             [
               $store.commit('setSidoVal', $event.target.value),
@@ -29,6 +30,7 @@
           class="form_select"
           name="gugun"
           id="gugun"
+          v-model="gugunName"
           @change="
             [
               $store.commit('setGugunVal', $event.target.value),
@@ -51,13 +53,16 @@
           class="form_select"
           name="dong"
           id="dong"
+          v-model="dongName"
           @change="$store.commit('setDongVal', $event.target.value)"
+          
         >
           <option value="">동선택</option>
           <option
             :value="item"
             v-for="(item, index) in $store.getters.getDongList"
             :key="index"
+            :dongName=dongName
           >
             {{ item }}
           </option>
@@ -112,7 +117,7 @@
               @click="asyncReqAptList"
           /></router-link>
           <router-link to="/interest">
-            <input type="button" value="관심지역 등록" id="interest-btn2" />
+            <input type="button" value="관심지역 등록" id="interest-btn2" @click="insertInterest" />
           </router-link>
         </div>
       </div>
@@ -126,11 +131,14 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "SectionSelector",
-  // data() {
-  //   return {
-  //
-  // };
-  // },
+  data() {
+    return {
+      id : "",
+      sidoName : "", 
+      gugunName : "", 
+      dongName : "",
+    };
+  },
   mounted() {
     this.getSido();
     this.getYear();
@@ -184,6 +192,23 @@ export default {
       let resAptList = await http.get(`${subUrl}`);
       this.sidoList = resAptList.data;
     },
+    insertInterest(){
+      console.log(this.sidoName);
+      console.log(this.gugunName);
+      console.log(this.dongName);
+
+      let interest = {
+        id: this.$store.state.loginId,
+        sidoName : this.sidoName,
+        gugunName : this.gugunName,
+        dongName : this.dongName
+      };
+
+      http.post("search/interest", interest).then(( res ) => {
+        console.log(res.status);
+      });
+
+    }
   },
   // watch: {
   //

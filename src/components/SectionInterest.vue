@@ -5,24 +5,26 @@
       <div class="interest_list_container">
         <table class="interest_list">
           <colgroup>
-            <col width="33.333%" />
-            <col width="33.333%" />
-            <col width="33.333%" />
+            <col width="25%" />
+            <col width="25%" />
+            <col width="25%" />
+            <col width="25%" />
           </colgroup>
           <tr>
             <th>시/도</th>
             <th>구/군</th>
             <th>동</th>
+            <th></th>
           </tr>
           <tr
-            v-for="(item, index) in $store.getters.getAptList"
+            v-for="(item, index) in this.$store.getters.getInterestList"
             :key="index"
-            @mouseover="mouseOverTr(index)"
-            @mouseout="mouseOutTr(index)"
+            @click="asyncReqInterestAptList(item.sidoName, item.gugunName, item.dongName)"
           >
-            <td>{{ item.aptName }}</td>
-            <td>{{ item.floor }} 층</td>
-            <td>{{ item.area }} ㎡</td>
+            <td>{{ item.sidoName }}</td>
+            <td>{{ item.gugunName }}</td>
+            <td>{{ item.dongName }}</td>
+            <td><button @click="deleteInterest(item.id, $event)"> 삭제 </button></td>
           </tr>
         </table>
         <table class="interest_list">
@@ -41,8 +43,6 @@
           <tr
             v-for="(item, index) in $store.getters.getAptList"
             :key="index"
-            @mouseover="mouseOverTr(index)"
-            @mouseout="mouseOutTr(index)"
           >
             <td>{{ item.aptName }}</td>
             <td>{{ item.floor }} 층</td>
@@ -56,18 +56,25 @@
 </template>
 
 <script>
+import http from "@/util/http-common";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "SectionInterest",
   data() {
     return {
+      interests: [],
       map: null,
       overlayList: [],
       markerList: [],
     };
   },
+  created(){
+    this.$store.dispatch("asyncReqInterests");
+    // console.log(this.interests);
+  },
   beforeUpdate() {
-    this.initMap();
+    // this.$store.dispatch("asyncReqInterests");
+    // this.initMap();
   },
   mounted() {
     if (!window.kakao || !window.kakao.maps) {
@@ -85,11 +92,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([""]),
+    ...mapGetters(["getInterestList"]),
   },
   methods: {
     ...mapMutations([]),
-    ...mapActions([]),
+    ...mapActions(["asyncReqAptList", "asyncReqInterests"]),
     mouseOverTr(index) {
       this.overlayList[index].setMap(this.map);
     },
@@ -196,6 +203,35 @@ export default {
       }
       this.map.setBounds(bounds);
     },
+    deleteInterest: async function(id, e){
+      await http.delete(`/search/interest`, {params:{id : id}}).then((res) => {
+        // this.asyncReqInterestAptList(sidoName, gugunName, dongName)
+        e.stopPropagation()
+        
+        location.reload();
+        this.initMap();
+        console.log(res);
+      });
+    },
+    
+    asyncReqInterestAptList: async function (sidoName, gugunName, dongName) {
+      const subUrl = "search/aptlist";
+      let now = new Date();
+      // let month = now.getMonth() === 0 ? 12 : now.getMonth();
+      let month = "1";
+      
+      const reqData = {
+        sido: sidoName,
+        gugun: gugunName,
+        dong: dongName,
+        year: now.getFullYear() + "",
+        month: month + ""
+      };
+      let resAptList = await http.get(`${subUrl}`, { params: reqData });
+      this.$store.commit("setAptList", resAptList.data);
+      this.initMap();
+    },
+
   },
 };
 </script>

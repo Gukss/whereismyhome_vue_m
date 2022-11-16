@@ -46,6 +46,8 @@ export const store = new Vuex.Store({
     //---
     // login
     loginId: "",
+    // Interest
+    interestList: [],
   },
   getters: {
     /* =========================== */
@@ -103,9 +105,15 @@ export const store = new Vuex.Store({
     getAptList(state) {
       return state.aptList;
     },
-
+    getLoginId(state) {
+      return state.loginId;
+    },
     isLogin(state) {
       return state.loginId !== "";
+    },
+
+    getInterestList(state) {
+      return state.interestList;
     },
   },
   //동기적 로직
@@ -167,6 +175,9 @@ export const store = new Vuex.Store({
     setLogout(state) {
       state.loginId = "";
     },
+    setinterestList(state, payload) {
+      state.interestList = payload;
+    },
   },
   //비동기적 로직
   actions: {
@@ -206,6 +217,12 @@ export const store = new Vuex.Store({
       };
       let resAptList = await http.get(`${subUrl}`, { params: reqData });
       return context.commit("setAptList", resAptList.data);
+    },
+    asyncReqInterests: async function (context) {
+      console.log("리스트 가져와라");
+      const subUrl = "/search/interest";
+      let resInterestsList = await http.get(`${subUrl}`, { params: { id: context.getters.getLoginId } });
+      return context.commit("setinterestList", resInterestsList.data);
     },
   },
 });
