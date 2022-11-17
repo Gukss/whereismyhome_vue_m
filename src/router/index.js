@@ -51,7 +51,7 @@ const routes = [
     },
   },
   {
-    path: "/friendsDetail",
+    path: `/friendsDetail/:friendsArticleNo`,
     name: "SectionFriendsDetail",
     component: SectionFriendsDetail,
     beforeEnter: (to, from, next) => {

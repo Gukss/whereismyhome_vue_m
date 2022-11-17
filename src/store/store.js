@@ -48,6 +48,9 @@ export const store = new Vuex.Store({
     loginId: "",
     // Interest
     interestList: [],
+
+    //comment
+    commentList: [],
   },
   getters: {
     /* =========================== */
@@ -115,6 +118,11 @@ export const store = new Vuex.Store({
     getInterestList(state) {
       return state.interestList;
     },
+
+    //comment
+    getCommentList(state) {
+      return state.commentList;
+    },
   },
   //동기적 로직
   mutations: {
@@ -178,6 +186,10 @@ export const store = new Vuex.Store({
     setinterestList(state, payload) {
       state.interestList = payload;
     },
+    //comment
+    setCommentList(state, payload) {
+      state.commentList = payload;
+    },
   },
   //비동기적 로직
   actions: {
@@ -224,6 +236,12 @@ export const store = new Vuex.Store({
         params: { id: context.getters.getLoginId },
       });
       return context.commit("setinterestList", resInterestsList.data);
+    },
+    //comment
+    asyncReqCommentList: async function (context, payload) {
+      const subUrl = `/comment/${payload}`;
+      let resCommentList = await http.get(`${subUrl}`);
+      return context.commit("setCommentList", resCommentList.data);
     },
   },
 });
