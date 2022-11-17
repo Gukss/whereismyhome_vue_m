@@ -51,6 +51,9 @@ export const store = new Vuex.Store({
 
     //comment
     commentList: [],
+
+    //Article
+    article: {},
   },
   getters: {
     /* =========================== */
@@ -123,6 +126,11 @@ export const store = new Vuex.Store({
     getCommentList(state) {
       return state.commentList;
     },
+
+    //article
+    getArticle(state) {
+      return state.article;
+    },
   },
   //동기적 로직
   mutations: {
@@ -190,6 +198,11 @@ export const store = new Vuex.Store({
     setCommentList(state, payload) {
       state.commentList = payload;
     },
+
+    //article
+    setArticle(state, payload) {
+      state.article = payload;
+    },
   },
   //비동기적 로직
   actions: {
@@ -242,6 +255,12 @@ export const store = new Vuex.Store({
       const subUrl = `/comment/${payload}`;
       let resCommentList = await http.get(`${subUrl}`);
       return context.commit("setCommentList", resCommentList.data);
+    },
+    //article
+    asyncReqArticle: async function (context, payload) {
+      const subUrl = `/friends/${payload}`;
+      let resArticle = await http.get(`${subUrl}`);
+      return context.commit("setArticle", resArticle.data);
     },
   },
 });
