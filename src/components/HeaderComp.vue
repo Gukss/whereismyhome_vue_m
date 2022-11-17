@@ -10,7 +10,7 @@
           <div class="header_menu">
             <ul>
               <!-- <li><a href="#">Home</a></li> -->
-              <li>
+              <li v-show="$store.getters.isLogin">
                 <router-link to="/friends">안심귀가프렌즈</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
@@ -20,19 +20,13 @@
                 <router-link to="/interest">관심목록</router-link>
               </li>
               <li v-show="!$store.getters.isLogin">
-                <a href="#" class="btn_open_popup" @click="popupRegist"
-                  >회원가입</a
-                >
+                <a href="#" class="btn_open_popup" @click="popupRegist">회원가입</a>
               </li>
               <li v-show="!$store.getters.isLogin">
-                <a href="#" class="login_btn_open_popup" @click="popupLogin"
-                  >로그인</a
-                >
+                <a href="#" class="login_btn_open_popup" @click="popupLogin">로그인</a>
               </li>
               <li v-show="$store.getters.isLogin">
-                <a href="#" class="mypage_btn_open_popup" @click="popupMypage"
-                  >마이페이지</a
-                >
+                <a href="#" class="mypage_btn_open_popup" @click="popupMypage">마이페이지</a>
               </li>
               <li v-show="$store.getters.isLogin">
                 <a href="#" @click="logout">로그아웃</a>
@@ -70,22 +64,17 @@
             <tr>
               <td>비밀번호</td>
               <td>
-                <input
-                  type="password"
-                  v-model="loginPw"
-                  @keyup.enter="login()"
-                />
+                <input type="password" v-model="loginPw" @keyup.enter="login()" />
               </td>
             </tr>
           </table>
         </div>
 
         <div class="login_id_remember">
-          <input
-            type="checkbox"
-            id="remember_check"
-            v-model="rememberId"
-          /><label for="remember_check">아이디 기억하기</label>
+          <input type="checkbox" id="remember_check" v-model="rememberId" /><label
+            for="remember_check"
+            >아이디 기억하기</label
+          >
         </div>
         <div class="login_btn_container_login">
           <input type="button" value="로그인" @click="login" />
@@ -127,12 +116,7 @@
           </table>
           <div class="reg_btn_container">
             <input type="button" value="확인" @click="regist" />
-            <input
-              type="button"
-              value="취소"
-              class="reg_modal_close"
-              @click="regModalDown"
-            />
+            <input type="button" value="취소" class="reg_modal_close" @click="regModalDown" />
           </div>
         </div>
       </div>
@@ -173,12 +157,7 @@
           </table>
           <div class="mypage_btn_container">
             <input type="button" value="수정" @click="update" />
-            <input
-              type="button"
-              value="취소"
-              class="mypage_modal_close"
-              @click="mypageModalDown"
-            />
+            <input type="button" value="취소" class="mypage_modal_close" @click="mypageModalDown" />
             <input type="button" value="탈퇴" @click="deleteMember" />
           </div>
         </div>
@@ -228,18 +207,16 @@ export default {
       }
 
       console.log(this.$store.state.loginId);
-      http
-        .get("/member", { params: { id: this.$store.state.loginId } })
-        .then(({ data }) => {
-          console.log(data);
-          this.id = data.id;
-          this.pw = data.pw;
-          this.name = data.name;
-          this.email = data.email;
-          this.phone = data.phone;
-          // this.regModalDown();
-          // this.popupLogin();
-        });
+      http.get("/member", { params: { id: this.$store.state.loginId } }).then(({ data }) => {
+        console.log(data);
+        this.id = data.id;
+        this.pw = data.pw;
+        this.name = data.name;
+        this.email = data.email;
+        this.phone = data.phone;
+        // this.regModalDown();
+        // this.popupLogin();
+      });
     },
     popupLogin() {
       this.loginId = "";
@@ -358,22 +335,18 @@ export default {
         return;
       }
 
-      http
-        .delete("/member", { params: { id: this.$store.state.loginId } })
-        .then((data) => {
-          if (data.status == 200) {
-            console.log(data.status);
-            this.mypageModalDown();
-            this.$store.commit("setLogout");
+      http.delete("/member", { params: { id: this.$store.state.loginId } }).then((data) => {
+        if (data.status == 200) {
+          console.log(data.status);
+          this.mypageModalDown();
+          this.$store.commit("setLogout");
 
-            alert("탈퇴되었습니다.");
-          }
-        });
+          alert("탈퇴되었습니다.");
+        }
+      });
     },
     logout() {
-      http
-        .get("/member/logout")
-        .then(console.log("로그아웃"), this.$store.commit("setLogout"));
+      http.get("/member/logout").then(console.log("로그아웃"), this.$store.commit("setLogout"));
     },
   },
   components: {
