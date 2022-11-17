@@ -22,6 +22,7 @@ export const store = new Vuex.Store({
     /* =     SectionSelector     = */
     /* =                         = */
     /* =========================== */
+    rerenderKey: 1,
     //listbox axios state
     sidoList: [],
     gugunList: [],
@@ -131,6 +132,9 @@ export const store = new Vuex.Store({
     getArticle(state) {
       return state.article;
     },
+    getRerenderKey(state) {
+      return state.rerenderKey;
+    },
   },
   //동기적 로직
   mutations: {
@@ -203,6 +207,10 @@ export const store = new Vuex.Store({
     setArticle(state, payload) {
       state.article = payload;
     },
+
+    addRerenderKey(state) {
+      state.rerenderKey = (state.rerenderKey + 1) % 1000;
+    },
   },
   //비동기적 로직
   actions: {
@@ -260,6 +268,16 @@ export const store = new Vuex.Store({
     asyncReqArticle: async function (context, payload) {
       const subUrl = `/friends/${payload}`;
       let resArticle = await http.get(`${subUrl}`);
+      return context.commit("setArticle", resArticle.data);
+    },
+    asyncReqAddComment: async function (context, payload) {
+      const subUrl = `/comment/${payload.reqArticleNo}`;
+      let reqData = {
+        memberNo: `${payload.reqMemberNo}`,
+        memberId: `${payload.reqMemberId}`,
+        commentText: `${payload.reqCommentText}`,
+      };
+      let resArticle = await http.post(`${subUrl}`, reqData);
       return context.commit("setArticle", resArticle.data);
     },
   },

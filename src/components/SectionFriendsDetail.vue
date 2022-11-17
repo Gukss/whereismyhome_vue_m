@@ -43,9 +43,14 @@
                 <col width="20%" />
               </colgroup>
               <tr>
-                <td><input type="text" class="comment_input" /></td>
+                <td><input type="text" class="comment_input" v-model="curcomment" /></td>
                 <td>
-                  <input type="button" class="comment_input_button" value="등록" />
+                  <input
+                    type="button"
+                    class="comment_input_button"
+                    value="등록"
+                    @click="addComment"
+                  />
                 </td>
               </tr>
             </table>
@@ -62,7 +67,9 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "SectionFriendsDetail",
   data() {
-    return {};
+    return {
+      curcomment: "",
+    };
   },
   mounted() {
     this.$store.dispatch("asyncReqCommentList", this.$route.params.friendsArticleNo);
@@ -72,8 +79,19 @@ export default {
     ...mapGetters([""]),
   },
   methods: {
-    ...mapMutations([]),
-    ...mapActions(["asyncReqCommentList", "asyncReqArticle"]),
+    ...mapMutations(["addRerenderKey"]),
+    ...mapActions(["asyncReqCommentList", "asyncReqArticle", "asyncReqAddComment"]),
+    addComment() {
+      //로그인할 때 memberNo도 받아서 저장하기
+      let reqData = {
+        reqArticleNo: this.$route.params.friendsArticleNo,
+        reqMemberNo: 2,
+        reqMemberId: this.$store.getters.getLoginId,
+        reqCommentText: this.curcomment,
+      };
+      this.$store.dispatch("asyncReqAddComment", reqData);
+      this.$store.commit("addRerenderKey");
+    },
   },
 };
 </script>

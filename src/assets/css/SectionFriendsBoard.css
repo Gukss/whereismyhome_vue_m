@@ -42,11 +42,7 @@
   align-items: center;
 }
 
-.section
-  .banner_container
-  .banner_info
-  .banner_title_container
-  .banner_text_container {
+.section .banner_container .banner_info .banner_title_container .banner_text_container {
   margin-left: 2rem;
 }
 
@@ -121,12 +117,7 @@
   text-overflow: ellipsis;
   color: #000;
 }
-.section
-  .banner_container
-  .banner_info
-  .board_list_container
-  .board_list
-  tr:hover {
+.section .banner_container .banner_info .board_list_container .board_list tr:hover {
   background-color: #e3f2fd;
 }
 
@@ -140,11 +131,7 @@
   margin: 0 auto;
 }
 
-.section
-  .banner_container
-  .banner_info
-  .page_button_container
-  .page_button_content {
+.section .banner_container .banner_info .page_button_container .page_button_content {
   width: 2rem;
   height: 2rem;
   border-radius: 0.4rem;
@@ -152,11 +139,7 @@
   line-height: 2rem;
   box-shadow: 0 1px 0px 0 rgba(34, 36, 38, 0.15);
 }
-.section
-  .banner_container
-  .banner_info
-  .page_button_container
-  .page_button_content:hover {
+.section .banner_container .banner_info .page_button_container .page_button_content:hover {
   cursor: pointer;
   box-shadow: 0 0 0 0;
   background-color: #90caf9;
