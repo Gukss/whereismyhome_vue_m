@@ -219,9 +219,10 @@ export const store = new Vuex.Store({
       return context.commit("setAptList", resAptList.data);
     },
     asyncReqInterests: async function (context) {
-      console.log("리스트 가져와라");
       const subUrl = "/search/interest";
-      let resInterestsList = await http.get(`${subUrl}`, { params: { id: context.getters.getLoginId } });
+      let resInterestsList = await http.get(`${subUrl}`, {
+        params: { id: context.getters.getLoginId },
+      });
       return context.commit("setinterestList", resInterestsList.data);
     },
   },

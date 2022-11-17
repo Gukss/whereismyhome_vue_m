@@ -5,10 +5,10 @@
       <div class="interest_list_container">
         <table class="interest_list">
           <colgroup>
-            <col width="25%" />
-            <col width="25%" />
-            <col width="25%" />
-            <col width="25%" />
+            <col width="28%" />
+            <col width="28%" />
+            <col width="28%" />
+            <col width="16%" />
           </colgroup>
           <tr>
             <th>시/도</th>
@@ -19,12 +19,25 @@
           <tr
             v-for="(item, index) in this.$store.getters.getInterestList"
             :key="index"
-            @click="asyncReqInterestAptList(item.sidoName, item.gugunName, item.dongName)"
+            @click="
+              asyncReqInterestAptList(
+                item.sidoName,
+                item.gugunName,
+                item.dongName
+              )
+            "
           >
             <td>{{ item.sidoName }}</td>
             <td>{{ item.gugunName }}</td>
             <td>{{ item.dongName }}</td>
-            <td><button @click="deleteInterest(item.id, $event)"> 삭제 </button></td>
+            <td>
+              <button
+                class="delete_interest_button"
+                @click="deleteInterest(item.id, $event)"
+              >
+                삭제
+              </button>
+            </td>
           </tr>
         </table>
         <table class="interest_list">
@@ -40,10 +53,7 @@
             <th>면적</th>
             <th>거래금액</th>
           </tr>
-          <tr
-            v-for="(item, index) in $store.getters.getAptList"
-            :key="index"
-          >
+          <tr v-for="(item, index) in $store.getters.getAptList" :key="index">
             <td>{{ item.aptName }}</td>
             <td>{{ item.floor }} 층</td>
             <td>{{ item.area }} ㎡</td>
@@ -66,15 +76,18 @@ export default {
       map: null,
       overlayList: [],
       markerList: [],
+      positions: [],
     };
   },
-  created(){
+  created() {
     this.$store.dispatch("asyncReqInterests");
     // console.log(this.interests);
+    this.setMapBound();
+    this.printMarker();
   },
   beforeUpdate() {
-    // this.$store.dispatch("asyncReqInterests");
-    // this.initMap();
+    this.setMapBound();
+    this.printMarker();
   },
   mounted() {
     if (!window.kakao || !window.kakao.maps) {
@@ -95,7 +108,7 @@ export default {
     ...mapGetters(["getInterestList"]),
   },
   methods: {
-    ...mapMutations([]),
+    ...mapMutations(["setAptList"]),
     ...mapActions(["asyncReqAptList", "asyncReqInterests"]),
     mouseOverTr(index) {
       this.overlayList[index].setMap(this.map);
@@ -127,42 +140,49 @@ export default {
       // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
       var zoomControl = new kakao.maps.ZoomControl();
       this.map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
-
+      this.setMapBound();
+      this.printMarker();
+    },
+    setMapBound() {
       /* =========================== */
       /* =     지도 범위 설정      = */
       /* =========================== */
       // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
       let bounds = new kakao.maps.LatLngBounds();
       // 버튼을 클릭하면 아래 배열의 좌표들이 모두 보이게 지도 범위를 재설정합니다
-      let positions = [];
+      this.positions = [];
       for (let i = 0; i < this.$store.getters.getAptList.length; i++) {
-        positions.push({
+        this.positions.push({
           content: `<div>${this.$store.getters.getAptList[i].aptName}</div>`,
           latlng: new kakao.maps.LatLng(
             this.$store.getters.getAptList[i].lat,
             this.$store.getters.getAptList[i].lng
           ),
         });
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(this.positions[i].latlng);
       }
-
+      this.map.setBounds(bounds);
+    },
+    printMarker() {
       let i;
       this.overlayList = [];
       this.markerList = [];
-      for (i = 0; i < positions.length; i++) {
+      for (i = 0; i < this.positions.length; i++) {
         // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
         let marker = new kakao.maps.Marker({
           map: this.map,
-          position: positions[i].latlng,
+          position: this.positions[i].latlng,
         });
         this.markerList.push(marker);
         let content = `<div class="overlay_wrap" style="position: relative;top:-52px;">
-                        <div
-                          class="overlay_container"
-                          style="border-radius: 0.4rem; background-color: #fff; text-align: center"
-                        >
-                          <div class="overlay_title" style="color: #1e88e5; padding: 0.2rem 0.4rem">${this.$store.getters.getAptList[i].aptName}</div>
-                        </div>
-                      </div>`;
+                      <div
+                        class="overlay_container"
+                        style="border-radius: 0.4rem; background-color: #fff; text-align: center"
+                      >
+                        <div class="overlay_title" style="color: #1e88e5; padding: 0.2rem 0.4rem">${this.$store.getters.getAptList[i].aptName}</div>
+                      </div>
+                    </div>`;
         marker.setMap(this.map);
         // 인포윈도우를 생성합니다
         let overlay = new kakao.maps.CustomOverlay({
@@ -185,8 +205,7 @@ export default {
           "mouseout",
           makeOutListener(overlay)
         );
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(positions[i].latlng);
+
         // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
       }
       // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
@@ -201,37 +220,39 @@ export default {
           overlay.setMap(null);
         };
       }
-      this.map.setBounds(bounds);
     },
-    deleteInterest: async function(id, e){
-      await http.delete(`/search/interest`, {params:{id : id}}).then((res) => {
+    deleteInterest: async function (id, e) {
+      await http.delete(`/search/interest`, { params: { id: id } }).then(() => {
         // this.asyncReqInterestAptList(sidoName, gugunName, dongName)
-        e.stopPropagation()
-        
-        location.reload();
-        this.initMap();
-        console.log(res);
+        e.stopPropagation();
+        this.setMapBound();
+        this.printMarker();
+        // location.reload();
       });
+      // await (() => {
+      //   console.log(this.$store.getters.getInterestList);
+      //   this.$store.commit("setAptList", this.$store.getters.getInterestList);
+      // });
     },
-    
+
     asyncReqInterestAptList: async function (sidoName, gugunName, dongName) {
       const subUrl = "search/aptlist";
       let now = new Date();
       // let month = now.getMonth() === 0 ? 12 : now.getMonth();
       let month = "1";
-      
+
       const reqData = {
         sido: sidoName,
         gugun: gugunName,
         dong: dongName,
         year: now.getFullYear() + "",
-        month: month + ""
+        month: month + "",
       };
       let resAptList = await http.get(`${subUrl}`, { params: reqData });
       this.$store.commit("setAptList", resAptList.data);
-      this.initMap();
+      this.setMapBound();
+      this.printMarker();
     },
-
   },
 };
 </script>

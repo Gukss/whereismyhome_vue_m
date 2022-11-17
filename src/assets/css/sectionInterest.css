@@ -42,6 +42,37 @@
   text-overflow: ellipsis;
   color: #1e88e5;
 }
+
+.section
+  .interest_container
+  .interest_list_container
+  .interest_list
+  td
+  .delete_interest_button {
+  border-style: none;
+  background-color: #e3f2fd;
+  height: 2rem;
+  line-height: 1.5rem;
+  border-radius: 2rem;
+  padding: 0 0.5rem;
+  color: #1e88e5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.section
+  .interest_container
+  .interest_list_container
+  .interest_list
+  td
+  .delete_interest_button:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0d47a1;
+}
 .section .interest_container .interest_list_container .interest_list tr:hover {
   background-color: #e3f2fd;
 }

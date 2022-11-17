@@ -55,14 +55,13 @@
           id="dong"
           v-model="dongName"
           @change="$store.commit('setDongVal', $event.target.value)"
-          
         >
           <option value="">동선택</option>
           <option
             :value="item"
             v-for="(item, index) in $store.getters.getDongList"
             :key="index"
-            :dongName=dongName
+            :dongName="dongName"
           >
             {{ item }}
           </option>
@@ -117,7 +116,12 @@
               @click="asyncReqAptList"
           /></router-link>
           <router-link to="/interest">
-            <input type="button" value="관심지역 등록" id="interest-btn2" @click="insertInterest" />
+            <input
+              type="button"
+              value="관심지역 등록"
+              id="interest-btn2"
+              @click="insertInterest"
+            />
           </router-link>
         </div>
       </div>
@@ -133,10 +137,10 @@ export default {
   name: "SectionSelector",
   data() {
     return {
-      id : "",
-      sidoName : "", 
-      gugunName : "", 
-      dongName : "",
+      id: "",
+      sidoName: "",
+      gugunName: "",
+      dongName: "",
     };
   },
   mounted() {
@@ -192,23 +196,16 @@ export default {
       let resAptList = await http.get(`${subUrl}`);
       this.sidoList = resAptList.data;
     },
-    insertInterest(){
-      console.log(this.sidoName);
-      console.log(this.gugunName);
-      console.log(this.dongName);
-
+    insertInterest() {
       let interest = {
         id: this.$store.state.loginId,
-        sidoName : this.sidoName,
-        gugunName : this.gugunName,
-        dongName : this.dongName
+        sidoName: this.sidoName,
+        gugunName: this.gugunName,
+        dongName: this.dongName,
       };
 
-      http.post("search/interest", interest).then(( res ) => {
-        console.log(res.status);
-      });
-
-    }
+      http.post("search/interest", interest).then(() => {});
+    },
   },
   // watch: {
   //

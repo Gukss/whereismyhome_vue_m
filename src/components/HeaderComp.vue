@@ -11,7 +11,7 @@
             <ul>
               <!-- <li><a href="#">Home</a></li> -->
               <li>
-                <router-link to="/">공지사항</router-link>
+                <router-link to="/friends">안심귀가프렌즈</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
                 <router-link to="/">실거래가조회</router-link>

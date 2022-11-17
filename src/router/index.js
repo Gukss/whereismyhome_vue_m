@@ -4,7 +4,10 @@ import VueRouter from "vue-router";
 import SectionComp from "@/components/SectionComp.vue";
 import SectionSearch from "@/components/SectionSearch.vue";
 import SectionInterest from "@/components/SectionInterest.vue";
-// import SearchView from "@/views/SearchView.vue";
+import SectionFriendsBoard from "@/components/SectionFriendsBoard.vue";
+import SectionFriendsWrite from "@/components/SectionFriendsWrite.vue";
+import SectionFriendsDetail from "@/components/SectionFriendsDetail.vue";
+
 import store from "@/store/store";
 
 Vue.use(VueRouter);
@@ -27,6 +30,30 @@ const routes = [
     path: "/interest",
     name: "SectionInterest",
     component: SectionInterest,
+    beforeEnter: (to, from, next) => {
+      isLogin(to, from, next);
+    },
+  },
+  {
+    path: "/friends",
+    name: "SectionFriendsBoard",
+    component: SectionFriendsBoard,
+    beforeEnter: (to, from, next) => {
+      isLogin(to, from, next);
+    },
+  },
+  {
+    path: "/friendsWrite",
+    name: "SectionFriendsWrite",
+    component: SectionFriendsWrite,
+    beforeEnter: (to, from, next) => {
+      isLogin(to, from, next);
+    },
+  },
+  {
+    path: "/friendsDetail",
+    name: "SectionFriendsDetail",
+    component: SectionFriendsDetail,
     beforeEnter: (to, from, next) => {
       isLogin(to, from, next);
     },
