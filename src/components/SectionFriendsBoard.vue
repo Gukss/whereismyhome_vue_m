@@ -36,9 +36,10 @@
               <tr
             v-for="(item, index) in this.articleList"
             :key="index"
+            @click="$router.push(`/friendsDetail/${item.friendsArticleNo}`)"
           >
-            <td>{{ item.friendsArticleNo }}</td>
-            <td>{{ item.title }}</td>
+            <td>{{ index+1 }}</td>
+            <td >{{ item.title }}</td>
             <td>{{ item.memberId }}</td>
             <td>{{ item.registerTime }}</td>
             <td>{{ item.views }}</td>
@@ -74,6 +75,7 @@ export default {
   data(){
     return{
       articleList : [],
+      articleListSize : 0,
       pgNavigation : null,
       pgTemplate: null,
     };
@@ -88,8 +90,10 @@ export default {
         {params : { pgno : 1, key : "", word : ""}}
       );
       this.articleList = res.data.articles;
-      console.log(this.articleList);
-      console.log(res.data.navigation);
+      this.articleListSize = this.articleList.length;
+      // console.log("article 사이즈 " + this.articleListSize);
+      // console.log(this.articleList);
+      // console.log(res.data.navigation);
       this.pgNavigation = res.data.navigation;
       this.pgTemplate = this.pgNavigation.navigator;
     },

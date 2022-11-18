@@ -14,7 +14,7 @@
         <div class="banner_info">
           <div class="board_button_container">
             <input type="button" class="write_button" value="초기화" />
-            <input type="button" class="write_button" value="저장" />
+            <input type="button" class="write_button" value="저장" @click="writeArticle"/>
           </div>
           <div class="board_write_container">
             <table class="board_write_table">
@@ -24,7 +24,7 @@
               </colgroup>
               <tr>
                 <td class="board_write_title">제목</td>
-                <td><input class="board_write_title_input" type="text" /></td>
+                <td><input class="board_write_title_input" type="text" v-model="title"/></td>
               </tr>
               <tr>
                 <td class="board_write_title">본문</td>
@@ -33,6 +33,7 @@
                     rows="20"
                     class="board_write_content_input"
                     type="text"
+                    v-model="content"
                   ></textarea>
                 </td>
               </tr>
@@ -45,6 +46,8 @@
 </template>
 
 <script>
+import http from '@/util/http-common';
+
 export default {
   name: "SectionFriendsWrite",
   data(){
@@ -53,10 +56,23 @@ export default {
       content : "",
     };
   },
+
+  methods:{
+    writeArticle(){
+      let article = {
+        memberNo : this.$store.getters.getLoginInfo.member_no,
+        memberId : this.$store.getters.getLoginInfo.id,
+        title : this.title,
+        content : this.content,
+      };
+      // console.log(article);
+      http.post("/friends", article);
+
+      this.$router.push('/friends');
+    },
+
+  }
   
-  writeArticle(){
-        
-  },
 };
 </script>
 
