@@ -281,9 +281,8 @@ export const store = new Vuex.Store({
     },
     asyncReqInterests: async function (context) {
       const subUrl = "/search/interest";
-      let resInterestsList = await http.get(`${subUrl}`, {
-        params: { id: context.getters.getLoginInfo.id },
-      });
+      const pathVar = context.getters.getLoginInfo.member_no;
+      let resInterestsList = await http.get(`${subUrl}` + "?member_no=" + pathVar);
       return context.commit("setinterestList", resInterestsList.data);
     },
     //comment

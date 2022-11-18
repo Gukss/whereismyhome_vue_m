@@ -16,11 +16,7 @@
         >
           <!-- Todo: focus가면 시도선택 없어지게 하기 -->
           <option value="">시도선택</option>
-          <option
-            :value="item"
-            v-for="(item, index) in $store.getters.getSidoList"
-            :key="index"
-          >
+          <option :value="item" v-for="(item, index) in $store.getters.getSidoList" :key="index">
             {{ item }}
           </option>
         </select>
@@ -39,11 +35,7 @@
           "
         >
           <option value="">구군선택</option>
-          <option
-            :value="item"
-            v-for="(item, index) in $store.getters.getGugunList"
-            :key="index"
-          >
+          <option :value="item" v-for="(item, index) in $store.getters.getGugunList" :key="index">
             {{ item }}
           </option>
         </select>
@@ -73,18 +65,11 @@
           name="year"
           id="year"
           @change="
-            [
-              $store.commit('setYearVal', $event.target.value),
-              $store.commit('reqMonthList'),
-            ]
+            [$store.commit('setYearVal', $event.target.value), $store.commit('reqMonthList')]
           "
         >
           <option value="">매매년도선택</option>
-          <option
-            :value="item"
-            v-for="(item, index) in $store.getters.getYearList"
-            :key="index"
-          >
+          <option :value="item" v-for="(item, index) in $store.getters.getYearList" :key="index">
             {{ item }} 년
           </option>
         </select>
@@ -97,11 +82,7 @@
           @change="$store.commit('setMonthVal', $event.target.value)"
         >
           <option value="">매매월선택</option>
-          <option
-            :value="item"
-            v-for="(item, index) in $store.getters.getMonthList"
-            :key="index"
-          >
+          <option :value="item" v-for="(item, index) in $store.getters.getMonthList" :key="index">
             {{ item }} 월
           </option>
         </select>
@@ -109,19 +90,10 @@
       <div class="form_group">
         <div class="button_container">
           <router-link to="/search"
-            ><input
-              type="button"
-              value="검색"
-              id="list-btn"
-              @click="asyncReqAptList"
+            ><input type="button" value="검색" id="list-btn" @click="asyncReqAptList"
           /></router-link>
           <router-link to="/interest">
-            <input
-              type="button"
-              value="관심지역 등록"
-              id="interest-btn2"
-              @click="insertInterest"
-            />
+            <input type="button" value="관심지역 등록" id="interest-btn2" @click="insertInterest" />
           </router-link>
         </div>
       </div>
@@ -178,12 +150,7 @@ export default {
       "setAptList",
       "reqMonthList",
     ]),
-    ...mapActions([
-      "asyncReqSido",
-      "asyncReqGugun",
-      "asyncReqDong",
-      "asyncReqAptList",
-    ]),
+    ...mapActions(["asyncReqSido", "asyncReqGugun", "asyncReqDong", "asyncReqAptList"]),
     getSido: function () {
       this.$store.dispatch("asyncReqSido");
     },
@@ -198,7 +165,7 @@ export default {
     },
     insertInterest() {
       let interest = {
-        id: this.$store.state.loginId,
+        member_no: this.$store.state.loginInfo.member_no,
         sidoName: this.sidoName,
         gugunName: this.gugunName,
         dongName: this.dongName,

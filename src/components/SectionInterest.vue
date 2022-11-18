@@ -19,13 +19,7 @@
           <tr
             v-for="(item, index) in this.$store.getters.getInterestList"
             :key="index"
-            @click="
-              asyncReqInterestAptList(
-                item.sidoName,
-                item.gugunName,
-                item.dongName
-              )
-            "
+            @click="asyncReqInterestAptList(item.sidoName, item.gugunName, item.dongName)"
           >
             <td>{{ item.sidoName }}</td>
             <td>{{ item.gugunName }}</td>
@@ -33,7 +27,7 @@
             <td>
               <button
                 class="delete_interest_button"
-                @click="deleteInterest(item.id, $event)"
+                @click="deleteInterest(item.interest_area_no, $event)"
               >
                 삭제
               </button>
@@ -108,7 +102,7 @@ export default {
     ...mapGetters(["getInterestList"]),
   },
   methods: {
-    ...mapMutations(["setAptList"]),
+    ...mapMutations(["setAptList", "addRerenderKey"]),
     ...mapActions(["asyncReqAptList", "asyncReqInterests"]),
     mouseOverTr(index) {
       this.overlayList[index].setMap(this.map);
@@ -200,11 +194,7 @@ export default {
           "mouseover",
           makeOverListener(this.map, marker, overlay)
         );
-        kakao.maps.event.addListener(
-          marker,
-          "mouseout",
-          makeOutListener(overlay)
-        );
+        kakao.maps.event.addListener(marker, "mouseout", makeOutListener(overlay));
 
         // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
       }
@@ -221,18 +211,17 @@ export default {
         };
       }
     },
-    deleteInterest: async function (id, e) {
-      await http.delete(`/search/interest`, { params: { id: id } }).then(() => {
-        // this.asyncReqInterestAptList(sidoName, gugunName, dongName)
-        e.stopPropagation();
-        this.setMapBound();
-        this.printMarker();
-        // location.reload();
-      });
-      // await (() => {
-      //   console.log(this.$store.getters.getInterestList);
-      //   this.$store.commit("setAptList", this.$store.getters.getInterestList);
-      // });
+    deleteInterest: async function (interest_area_no, e) {
+      await http
+        .delete(`/search/interest` + `?interest_area_no=${interest_area_no}`)
+        // { params: { interest_area_no: interest_area_no } })
+        .then(() => {
+          // this.asyncReqInterestAptList(sidoName, gugunName, dongName)
+          e.stopPropagation();
+          this.setMapBound();
+          this.printMarker();
+          this.$store.commit("addRerenderKey");
+        });
     },
 
     asyncReqInterestAptList: async function (sidoName, gugunName, dongName) {
