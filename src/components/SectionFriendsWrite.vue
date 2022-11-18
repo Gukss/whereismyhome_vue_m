@@ -47,6 +47,16 @@
 <script>
 export default {
   name: "SectionFriendsWrite",
+  data(){
+    return{
+      title : "",
+      content : "",
+    };
+  },
+  
+  writeArticle(){
+        
+  },
 };
 </script>
 
