@@ -49,11 +49,21 @@
 .section .banner_container .banner_info .banner_title_container .title {
   font-size: 2rem;
   color: #0d47a1;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .section .banner_container .banner_info .banner_title_container .subtitle {
   margin-top: 0.1rem;
   font-size: 1rem;
   color: #90caf9;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .section .banner_container .banner_info .board_button_container {
   display: flex;
