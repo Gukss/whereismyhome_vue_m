@@ -22,8 +22,17 @@ export const store = new Vuex.Store({
     /* =     SectionSelector     = */
     /* =                         = */
     /* =========================== */
+    /**
+     * @type: number
+     * @readOnly
+     * 리랜더링할 때 사용할 변수
+     */
     rerenderKey: 1,
     //listbox axios state
+    /**
+     * @type: string[]
+     * mounted할 때 selector에 출력할 리스트
+     */
     sidoList: [],
     gugunList: [],
     dongList: [],
@@ -43,14 +52,30 @@ export const store = new Vuex.Store({
     /* =                         = */
     /* =========================== */
     //search state
+    /**
+     * 거래내역 조회할 때 표에 출력하고, 지도에 출력하는 리스트
+     */
     aptList: [],
     //---
     // login
+    /**
+     * 로그인 확인을 위한 변수
+     * @todo 로그인 할 때 객체로 받아서 모든 정보 저장해놓기, string => object
+     * @type: string
+     */
     loginId: "",
     // Interest
+    /**
+     * 관심지역 출력을 위한 리스트
+     * @type: string[]
+     */
     interestList: [],
 
     //comment
+    /**
+     * 댓글 출력을 위한 list
+     * @type: string[]
+     */
     commentList: [],
 
     //Article
@@ -270,6 +295,12 @@ export const store = new Vuex.Store({
       let resArticle = await http.get(`${subUrl}`);
       return context.commit("setArticle", resArticle.data);
     },
+    /**
+		 	articleNo을 pathVar로 사용해서 comment를 추가하는 함수
+		 * @param {*} context store
+		 * @param {Object} payload articleNo: 게시글 번호, memberNo: 사용자 번호, memberId: 사용자 아이디, commentText: 댓글 내용
+		 * @returns 없어도 되는거 같은데??
+		 */
     asyncReqAddComment: async function (context, payload) {
       const subUrl = `/comment/${payload.reqArticleNo}`;
       let reqData = {
