@@ -4,8 +4,11 @@
       <div class="banner_container">
         <div class="banner_info">
           <div class="board_button_container">
-            <input type="button" class="write_button" value="수정" />
-            <input type="button" class="write_button" value="삭제" />
+            <!-- <input type="button" class="write_button" value="수정" />
+            <input type="button" class="write_button" value="삭제" /> -->
+            <router-link to="/friends">
+              <input type="button" class="write_button" value="목록" />
+            </router-link>
           </div>
           <div class="board_detail_title_container">
             <div class="detail_title">{{ this.$store.getters.getArticle.title }}</div>
