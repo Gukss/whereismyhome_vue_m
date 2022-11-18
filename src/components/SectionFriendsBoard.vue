@@ -33,95 +33,23 @@
                 <th>작성일</th>
                 <th>조회수</th>
               </tr>
-              <tr>
-                <td>dddddddddddddddddddddddddddddddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
-              <tr>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-                <td>ddd</td>
-              </tr>
+              <tr
+            v-for="(item, index) in this.articleList"
+            :key="index"
+          >
+            <td>{{ item.friendsArticleNo }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.memberId }}</td>
+            <td>{{ item.registerTime }}</td>
+            <td>{{ item.views }}</td>
+          </tr>
             </table>
           </div>
           <!-- <img src="../img/" alt="실거래가조회" class="banner_img" /> -->
         </div>
+          <div v-html="pgTemplate"></div>
+          <!-- <div v-for="(item, index) in this.articleList"></div> -->
+          <!-- https://onethejay.tistory.com/68 -->
         <div class="banner_info">
           <div class="page_button_container">
             <div class="page_button_content">&lt;</div>
@@ -140,8 +68,33 @@
 </template>
 
 <script>
+import http from "@/util/http-common";
 export default {
   name: "SectionFriends",
+  data(){
+    return{
+      articleList : [],
+      pgNavigation : null,
+      pgTemplate: null,
+    };
+  },
+  created(){
+    this.asyncReqArticleList();
+  },
+  methods:{
+    asyncReqArticleList : async function (){
+      const subUrl = "friends";
+      let res = await http.get(`${subUrl}`,
+        {params : { pgno : 1, key : "", word : ""}}
+      );
+      this.articleList = res.data.articles;
+      console.log(this.articleList);
+      console.log(res.data.navigation);
+      this.pgNavigation = res.data.navigation;
+      this.pgTemplate = this.pgNavigation.navigator;
+    },
+
+  }
 };
 </script>
 
