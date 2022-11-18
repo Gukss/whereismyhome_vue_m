@@ -273,10 +273,9 @@ export default {
           console.log(res);
           if (res.status == 200) {
             this.$refs.wrong_number = false;
-            this.$store.commit("setLoginId", res.data.id);
+            this.$store.commit("setLoginInfo", res.data);
             this.loginModalDown();
           } else {
-            // 로그인 정보가 틀렸습니다. => 비밀번호 밑에 v-show해서 아이디/비밀번호가 틀렸습니다 띄워주기
             this.wrongLogin = true;
           }
         })

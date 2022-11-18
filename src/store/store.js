@@ -63,7 +63,7 @@ export const store = new Vuex.Store({
      * @todo 로그인 할 때 객체로 받아서 모든 정보 저장해놓기, string => object
      * @type: string
      */
-    loginId: "",
+    loginInfo: "",
     // Interest
     /**
      * 관심지역 출력을 위한 리스트
@@ -137,11 +137,11 @@ export const store = new Vuex.Store({
     getAptList(state) {
       return state.aptList;
     },
-    getLoginId(state) {
-      return state.loginId;
+    getLoginInfo(state) {
+      return state.loginInfo;
     },
     isLogin(state) {
-      return state.loginId !== "";
+      return state.loginInfo !== "";
     },
 
     getInterestList(state) {
@@ -214,11 +214,11 @@ export const store = new Vuex.Store({
       }
       return state.monthList;
     },
-    setLoginId(state, payload) {
-      state.loginId = payload;
+    setLoginInfo(state, payload) {
+      state.loginInfo = payload;
     },
     setLogout(state) {
-      state.loginId = "";
+      state.loginInfo = "";
     },
     setinterestList(state, payload) {
       state.interestList = payload;
@@ -232,7 +232,10 @@ export const store = new Vuex.Store({
     setArticle(state, payload) {
       state.article = payload;
     },
-
+    /**
+     * 리랜더링이 필요할 때 호출하는 함수
+     * @param {*} state
+     */
     addRerenderKey(state) {
       state.rerenderKey = (state.rerenderKey + 1) % 1000;
     },
@@ -279,7 +282,7 @@ export const store = new Vuex.Store({
     asyncReqInterests: async function (context) {
       const subUrl = "/search/interest";
       let resInterestsList = await http.get(`${subUrl}`, {
-        params: { id: context.getters.getLoginId },
+        params: { id: context.getters.getLoginInfo.id },
       });
       return context.commit("setinterestList", resInterestsList.data);
     },

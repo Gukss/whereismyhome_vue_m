@@ -43,7 +43,15 @@
                 <col width="20%" />
               </colgroup>
               <tr>
-                <td><input type="text" class="comment_input" v-model="curcomment" /></td>
+                <td>
+                  <input
+                    type="text"
+                    class="comment_input"
+                    v-model="curcomment"
+                    @keyup.enter="addComment"
+                    placeholder="댓글을 입력하세요."
+                  />
+                </td>
                 <td>
                   <input
                     type="button"
@@ -81,15 +89,15 @@ export default {
   methods: {
     ...mapMutations(["addRerenderKey"]),
     ...mapActions(["asyncReqCommentList", "asyncReqArticle", "asyncReqAddComment"]),
-    addComment() {
+    addComment: async function () {
       //로그인할 때 memberNo도 받아서 저장하기
       let reqData = {
         reqArticleNo: this.$route.params.friendsArticleNo,
-        reqMemberNo: 2,
-        reqMemberId: this.$store.getters.getLoginId,
+        reqMemberNo: this.$store.getters.getLoginInfo.member_no,
+        reqMemberId: this.$store.getters.getLoginInfo.id,
         reqCommentText: this.curcomment,
       };
-      this.$store.dispatch("asyncReqAddComment", reqData);
+      await this.$store.dispatch("asyncReqAddComment", reqData);
       this.$store.commit("addRerenderKey");
     },
   },
