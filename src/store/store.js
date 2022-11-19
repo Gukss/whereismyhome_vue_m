@@ -80,6 +80,14 @@ export const store = new Vuex.Store({
 
     //Article
     article: {},
+
+    /*
+    * 안심하우스 리스트
+    * Object[]
+    */
+    safeHomeList: [],
+    // 안심하우스 Top3만 담은 리스트
+    safeHomeTop3List: [],
   },
   getters: {
     /* =========================== */
@@ -160,6 +168,14 @@ export const store = new Vuex.Store({
     getRerenderKey(state) {
       return state.rerenderKey;
     },
+
+    // safe house
+    getSafeHomeList(state){
+      return state.safeHomeList;
+    },
+    getSafeHomeTop3List(state){
+      return state.safeHomeTop3List;
+    },
   },
   //동기적 로직
   mutations: {
@@ -239,6 +255,14 @@ export const store = new Vuex.Store({
     addRerenderKey(state) {
       state.rerenderKey = (state.rerenderKey + 1) % 1000;
     },
+
+    // safeHome
+    setSafeHomeList(state, payload){
+      state.safeHomeList = payload;
+    },
+    setSafeHomeTop3List(state, payload){
+      state.safeHomeTop3List = payload;
+    },
   },
   //비동기적 로직
   actions: {
@@ -312,6 +336,24 @@ export const store = new Vuex.Store({
       };
       let resArticle = await http.post(`${subUrl}`, reqData);
       return context.commit("setArticle", resArticle.data);
+    },
+    /**
+		 	시도,구군,동 선택하고 검색하면 안심하우스 리스트를 저장
+      Top3도 따로 저장
+		
+		 */
+    asyncReqsafeHomeList : async function (context){
+      const subUrl = "search/safety";
+      const reqData = {
+        sido: context.getters.getSidoVal,
+        gugun: context.getters.getGugunVal,
+        dong: context.getters.getDongVal,
+        year: context.getters.getYearVal,
+        month: context.getters.getMonthVal,
+      };
+      let res = await http.get(`${subUrl}`, {params : reqData});
+      context.commit("setSafeHomeTop3List", res.data.slice(0,3));
+      return context.commit("setSafeHomeList", res.data);
     },
   },
 });

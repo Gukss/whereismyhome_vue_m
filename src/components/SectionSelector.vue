@@ -95,8 +95,8 @@
           <router-link to="/interest" v-show="this.$route.fullPath !== `/safety`">
             <input type="button" value="관심지역 등록" id="interest-btn2" @click="insertInterest" />
           </router-link>
-          <router-link to="/interest" v-show="this.$route.fullPath === `/safety`">
-            <input type="button" value="안심하우스검색" id="interest-btn3" />
+          <router-link to="/safety" v-show="this.$route.fullPath === `/safety`">
+            <input type="button" value="안심하우스검색" id="interest-btn3" @click="asyncReqsafeHomeList"/>
           </router-link>
         </div>
       </div>
@@ -153,7 +153,7 @@ export default {
       "setAptList",
       "reqMonthList",
     ]),
-    ...mapActions(["asyncReqSido", "asyncReqGugun", "asyncReqDong", "asyncReqAptList"]),
+    ...mapActions(["asyncReqSido", "asyncReqGugun", "asyncReqDong", "asyncReqAptList", "asyncReqsafeHomeList"]),
     getSido: function () {
       this.$store.dispatch("asyncReqSido");
     },
