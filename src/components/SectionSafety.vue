@@ -9,6 +9,7 @@
               <div class="title">안심하우스</div>
               <div class="subtitle">안심하우스를 찾아보세요.</div>
             </div>
+            <spinner-test v-if="this.$store.getters.getIsLoading"/>
           </div>
         </div>
         <div class="banner_info" style="padding-top: 0rem">
@@ -144,20 +145,35 @@
 import SectionSelector from "@/components/SectionSelector.vue";
 import { mapGetters } from "vuex";
 // import http from "@/util/http-common";
+import SpinnerTest from '@/components/SpinnerTest';
 
 export default {
   name: "SectionSafety",
-  components: { SectionSelector },
+  components: { SectionSelector, SpinnerTest },
   data(){
     return{
+      isLoading: true,
     }
   },
   created(){
+    // let nullhouse = {
+    //   aptName : "",
+    //   roadName : "",
+    //   roadNameBonbun : "",
+    //   area : "",
+    //   dealAmount : "",
+    //   lampCount : "",
+    //   cctvcount : "",
+    //   policeCount : "",
+    // };
+    let nullhouseList = [[], [], []];
+    this.$store.commit("setSafeHomeTop3List", nullhouseList);
     console.log(this.$store.getters.getSafeHomeTop3List);
   },
   computed: {
     ...mapGetters([
-      "getSafeHomeTop3List"
+      "getSafeHomeTop3List",
+      "getIsLoading",
     ]),
   },
   methods:{

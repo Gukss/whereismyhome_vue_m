@@ -88,6 +88,8 @@ export const store = new Vuex.Store({
     safeHomeList: [],
     // 안심하우스 Top3만 담은 리스트
     safeHomeTop3List: [],
+    // 로딩중인지
+    isLoading : false,
   },
   getters: {
     /* =========================== */
@@ -176,6 +178,10 @@ export const store = new Vuex.Store({
     getSafeHomeTop3List(state){
       return state.safeHomeTop3List;
     },
+    // 로딩
+    getIsLoading(state){
+      return state.isLoading;
+    }
   },
   //동기적 로직
   mutations: {
@@ -263,6 +269,9 @@ export const store = new Vuex.Store({
     setSafeHomeTop3List(state, payload){
       state.safeHomeTop3List = payload;
     },
+    setIsLoading(state, payload){
+      state.isLoading = payload;
+    }
   },
   //비동기적 로직
   actions: {
@@ -343,6 +352,7 @@ export const store = new Vuex.Store({
 		
 		 */
     asyncReqsafeHomeList : async function (context){
+      context.commit("setIsLoading", true);
       const subUrl = "search/safety";
       const reqData = {
         sido: context.getters.getSidoVal,
@@ -353,6 +363,7 @@ export const store = new Vuex.Store({
       };
       let res = await http.get(`${subUrl}`, {params : reqData});
       context.commit("setSafeHomeTop3List", res.data.slice(0,3));
+      context.commit("setIsLoading", false);
       return context.commit("setSafeHomeList", res.data);
     },
   },
