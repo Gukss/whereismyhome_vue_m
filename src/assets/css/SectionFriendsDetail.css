@@ -75,6 +75,7 @@
   height: 40vh;
   font-weight: normal;
   overflow-y: scroll;
+  white-space:pre;
 }
 
 .section .banner_container .banner_info .board_detail_content_container::-webkit-scrollbar {
