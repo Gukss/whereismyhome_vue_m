@@ -57,6 +57,8 @@ export default {
   },
   created(){
     // 제목, 본문에 내용 넣어놓기
+    this.title = this.$store.getters.getArticle.title;
+    this.content = this.$store.getters.getArticle.content;
   },
   methods:{
     updateArticle(){
@@ -66,12 +68,11 @@ export default {
         title : this.title,
         content : this.content,
       };
-      console.log(article);
-      http.put("/friends", article);
-
+      // console.log(article);/
+      http.put(`/friends/${this.$store.getters.getArticle.friendsArticleNo}`,article);
       this.$router.push(`/friendsDetail/${this.$store.getters.getArticle.friendsArticleNo}`);
+      this.$store.commit("setArticle", article);
     },
-
   }
   
 };
