@@ -1,0 +1,109 @@
+.section {
+  width: 100%;
+  height: auto;
+  min-height: 85vh;
+  /* min-height: 55rem; */
+  /* background: #1565c0; */
+  /* border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem; */
+  /* padding-bottom: 150px; */
+}
+
+.section .banner_container {
+  display: grid;
+  width: 100%;
+  max-width: 75rem;
+  padding: 0 1.25rem;
+  grid-template-columns: 100%;
+  /* row-gap: 4.6875rem; */
+  row-gap: 4rem;
+  margin: 0 auto;
+}
+
+.section .banner_container .banner_info {
+  width: 100%;
+  /* padding-top: 5.625rem; */
+  padding-top: 4rem;
+  margin-bottom: 1.875rem;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.section .banner_container .banner_info .banner_title_container {
+  display: flex;
+  flex-flow: row wrap;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.section .banner_container .banner_info .banner_title_container .banner_text_container {
+  margin-left: 2rem;
+}
+
+.section .banner_container .banner_info .banner_title_container .title {
+  font-size: 2rem;
+  color: #0d47a1;
+}
+.section .banner_container .banner_info .banner_title_container .subtitle {
+  margin-top: 0.1rem;
+  font-size: 1rem;
+  color: #90caf9;
+}
+
+.section .banner_container .banner_info .card_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.section .banner_container .banner_info .card_container .card {
+  width: 20rem;
+  height: 35rem;
+  background-color: #fff;
+  border-radius: 2.4rem;
+  padding: 1rem;
+  display: flex;
+
+  align-items: center;
+  flex-flow: column wrap;
+  box-shadow: 3px 3px 3px 0 rgb(34 36 38 / 15%);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.section .banner_container .banner_info .card_container .card:hover {
+}
+
+.section .banner_container .banner_info .card_container .card .medal {
+  width: 60%;
+  margin-top: 2rem;
+}
+
+.section .banner_container .banner_info .card_container .card .card_table_container {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.section .banner_container .banner_info .card_container .card .card_table_container .card_table {
+  font-size: 0.9rem;
+  width: 100%;
+  font-weight: normal;
+  margin-left: 1rem;
+}
+
+.section
+  .banner_container
+  .banner_info
+  .card_container
+  .card
+  .card_table_container
+  .card_table
+  .title {
+  color: #0d47a1;
+  font-weight: bold;
+}
+
+.section .banner_container .banner_info .card_container .card .card_table_container .card_table td {
+  padding-bottom: 0.2rem;
+}
