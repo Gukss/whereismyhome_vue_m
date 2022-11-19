@@ -20,14 +20,12 @@
           <div class="board_list_container">
             <table class="board_list">
               <colgroup>
-                <col width="10%" />
-                <col width="45%" />
-                <col width="15%" />
-                <col width="20%" />
-                <col width="10%" />
+                <col width="47.5%" />
+                <col width="17.5%" />
+                <col width="22.5%" />
+                <col width="12.5%" />
               </colgroup>
               <tr>
-                <th>글번호</th>
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
@@ -38,7 +36,6 @@
             :key="index"
             @click="$router.push(`/friendsDetail/${item.friendsArticleNo}`)"
           >
-            <td>{{ index+1 }}</td>
             <td >{{ item.title }}</td>
             <td>{{ item.memberId }}</td>
             <td>{{ item.registerTime }}</td>
@@ -48,18 +45,16 @@
           </div>
           <!-- <img src="../img/" alt="실거래가조회" class="banner_img" /> -->
         </div>
-          <div v-html="pgTemplate"></div>
           <!-- <div v-for="(item, index) in this.articleList"></div> -->
           <!-- https://onethejay.tistory.com/68 -->
         <div class="banner_info">
           <div class="page_button_container">
             <div class="page_button_content">&lt;</div>
-            <div class="page_button_content">1</div>
-            <div class="page_button_content">1</div>
-            <div class="page_button_content">1</div>
-            <div class="page_button_content">1</div>
-            <div class="page_button_content">1</div>
-            <div class="page_button_content">1</div>
+            <div class="page_button_content" 
+                  v-for="(item, index) in this.totalPageCount" :key="index"
+                 @click="asyncReqArticleList(item)"
+
+                        >{{item}}</div>
             <div class="page_button_content">&gt;</div>
           </div>
         </div>
@@ -77,25 +72,31 @@ export default {
       articleList : [],
       articleListSize : 0,
       pgNavigation : null,
-      pgTemplate: null,
+      totalArticleCount : 0,
+      totalPageCount : 0,
+      currentPage : 0,
     };
   },
   created(){
-    this.asyncReqArticleList();
+    this.asyncReqArticleList(1);
   },
+
   methods:{
-    asyncReqArticleList : async function (){
+    asyncReqArticleList : async function (pgno){
       const subUrl = "friends";
       let res = await http.get(`${subUrl}`,
-        {params : { pgno : 1, key : "", word : ""}}
+        {params : { pgno : pgno, key : "", word : ""}}
       );
       this.articleList = res.data.articles;
       this.articleListSize = this.articleList.length;
       // console.log("article 사이즈 " + this.articleListSize);
       // console.log(this.articleList);
-      // console.log(res.data.navigation);
+      console.log(res.data.navigation);
       this.pgNavigation = res.data.navigation;
-      this.pgTemplate = this.pgNavigation.navigator;
+      this.totalPageCount = res.data.navigation.totalPageCount;
+      this.totalArticleCount = res.data.navigation.totalCount;
+      this.currentPage = res.data.navigation.currentPage;
+      console.log(this.totalArticleCount);
     },
 
   }

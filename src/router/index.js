@@ -7,6 +7,7 @@ import SectionInterest from "@/components/SectionInterest.vue";
 import SectionFriendsBoard from "@/components/SectionFriendsBoard.vue";
 import SectionFriendsWrite from "@/components/SectionFriendsWrite.vue";
 import SectionFriendsDetail from "@/components/SectionFriendsDetail.vue";
+import SectionFriendsUpdate from "@/components/SectionFriendsUpdate.vue";
 
 import store from "@/store/store";
 
@@ -54,6 +55,14 @@ const routes = [
     path: `/friendsDetail/:friendsArticleNo`,
     name: "SectionFriendsDetail",
     component: SectionFriendsDetail,
+    beforeEnter: (to, from, next) => {
+      isLogin(to, from, next);
+    },
+  },
+  {
+    path: `/friendsUpdate/:friendsArticleNo`,
+    name: "SectionFriendsUpdate",
+    component: SectionFriendsUpdate,
     beforeEnter: (to, from, next) => {
       isLogin(to, from, next);
     },
