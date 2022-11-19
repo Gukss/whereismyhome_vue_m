@@ -5,7 +5,7 @@
         <div class="header_container">
           <router-link to="/" class="title"
             ><img
-              style="height: 8rem; width: 14rem"
+              style="height: 8rem; width: 14rem; image-rendering: -webkit-optimize-contrast"
               src="../assets/img/logo.svg"
               alt="whereismyhome"
           /></router-link>
@@ -15,6 +15,9 @@
               <!-- <li><a href="#">Home</a></li> -->
               <li v-show="$store.getters.isLogin">
                 <router-link to="/friends">안심귀가프렌즈</router-link>
+              </li>
+              <li v-show="$store.getters.isLogin">
+                <router-link to="/safety">안심하우스조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
                 <router-link to="/">실거래가조회</router-link>

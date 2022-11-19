@@ -96,7 +96,7 @@
             <input type="button" value="관심지역 등록" id="interest-btn2" @click="insertInterest" />
           </router-link>
           <router-link to="/interest" v-show="this.$route.fullPath === `/safety`">
-            <input type="button" value="안심하우스검색" id="interest-btn2" @click="" />
+            <input type="button" value="안심하우스검색" id="interest-btn2" />
           </router-link>
         </div>
       </div>
