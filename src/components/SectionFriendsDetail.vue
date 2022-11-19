@@ -5,8 +5,10 @@
         <div class="banner_info">
           <div class="board_button_container">
            <input type="button" class="write_button" value="수정" 
-           @click="$router.push(`/friendsUpdate/${$store.getters.getArticle.friendsArticleNo}`)" />
-            <!--  <input type="button" class="write_button" value="삭제" /> -->
+           @click="$router.push(`/friendsUpdate/${$store.getters.getArticle.friendsArticleNo}`)"
+           v-show="this.$store.getters.getArticle.memberId === this.$store.getters.getLoginInfo.id" />
+            <input type="button" class="write_button" value="삭제" 
+            v-show="this.$store.getters.getArticle.memberId === this.$store.getters.getLoginInfo.id"/> 
             <router-link to="/friends">
               <input type="button" class="write_button" value="목록" />
             </router-link>
