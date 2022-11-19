@@ -17,6 +17,11 @@ html {
   color: #000;
   font-family: S-CoreDream-5Medium;
   box-sizing: border-box;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 /* =========================== */
 /* =                         = */
