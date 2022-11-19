@@ -12,9 +12,9 @@
   </div>
 </template>
 <script>
-import SectionBannerTitle from "./SectionBannerTitle.vue";
-import SectionBannerContent from "./SectionBannerContent.vue";
-import SectionSelector from "./SectionSelector.vue";
+import SectionBannerTitle from "@/components/SectionBannerTitle.vue";
+import SectionBannerContent from "@/components/SectionBannerContent.vue";
+import SectionSelector from "@/components/SectionSelector.vue";
 
 export default {
   name: "SectionComp",

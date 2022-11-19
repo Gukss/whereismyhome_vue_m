@@ -11,7 +11,10 @@
             </div>
           </div>
         </div>
-        <div class="banner_info">
+        <div class="banner_info" style="padding-top: 0rem">
+          <SectionSelector></SectionSelector>
+        </div>
+        <div class="banner_info" style="padding-top: 0rem">
           <div class="card_container">
             <div class="card">
               <img class="medal" src="@/assets/img/SilverMedal.svg" alt="silver" />
@@ -126,8 +129,11 @@
 </template>
 
 <script>
+import SectionSelector from "@/components/SectionSelector.vue";
+
 export default {
   name: "SectionSafety",
+  components: { SectionSelector },
 };
 </script>
 
