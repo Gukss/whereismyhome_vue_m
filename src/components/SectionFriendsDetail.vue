@@ -9,9 +9,7 @@
            v-show="this.$store.getters.getArticle.memberId === this.$store.getters.getLoginInfo.id" />
             <input type="button" class="write_button" value="삭제" 
             v-show="this.$store.getters.getArticle.memberId === this.$store.getters.getLoginInfo.id"/> 
-            <router-link to="/friends">
-              <input type="button" class="write_button" value="목록" />
-            </router-link>
+            <input type="button" class="write_button" @click="$router.push(`/friends`)" value="목록" />
           </div>
           <div class="board_detail_title_container">
             <div class="detail_title">{{ this.$store.getters.getArticle.title }}</div>
