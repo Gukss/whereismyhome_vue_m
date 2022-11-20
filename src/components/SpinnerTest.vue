@@ -1,8 +1,10 @@
 <template>
-  <div class="lds-facebook">
-    <div></div>
-    <div></div>
-    <div></div>
+  <div class="spinner_warp">
+    <div class="lds-facebook">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
 </template>
 <script>
@@ -11,6 +13,11 @@ export default {
 };
 </script>
 <style>
+.spinner_warp {
+  background-color: #aaa;
+  height: 100%;
+  width: 100%;
+}
 .lds-facebook {
   display: inline-block;
   position: absolute;

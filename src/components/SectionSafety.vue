@@ -1,5 +1,6 @@
 <template>
   <section class="section">
+    <spinner-test v-if="this.$store.getters.getIsLoading" />
     <div class="container">
       <div class="banner_container">
         <div class="banner_info">
@@ -9,7 +10,6 @@
               <div class="title">안심하우스</div>
               <div class="subtitle">안심하우스를 찾아보세요.</div>
             </div>
-            <spinner-test v-if="this.$store.getters.getIsLoading" />
           </div>
         </div>
         <div class="banner_info" style="padding-top: 0rem">
@@ -18,9 +18,12 @@
         <div class="banner_info" style="padding-top: 0rem">
           <div
             class="card_container"
-            v-if="!this.isEmptyArr(this.$store.getters.getSafeHomeTop3List[0])"
+            v-if="
+              !this.isEmptyArr(this.$store.getters.getSafeHomeTop3List[0]) ||
+              this.$store.getters.getIsLoading
+            "
           >
-            <div class="card">
+            <div class="card" v-if="!this.$store.getters.getIsLoading">
               <img class="medal" src="@/assets/img/SilverMedal.svg" alt="silver" />
               <div class="card_table_container">
                 <table class="card_table">
@@ -65,7 +68,7 @@
                 </table>
               </div>
             </div>
-            <div class="card">
+            <div class="card" v-if="!this.$store.getters.getIsLoading">
               <img class="medal" src="@/assets/img/GoldMedal.svg" alt="gold" />
               <div class="card_table_container">
                 <table class="card_table">
@@ -110,7 +113,7 @@
                 </table>
               </div>
             </div>
-            <div class="card">
+            <div class="card" v-if="!this.$store.getters.getIsLoading">
               <img class="medal" src="@/assets/img/BronzeMedal.svg" alt="silver" />
               <div class="card_table_container">
                 <table class="card_table">
