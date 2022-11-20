@@ -14,16 +14,16 @@
             <ul>
               <!-- <li><a href="#">Home</a></li> -->
               <li v-show="$store.getters.isLogin">
-                <router-link to="/friends">안심귀가프렌즈</router-link>
+                <router-link to="/friends" id="friends">안심귀가프렌즈</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/safety">안심하우스조회</router-link>
+                <router-link to="/safety" id="safety">안심하우스조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/">실거래가조회</router-link>
+                <router-link to="/" id="trade">실거래가조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/interest">관심목록</router-link>
+                <router-link to="/interest" id="interest">관심목록</router-link>
               </li>
               <li v-show="!$store.getters.isLogin">
                 <a href="#" class="btn_open_popup" @click="popupRegist">회원가입</a>
@@ -290,7 +290,6 @@ export default {
       this.loginPw = "";
       this.wrongLogin = false;
     },
-
     regist() {
       let member = {
         id: this.id,
@@ -357,6 +356,38 @@ export default {
   components: {
     // HeaderRegistModal,
     // HeaderLoginModal,
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path !== from.path) {
+        let curPath = this.$route.fullPath;
+        let friends = document.getElementById("friends");
+        let interest = document.getElementById("interest");
+        let safety = document.getElementById("safety");
+        let trade = document.getElementById("trade");
+        if (curPath === "/friends") {
+          friends.style.color = "#0d47a1";
+          interest.style.color = "#1e88e5";
+          safety.style.color = "#1e88e5";
+          trade.style.color = "#1e88e5";
+        } else if (curPath === "/interest") {
+          interest.style.color = "#0d47a1";
+          friends.style.color = "#1e88e5";
+          safety.style.color = "#1e88e5";
+          trade.style.color = "#1e88e5";
+        } else if (curPath === "/safety") {
+          safety.style.color = "#0d47a1";
+          interest.style.color = "#1e88e5";
+          friends.style.color = "#1e88e5";
+          trade.style.color = "#1e88e5";
+        } else if (curPath === "/") {
+          friends.style.color = "#1e88e5";
+          interest.style.color = "#1e88e5";
+          safety.style.color = "#1e88e5";
+          trade.style.color = "#0d47a1";
+        }
+      }
+    },
   },
 };
 </script>
