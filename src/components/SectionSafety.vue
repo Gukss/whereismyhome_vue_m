@@ -9,14 +9,17 @@
               <div class="title">안심하우스</div>
               <div class="subtitle">안심하우스를 찾아보세요.</div>
             </div>
-            <spinner-test v-if="this.$store.getters.getIsLoading"/>
+            <spinner-test v-if="this.$store.getters.getIsLoading" />
           </div>
         </div>
         <div class="banner_info" style="padding-top: 0rem">
           <SectionSelector></SectionSelector>
         </div>
         <div class="banner_info" style="padding-top: 0rem">
-          <div class="card_container">
+          <div
+            class="card_container"
+            v-if="!this.isEmptyArr(this.$store.getters.getSafeHomeTop3List[0])"
+          >
             <div class="card">
               <img class="medal" src="@/assets/img/SilverMedal.svg" alt="silver" />
               <div class="card_table_container">
@@ -27,31 +30,37 @@
                   </colgroup>
                   <tr>
                     <td class="title">아파트이름</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[1].aptName}}</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[1].aptName }}</td>
                   </tr>
                   <tr>
                     <td class="title">주소</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[1].roadName + " " + Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)}}</td>
+                    <td>
+                      {{
+                        $store.getters.getSafeHomeTop3List[1].roadName +
+                        " " +
+                        Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)
+                      }}
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">면적</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[1].area}} ㎡</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[1].area }} ㎡</td>
                   </tr>
                   <tr>
                     <td class="title">최근거래금액</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[1].dealAmount}} 만 원</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[1].dealAmount }} 만 원</td>
                   </tr>
                   <tr>
                     <td class="title">가로등개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[1].lampCount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[1].lampCount }} 개</td>
                   </tr>
                   <tr>
                     <td class="title">CCTV개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[1].cctvcount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[1].cctvcount }} 개</td>
                   </tr>
                   <tr>
                     <td class="title">경찰서개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[1].policeCount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[1].policeCount }} 개</td>
                   </tr>
                 </table>
               </div>
@@ -66,31 +75,37 @@
                   </colgroup>
                   <tr>
                     <td class="title">아파트이름</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[0].aptName}}</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[0].aptName }}</td>
                   </tr>
                   <tr>
                     <td class="title">주소</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[0].roadName + " " + Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)}}</td>
+                    <td>
+                      {{
+                        $store.getters.getSafeHomeTop3List[0].roadName +
+                        " " +
+                        Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)
+                      }}
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">면적</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[0].area}} ㎡</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[0].area }} ㎡</td>
                   </tr>
                   <tr>
                     <td class="title">최근거래금액</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[0].dealAmount}} 만 원</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[0].dealAmount }} 만 원</td>
                   </tr>
                   <tr>
                     <td class="title">가로등개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[0].lampCount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[0].lampCount }} 개</td>
                   </tr>
                   <tr>
                     <td class="title">CCTV개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[0].cctvcount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[0].cctvcount }} 개</td>
                   </tr>
                   <tr>
                     <td class="title">경찰서개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[0].policeCount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[0].policeCount }} 개</td>
                   </tr>
                 </table>
               </div>
@@ -105,31 +120,37 @@
                   </colgroup>
                   <tr>
                     <td class="title">아파트이름</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[2].aptName}}</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[2].aptName }}</td>
                   </tr>
                   <tr>
                     <td class="title">주소</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[2].roadName + " " + Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)}}</td>
+                    <td>
+                      {{
+                        $store.getters.getSafeHomeTop3List[2].roadName +
+                        " " +
+                        Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)
+                      }}
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">면적</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[2].area}} ㎡</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[2].area }} ㎡</td>
                   </tr>
                   <tr>
                     <td class="title">최근거래금액</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[2].dealAmount}} 만 원</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[2].dealAmount }} 만 원</td>
                   </tr>
                   <tr>
                     <td class="title">가로등개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[2].lampCount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[2].lampCount }} 개</td>
                   </tr>
                   <tr>
                     <td class="title">CCTV개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[2].cctvcount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[2].cctvcount }} 개</td>
                   </tr>
                   <tr>
                     <td class="title">경찰서개수</td>
-                    <td>{{$store.getters.getSafeHomeTop3List[2].policeCount}} 개</td>
+                    <td>{{ $store.getters.getSafeHomeTop3List[2].policeCount }} 개</td>
                   </tr>
                 </table>
               </div>
@@ -145,17 +166,17 @@
 import SectionSelector from "@/components/SectionSelector.vue";
 import { mapGetters } from "vuex";
 // import http from "@/util/http-common";
-import SpinnerTest from '@/components/SpinnerTest';
+import SpinnerTest from "@/components/SpinnerTest";
 
 export default {
   name: "SectionSafety",
   components: { SectionSelector, SpinnerTest },
-  data(){
-    return{
+  data() {
+    return {
       isLoading: true,
-    }
+    };
   },
-  created(){
+  created() {
     // let nullhouse = {
     //   aptName : "",
     //   roadName : "",
@@ -169,14 +190,18 @@ export default {
     let nullhouseList = [[], [], []];
     this.$store.commit("setSafeHomeTop3List", nullhouseList);
     console.log(this.$store.getters.getSafeHomeTop3List);
+    console.log(this.isEmptyArr(this.$store.getters.getSafeHomeTop3List[0]));
   },
   computed: {
-    ...mapGetters([
-      "getSafeHomeTop3List",
-      "getIsLoading",
-    ]),
+    ...mapGetters(["getSafeHomeTop3List", "getIsLoading"]),
   },
-  methods:{
+  methods: {
+    isEmptyArr(arr) {
+      if (Array.isArray(arr) && arr.length === 0) {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>
