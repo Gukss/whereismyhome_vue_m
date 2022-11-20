@@ -82,14 +82,14 @@ export const store = new Vuex.Store({
     article: {},
 
     /*
-    * 안심하우스 리스트
-    * Object[]
-    */
+     * 안심하우스 리스트
+     * Object[]
+     */
     safeHomeList: [],
     // 안심하우스 Top3만 담은 리스트
     safeHomeTop3List: [],
     // 로딩중인지
-    isLoading : false,
+    isLoading: false,
   },
   getters: {
     /* =========================== */
@@ -151,6 +151,8 @@ export const store = new Vuex.Store({
       return state.loginInfo;
     },
     isLogin(state) {
+      // let id = jwt.verify(state.loginInfo.id, process.env.VUE_APP_SECRET_KEY);
+      // console.log(id);
       return state.loginInfo !== "";
     },
 
@@ -172,16 +174,16 @@ export const store = new Vuex.Store({
     },
 
     // safe house
-    getSafeHomeList(state){
+    getSafeHomeList(state) {
       return state.safeHomeList;
     },
-    getSafeHomeTop3List(state){
+    getSafeHomeTop3List(state) {
       return state.safeHomeTop3List;
     },
     // 로딩
-    getIsLoading(state){
+    getIsLoading(state) {
       return state.isLoading;
-    }
+    },
   },
   //동기적 로직
   mutations: {
@@ -263,15 +265,15 @@ export const store = new Vuex.Store({
     },
 
     // safeHome
-    setSafeHomeList(state, payload){
+    setSafeHomeList(state, payload) {
       state.safeHomeList = payload;
     },
-    setSafeHomeTop3List(state, payload){
+    setSafeHomeTop3List(state, payload) {
       state.safeHomeTop3List = payload;
     },
-    setIsLoading(state, payload){
+    setIsLoading(state, payload) {
       state.isLoading = payload;
-    }
+    },
   },
   //비동기적 로직
   actions: {
@@ -351,7 +353,7 @@ export const store = new Vuex.Store({
       Top3도 따로 저장
 		
 		 */
-    asyncReqsafeHomeList : async function (context){
+    asyncReqsafeHomeList: async function (context) {
       context.commit("setIsLoading", true);
       const subUrl = "search/safety";
       const reqData = {
@@ -361,10 +363,20 @@ export const store = new Vuex.Store({
         year: context.getters.getYearVal,
         month: context.getters.getMonthVal,
       };
-      let res = await http.get(`${subUrl}`, {params : reqData});
-      context.commit("setSafeHomeTop3List", res.data.slice(0,3));
+      let res = await http.get(`${subUrl}`, { params: reqData });
+      context.commit("setSafeHomeTop3List", res.data.slice(0, 3));
       context.commit("setIsLoading", false);
       return context.commit("setSafeHomeList", res.data);
+    },
+
+    asyncValidateToken: async function (context) {
+      const subUrl = "member/validation";
+      const reqData = {
+        id: context.getters.getLoginInfo.id,
+        pw: context.getters.getLoginInfo.pw,
+      };
+      let res = await http.post(`${subUrl}`, { params: reqData });
+      console.log(res);
     },
   },
 });

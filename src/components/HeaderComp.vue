@@ -14,13 +14,13 @@
             <ul>
               <!-- <li><a href="#">Home</a></li> -->
               <li v-show="$store.getters.isLogin">
+                <router-link to="/" id="trade">실거래가조회</router-link>
+              </li>
+              <li v-show="$store.getters.isLogin">
                 <router-link to="/friends" id="friends">안심귀가프렌즈</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
                 <router-link to="/safety" id="safety">안심하우스조회</router-link>
-              </li>
-              <li v-show="$store.getters.isLogin">
-                <router-link to="/" id="trade">실거래가조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
                 <router-link to="/interest" id="interest">관심목록</router-link>
@@ -41,7 +41,7 @@
           </div>
           <div class="userinfo" v-show="$store.getters.isLogin">
             <a href="#"
-              ><div class="nickname">{{ $store.state.loginId }}님</div></a
+              ><div class="nickname">{{ $store.state.loginInfo.name }}님</div></a
             >
           </div>
         </div>
