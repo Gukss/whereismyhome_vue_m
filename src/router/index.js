@@ -78,8 +78,10 @@ const routes = [
   },
 ];
 
-const isLogin = (to, from, next) => {
-  if (store.getters.isLogin) {
+const isLogin = async (to, from, next) => {
+  console.log("islogin");
+  let valResult = await store.dispatch("asyncValidateToken");
+  if (valResult) {
     next();
   } else {
     alert("로그인이 필요합니다.");

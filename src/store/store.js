@@ -317,7 +317,9 @@ export const store = new Vuex.Store({
     asyncReqInterests: async function (context) {
       const subUrl = "/search/interest";
       const pathVar = context.getters.getLoginInfo.member_no;
-      let resInterestsList = await http.get(`${subUrl}` + "?member_no=" + pathVar);
+      let resInterestsList = await http.get(
+        `${subUrl}` + "?member_no=" + pathVar
+      );
       return context.commit("setinterestList", resInterestsList.data);
     },
     //comment
@@ -375,8 +377,15 @@ export const store = new Vuex.Store({
         id: context.getters.getLoginInfo.id,
         pw: context.getters.getLoginInfo.pw,
       };
-      let res = await http.post(`${subUrl}`, { params: reqData });
-      console.log(res);
+      await http
+        .post(`${subUrl}`, reqData)
+        .then(() => {
+          return true;
+        })
+        .catch((e) => {
+          console.log(e);
+          return false;
+        });
     },
   },
 });
