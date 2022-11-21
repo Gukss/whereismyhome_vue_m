@@ -4,7 +4,11 @@
       <div class="banner_container">
         <div class="banner_info">
           <div class="banner_title_container">
-            <img src="@/assets/img/jam_write.svg" alt="aa" />
+            <img
+              src="@/assets/img/homework.png"
+              alt="aa"
+              style="width: 4rem; margin-right: 2rem"
+            />
             <div class="banner_text_container">
               <div class="title">안심귀가프렌즈</div>
               <div class="subtitle">안심귀가 프렌즈를 찾아보세요.</div>
@@ -32,29 +36,32 @@
                 <th>조회수</th>
               </tr>
               <tr
-            v-for="(item, index) in this.articleList"
-            :key="index"
-            @click="$router.push(`/friendsDetail/${item.friendsArticleNo}`)"
-          >
-            <td >{{ item.title }}</td>
-            <td>{{ item.memberId }}</td>
-            <td>{{ item.registerTime }}</td>
-            <td>{{ item.views }}</td>
-          </tr>
+                v-for="(item, index) in this.articleList"
+                :key="index"
+                @click="$router.push(`/friendsDetail/${item.friendsArticleNo}`)"
+              >
+                <td>{{ item.title }}</td>
+                <td>{{ item.memberId }}</td>
+                <td>{{ item.registerTime }}</td>
+                <td>{{ item.views }}</td>
+              </tr>
             </table>
           </div>
           <!-- <img src="../img/" alt="실거래가조회" class="banner_img" /> -->
         </div>
-          <!-- <div v-for="(item, index) in this.articleList"></div> -->
-          <!-- https://onethejay.tistory.com/68 -->
+        <!-- <div v-for="(item, index) in this.articleList"></div> -->
+        <!-- https://onethejay.tistory.com/68 -->
         <div class="banner_info">
           <div class="page_button_container">
             <div class="page_button_content">&lt;</div>
-            <div class="page_button_content" 
-                  v-for="(item, index) in this.totalPageCount" :key="index"
-                 @click="asyncReqArticleList(item)"
-
-                        >{{item}}</div>
+            <div
+              class="page_button_content"
+              v-for="(item, index) in this.totalPageCount"
+              :key="index"
+              @click="asyncReqArticleList(item)"
+            >
+              {{ item }}
+            </div>
             <div class="page_button_content">&gt;</div>
           </div>
         </div>
@@ -67,26 +74,26 @@
 import http from "@/util/http-common";
 export default {
   name: "SectionFriends",
-  data(){
-    return{
-      articleList : [],
-      articleListSize : 0,
-      pgNavigation : null,
-      totalArticleCount : 0,
-      totalPageCount : 0,
-      currentPage : 0,
+  data() {
+    return {
+      articleList: [],
+      articleListSize: 0,
+      pgNavigation: null,
+      totalArticleCount: 0,
+      totalPageCount: 0,
+      currentPage: 0,
     };
   },
-  created(){
+  created() {
     this.asyncReqArticleList(1);
   },
 
-  methods:{
-    asyncReqArticleList : async function (pgno){
+  methods: {
+    asyncReqArticleList: async function (pgno) {
       const subUrl = "friends";
-      let res = await http.get(`${subUrl}`,
-        {params : { pgno : pgno, key : "", word : ""}}
-      );
+      let res = await http.get(`${subUrl}`, {
+        params: { pgno: pgno, key: "", word: "" },
+      });
       this.articleList = res.data.articles;
       this.articleListSize = this.articleList.length;
       // console.log("article 사이즈 " + this.articleListSize);
@@ -98,8 +105,7 @@ export default {
       this.currentPage = res.data.navigation.currentPage;
       console.log(this.totalArticleCount);
     },
-
-  }
+  },
 };
 </script>
 

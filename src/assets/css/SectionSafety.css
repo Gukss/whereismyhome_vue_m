@@ -37,7 +37,11 @@
   align-items: center;
 }
 
-.section .banner_container .banner_info .banner_title_container .banner_text_container {
+.section
+  .banner_container
+  .banner_info
+  .banner_title_container
+  .banner_text_container {
   margin-left: 2rem;
 }
 
@@ -79,14 +83,26 @@
 .section .banner_container .banner_info .card_container .card .medal {
   width: 60%;
   margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
-.section .banner_container .banner_info .card_container .card .card_table_container {
+.section
+  .banner_container
+  .banner_info
+  .card_container
+  .card
+  .card_table_container {
   margin-top: 3rem;
   width: 100%;
 }
 
-.section .banner_container .banner_info .card_container .card .card_table_container .card_table {
+.section
+  .banner_container
+  .banner_info
+  .card_container
+  .card
+  .card_table_container
+  .card_table {
   font-size: 0.9rem;
   width: 100%;
   font-weight: normal;
@@ -105,6 +121,13 @@
   font-weight: bold;
 }
 
-.section .banner_container .banner_info .card_container .card .card_table_container .card_table td {
+.section
+  .banner_container
+  .banner_info
+  .card_container
+  .card
+  .card_table_container
+  .card_table
+  td {
   padding-bottom: 0.2rem;
 }

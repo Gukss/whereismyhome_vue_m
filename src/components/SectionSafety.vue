@@ -5,7 +5,11 @@
       <div class="banner_container">
         <div class="banner_info">
           <div class="banner_title_container">
-            <img src="@/assets/img/jam_home.svg" alt="aa" />
+            <img
+              src="@/assets/img/house.png"
+              alt="aa"
+              style="width: 4rem; margin-right: 2rem"
+            />
             <div class="banner_text_container">
               <div class="title">안심하우스</div>
               <div class="subtitle">안심하우스를 찾아보세요.</div>
@@ -24,7 +28,11 @@
             "
           >
             <div class="card" v-if="!this.$store.getters.getIsLoading">
-              <img class="medal" src="@/assets/img/SilverMedal.svg" alt="silver" />
+              <img
+                class="medal"
+                src="@/assets/img/silver-medal.png"
+                alt="silver"
+              />
               <div class="card_table_container">
                 <table class="card_table">
                   <colgroup>
@@ -41,7 +49,9 @@
                       {{
                         $store.getters.getSafeHomeTop3List[1].roadName +
                         " " +
-                        Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)
+                        Number(
+                          $store.getters.getSafeHomeTop3List[0].roadNameBonbun
+                        )
                       }}
                     </td>
                   </tr>
@@ -51,25 +61,34 @@
                   </tr>
                   <tr>
                     <td class="title">최근거래금액</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[1].dealAmount }} 만 원</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[1].dealAmount }} 만
+                      원
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">가로등개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[1].lampCount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[1].lampCount }} 개
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">CCTV개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[1].cctvcount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[1].cctvcount }} 개
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">경찰서개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[1].policeCount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[1].policeCount }} 개
+                    </td>
                   </tr>
                 </table>
               </div>
             </div>
             <div class="card" v-if="!this.$store.getters.getIsLoading">
-              <img class="medal" src="@/assets/img/GoldMedal.svg" alt="gold" />
+              <img class="medal" src="@/assets/img/gold-medal.png" alt="gold" />
               <div class="card_table_container">
                 <table class="card_table">
                   <colgroup>
@@ -86,7 +105,9 @@
                       {{
                         $store.getters.getSafeHomeTop3List[0].roadName +
                         " " +
-                        Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)
+                        Number(
+                          $store.getters.getSafeHomeTop3List[0].roadNameBonbun
+                        )
                       }}
                     </td>
                   </tr>
@@ -96,25 +117,38 @@
                   </tr>
                   <tr>
                     <td class="title">최근거래금액</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[0].dealAmount }} 만 원</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[0].dealAmount }} 만
+                      원
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">가로등개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[0].lampCount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[0].lampCount }} 개
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">CCTV개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[0].cctvcount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[0].cctvcount }} 개
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">경찰서개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[0].policeCount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[0].policeCount }} 개
+                    </td>
                   </tr>
                 </table>
               </div>
             </div>
             <div class="card" v-if="!this.$store.getters.getIsLoading">
-              <img class="medal" src="@/assets/img/BronzeMedal.svg" alt="silver" />
+              <img
+                class="medal"
+                src="@/assets/img/bronze-medal.png"
+                alt="silver"
+              />
               <div class="card_table_container">
                 <table class="card_table">
                   <colgroup>
@@ -131,7 +165,9 @@
                       {{
                         $store.getters.getSafeHomeTop3List[2].roadName +
                         " " +
-                        Number($store.getters.getSafeHomeTop3List[0].roadNameBonbun)
+                        Number(
+                          $store.getters.getSafeHomeTop3List[0].roadNameBonbun
+                        )
                       }}
                     </td>
                   </tr>
@@ -141,19 +177,28 @@
                   </tr>
                   <tr>
                     <td class="title">최근거래금액</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[2].dealAmount }} 만 원</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[2].dealAmount }} 만
+                      원
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">가로등개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[2].lampCount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[2].lampCount }} 개
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">CCTV개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[2].cctvcount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[2].cctvcount }} 개
+                    </td>
                   </tr>
                   <tr>
                     <td class="title">경찰서개수</td>
-                    <td>{{ $store.getters.getSafeHomeTop3List[2].policeCount }} 개</td>
+                    <td>
+                      {{ $store.getters.getSafeHomeTop3List[2].policeCount }} 개
+                    </td>
                   </tr>
                 </table>
               </div>

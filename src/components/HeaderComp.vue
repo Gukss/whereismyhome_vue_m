@@ -334,6 +334,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.$refs.wrong_number = false;
+            console.log(res.data);
             this.$store.commit("setLoginInfo", res.data);
             this.loginModalDown();
           } else {
