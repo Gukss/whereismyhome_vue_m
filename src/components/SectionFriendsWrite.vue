@@ -14,12 +14,7 @@
         <div class="banner_info">
           <div class="board_button_container">
             <input type="button" class="write_button" value="초기화" />
-            <input
-              type="button"
-              class="write_button"
-              value="저장"
-              @click="writeArticle"
-            />
+            <input type="button" class="write_button" value="저장" @click="writeArticle" />
           </div>
           <div class="board_write_container">
             <table class="board_write_table">
@@ -74,11 +69,11 @@ export default {
     writeArticle() {
       let article = {
         memberNo: this.$store.getters.getLoginInfo.member_no,
-        memberId: this.$store.getters.getLoginInfo.id,
+        memberName: this.$store.getters.getLoginInfo.name,
         title: this.title,
         content: this.content,
       };
-      // console.log(article);
+      console.log(article);
       http.post("/friends", article);
 
       this.$router.push("/friends");

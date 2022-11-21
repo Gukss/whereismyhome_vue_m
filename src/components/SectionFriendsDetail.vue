@@ -8,14 +8,9 @@
               type="button"
               class="write_button"
               value="수정"
-              @click="
-                $router.push(
-                  `/friendsUpdate/${$store.getters.getArticle.friendsArticleNo}`
-                )
-              "
+              @click="$router.push(`/friendsUpdate/${$store.getters.getArticle.friendsArticleNo}`)"
               v-show="
-                this.$store.getters.getArticle.memberId ===
-                this.$store.getters.getLoginInfo.id
+                this.$store.getters.getArticle.memberId === this.$store.getters.getLoginInfo.id
               "
             />
             <input
@@ -23,8 +18,7 @@
               class="write_button"
               value="삭제"
               v-show="
-                this.$store.getters.getArticle.memberId ===
-                this.$store.getters.getLoginInfo.id
+                this.$store.getters.getArticle.memberId === this.$store.getters.getLoginInfo.id
               "
             />
             <input
@@ -62,13 +56,10 @@
                   <col width="72%" />
                   <col width="18%" />
                 </colgroup>
-                <tr
-                  v-for="(item, index) in $store.getters.getCommentList"
-                  :key="index"
-                >
+                <tr v-for="(item, index) in $store.getters.getCommentList" :key="index">
                   <td class="color">{{ item.memberName }}</td>
                   <td>{{ item.commentText }}</td>
-                  <td class="color">{{ item.memoTime }}</td>
+                  <td class="color">{{ item.registerTime }}</td>
                 </tr>
               </table>
             </div>
@@ -118,25 +109,15 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch(
-      "asyncReqCommentList",
-      this.$route.params.friendsArticleNo
-    );
-    this.$store.dispatch(
-      "asyncReqArticle",
-      this.$route.params.friendsArticleNo
-    );
+    this.$store.dispatch("asyncReqCommentList", this.$route.params.friendsArticleNo);
+    this.$store.dispatch("asyncReqArticle", this.$route.params.friendsArticleNo);
   },
   computed: {
     ...mapGetters([""]),
   },
   methods: {
     ...mapMutations(["addRerenderKey"]),
-    ...mapActions([
-      "asyncReqCommentList",
-      "asyncReqArticle",
-      "asyncReqAddComment",
-    ]),
+    ...mapActions(["asyncReqCommentList", "asyncReqArticle", "asyncReqAddComment"]),
     addComment: async function () {
       //로그인할 때 memberNo도 받아서 저장하기
       let reqData = {

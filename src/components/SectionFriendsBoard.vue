@@ -4,11 +4,7 @@
       <div class="banner_container">
         <div class="banner_info">
           <div class="banner_title_container">
-            <img
-              src="@/assets/img/homework.png"
-              alt="aa"
-              style="width: 4rem; margin-right: 2rem"
-            />
+            <img src="@/assets/img/homework.png" alt="aa" style="width: 4rem; margin-right: 2rem" />
             <div class="banner_text_container">
               <div class="title">안심귀가프렌즈</div>
               <div class="subtitle">안심귀가 프렌즈를 찾아보세요.</div>
@@ -41,7 +37,7 @@
                 @click="$router.push(`/friendsDetail/${item.friendsArticleNo}`)"
               >
                 <td>{{ item.title }}</td>
-                <td>{{ item.memberId }}</td>
+                <td>{{ item.memberName }}</td>
                 <td>{{ item.registerTime }}</td>
                 <td>{{ item.views }}</td>
               </tr>
