@@ -364,9 +364,10 @@ export const store = new Vuex.Store({
 		 */
     asyncReqAddComment: async function (context, payload) {
       const subUrl = `/comment/${payload.reqArticleNo}`;
+      console.log(payload);
       let reqData = {
         memberNo: `${payload.reqMemberNo}`,
-        memberId: `${payload.reqMemberId}`,
+        memberName: `${payload.reqMemberName}`,
         commentText: `${payload.reqCommentText}`,
       };
       let resArticle = await http.post(`${subUrl}`, reqData);

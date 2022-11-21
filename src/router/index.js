@@ -80,7 +80,6 @@ const routes = [
 
 const isLogin = async (to, from, next) => {
   let valResult = await store.dispatch("asyncValidateToken");
-  console.log(valResult);
   if (valResult) {
     next();
   } else {
