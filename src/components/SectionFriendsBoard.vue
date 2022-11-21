@@ -36,7 +36,7 @@
                 <th>조회수</th>
               </tr>
               <tr
-                v-for="(item, index) in this.articleList"
+                v-for="(item, index) in this.$store.getters.getArticleList"
                 :key="index"
                 @click="$router.push(`/friendsDetail/${item.friendsArticleNo}`)"
               >
@@ -53,7 +53,8 @@
         <!-- https://onethejay.tistory.com/68 -->
         <div class="banner_info">
           <div class="page_button_container">
-            <div class="page_button_content">&lt;</div>
+            <section-friends-board-paginate></section-friends-board-paginate>
+            <!-- <div class="page_button_content">&lt;</div>
             <div
               class="page_button_content"
               v-for="(item, index) in this.totalPageCount"
@@ -62,7 +63,7 @@
             >
               {{ item }}
             </div>
-            <div class="page_button_content">&gt;</div>
+            <div class="page_button_content">&gt;</div> -->
           </div>
         </div>
       </div>
@@ -71,9 +72,12 @@
 </template>
 
 <script>
-import http from "@/util/http-common";
+// import http from "@/util/http-common";
+import SectionFriendsBoardPaginate from "@/components/SectionFriendsBoardPaginate";
+import { mapActions } from "vuex";
 export default {
   name: "SectionFriends",
+  components: { SectionFriendsBoardPaginate },
   data() {
     return {
       articleList: [],
@@ -85,26 +89,26 @@ export default {
     };
   },
   created() {
-    this.asyncReqArticleList(1);
+    this.$store.dispatch("asyncReqArticleList", 1);
   },
-
   methods: {
-    asyncReqArticleList: async function (pgno) {
-      const subUrl = "friends";
-      let res = await http.get(`${subUrl}`, {
-        params: { pgno: pgno, key: "", word: "" },
-      });
-      this.articleList = res.data.articles;
-      this.articleListSize = this.articleList.length;
-      // console.log("article 사이즈 " + this.articleListSize);
-      // console.log(this.articleList);
-      console.log(res.data.navigation);
-      this.pgNavigation = res.data.navigation;
-      this.totalPageCount = res.data.navigation.totalPageCount;
-      this.totalArticleCount = res.data.navigation.totalCount;
-      this.currentPage = res.data.navigation.currentPage;
-      console.log(this.totalArticleCount);
-    },
+    ...mapActions(["asyncReqArticleList"]),
+    // asyncReqArticleList: async function (pgno) {
+    //   const subUrl = "friends";
+    //   let res = await http.get(`${subUrl}`, {
+    //     params: { pgno: pgno, key: "", word: "" },
+    //   });
+    //   this.articleList = res.data.articles;
+    //   this.articleListSize = this.articleList.length;
+    //   // console.log("article 사이즈 " + this.articleListSize);
+    //   // console.log(this.articleList);
+    //   console.log(res.data.navigation);
+    //   this.pgNavigation = res.data.navigation;
+    //   this.totalPageCount = res.data.navigation.totalPageCount;
+    //   this.totalArticleCount = res.data.navigation.totalCount;
+    //   this.currentPage = res.data.navigation.currentPage;
+    //   console.log(this.totalArticleCount);
+    // },
   },
 };
 </script>

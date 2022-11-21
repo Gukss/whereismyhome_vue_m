@@ -102,13 +102,13 @@
           </table>
         </div>
 
-        <div class="login_id_remember">
+        <!-- <div class="login_id_remember">
           <input
             type="checkbox"
             id="remember_check"
             v-model="rememberId"
           /><label for="remember_check">아이디 기억하기</label>
-        </div>
+        </div> -->
         <div class="login_btn_container_login">
           <input type="button" value="로그인" @click="login" />
         </div>
@@ -317,6 +317,7 @@ export default {
       }
       this.id = "";
       this.pw = "";
+      this.rememberId = "";
       this.name = "";
       this.email = "";
       this.phone = "";
@@ -376,13 +377,6 @@ export default {
         this.regModalDown();
         this.popupLogin();
       });
-
-      this.id = "";
-      this.pw = "";
-      this.rememberId = "";
-      this.name = "";
-      this.email = "";
-      this.phone = "";
     },
     update() {
       let result = confirm("수정하시겠습니까?");
@@ -392,6 +386,7 @@ export default {
       }
 
       let member = {
+        member_no: this.$store.state.loginInfo.member_no,
         id: this.id,
         pw: this.pw,
         name: this.name,
@@ -399,8 +394,9 @@ export default {
         phone: this.phone,
       };
 
-      http.put("/member", member).then(({ data }) => {
-        console.log(data);
+      http.put("/member", member).then(() => {
+        console.log(member);
+        this.$store.commit("setLoginInfo", member);
         this.mypageModalDown();
       });
     },

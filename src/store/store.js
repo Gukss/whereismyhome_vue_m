@@ -90,6 +90,15 @@ export const store = new Vuex.Store({
     safeHomeTop3List: [],
     // 로딩중인지
     isLoading: false,
+
+    /**
+     * friendsBoard에 뿌려줄 리스트
+     */
+    articleList: [],
+    /**
+     * 페이징에 사용할 totalPageCount
+     */
+    totalPageCount: "",
   },
   getters: {
     /* =========================== */
@@ -138,6 +147,7 @@ export const store = new Vuex.Store({
       }
       return state.yearList;
     },
+
     //---
     /* =========================== */
     /* =                         = */
@@ -183,6 +193,12 @@ export const store = new Vuex.Store({
     // 로딩
     getIsLoading(state) {
       return state.isLoading;
+    },
+    getArticleList(state) {
+      return state.articleList;
+    },
+    getTotalPageCount(state) {
+      return state.totalPageCount;
     },
   },
   //동기적 로직
@@ -273,6 +289,12 @@ export const store = new Vuex.Store({
     },
     setIsLoading(state, payload) {
       state.isLoading = payload;
+    },
+    setArticleList(state, payload) {
+      state.articleList = payload;
+    },
+    setTotalPageCount(state, payload) {
+      state.totalPageCount = payload;
     },
   },
   //비동기적 로직
@@ -387,6 +409,14 @@ export const store = new Vuex.Store({
           return false;
         });
       return res;
+    },
+    asyncReqArticleList: async function (context, payload) {
+      const subUrl = "friends";
+      let res = await http.get(`${subUrl}`, {
+        params: { pgno: payload, key: "", word: "" },
+      });
+      context.commit("setArticleList", res.data.articles);
+      context.commit("setTotalPageCount", res.data.navigation.totalPageCount);
     },
   },
 });
