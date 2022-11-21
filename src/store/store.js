@@ -339,9 +339,7 @@ export const store = new Vuex.Store({
     asyncReqInterests: async function (context) {
       const subUrl = "/search/interest";
       const pathVar = context.getters.getLoginInfo.member_no;
-      let resInterestsList = await http.get(
-        `${subUrl}` + "?member_no=" + pathVar
-      );
+      let resInterestsList = await http.get(`${subUrl}` + "?member_no=" + pathVar);
       return context.commit("setinterestList", resInterestsList.data);
     },
     //comment
@@ -388,6 +386,42 @@ export const store = new Vuex.Store({
         month: context.getters.getMonthVal,
       };
       let res = await http.get(`${subUrl}`, { params: reqData });
+      if (res.data.length === 0) {
+        res.data = [
+          {
+            aptName: "",
+            roadName: "",
+            roadNameBonbun: "",
+            area: "",
+            dealAmount: "",
+            lampCount: "",
+            cctvcount: "",
+            policeCount: "",
+          },
+
+          {
+            aptName: "",
+            roadName: "",
+            roadNameBonbun: "",
+            area: "",
+            dealAmount: "",
+            lampCount: "",
+            cctvcount: "",
+            policeCount: "",
+          },
+
+          {
+            aptName: "",
+            roadName: "",
+            roadNameBonbun: "",
+            area: "",
+            dealAmount: "",
+            lampCount: "",
+            cctvcount: "",
+            policeCount: "",
+          },
+        ];
+      }
       context.commit("setSafeHomeTop3List", res.data.slice(0, 3));
       context.commit("setIsLoading", false);
       return context.commit("setSafeHomeList", res.data);
