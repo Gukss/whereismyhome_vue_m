@@ -269,9 +269,11 @@ export default {
         body.style.overflow = "hidden";
       }
 
-      console.log(this.$store.state.loginId);
+      console.log(this.$store.state.loginInfo.id);
       http
-        .get("/member", { params: { id: this.$store.state.loginId } })
+        .get("/member", {
+          params: { member_no: this.$store.state.loginInfo.member_no },
+        })
         .then(({ data }) => {
           console.log(data);
           this.id = data.id;
@@ -313,6 +315,11 @@ export default {
       if (!mypage_modal.classList.contains("show")) {
         body.style.overflow = "auto";
       }
+      this.id = "";
+      this.pw = "";
+      this.name = "";
+      this.email = "";
+      this.phone = "";
     },
     regModalDown() {
       const reg_modal = document.querySelector(".reg_modal");
@@ -322,6 +329,11 @@ export default {
       if (!reg_modal.classList.contains("show")) {
         body.style.overflow = "auto";
       }
+      this.id = "";
+      this.pw = "";
+      this.name = "";
+      this.email = "";
+      this.phone = "";
     },
 
     login() {
@@ -351,6 +363,7 @@ export default {
     },
     regist() {
       let member = {
+        member_no: this.$store.state.loginInfo.member_no,
         id: this.id,
         pw: this.pw,
         name: this.name,

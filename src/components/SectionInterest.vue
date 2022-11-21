@@ -19,7 +19,13 @@
           <tr
             v-for="(item, index) in this.$store.getters.getInterestList"
             :key="index"
-            @click="asyncReqInterestAptList(item.sidoName, item.gugunName, item.dongName)"
+            @click="
+              asyncReqInterestAptList(
+                item.sidoName,
+                item.gugunName,
+                item.dongName
+              )
+            "
           >
             <td>{{ item.sidoName }}</td>
             <td>{{ item.gugunName }}</td>
@@ -78,6 +84,7 @@ export default {
     // console.log(this.interests);
     this.setMapBound();
     this.printMarker();
+    this.$store.commit("addRerenderKey");
   },
   beforeUpdate() {
     this.setMapBound();
@@ -194,7 +201,11 @@ export default {
           "mouseover",
           makeOverListener(this.map, marker, overlay)
         );
-        kakao.maps.event.addListener(marker, "mouseout", makeOutListener(overlay));
+        kakao.maps.event.addListener(
+          marker,
+          "mouseout",
+          makeOutListener(overlay)
+        );
 
         // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
       }
