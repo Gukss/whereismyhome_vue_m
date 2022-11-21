@@ -377,7 +377,7 @@ export const store = new Vuex.Store({
         id: context.getters.getLoginInfo.id,
         pw: context.getters.getLoginInfo.pw,
       };
-      await http
+      let res = await http
         .post(`${subUrl}`, reqData)
         .then(() => {
           return true;
@@ -386,6 +386,7 @@ export const store = new Vuex.Store({
           console.log(e);
           return false;
         });
+      return res;
     },
   },
 });

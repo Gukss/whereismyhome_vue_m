@@ -79,8 +79,8 @@ const routes = [
 ];
 
 const isLogin = async (to, from, next) => {
-  console.log("islogin");
   let valResult = await store.dispatch("asyncValidateToken");
+  console.log(valResult);
   if (valResult) {
     next();
   } else {
