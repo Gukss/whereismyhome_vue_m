@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      현재 선택된 페이지 : {{ selectPage }}
+      <!-- 현재 선택된 페이지 : {{ selectPage }} -->
       <PaginateComp
         :page-count="this.$store.getters.getTotalPageCount"
         :page-range="3"
@@ -42,23 +42,22 @@ export default {
   display: flex;
 }
 .pagination li {
-  min-width: 32px;
-  padding: 2px 6px;
-  text-align: center;
-  margin: 0 3px;
-  border-radius: 6px;
-  border: 1px solid #eee;
-  color: #666;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  border-bottom: 1px solid #90caf9;
+  line-height: 2rem;
+  box-shadow: 0 1px 0px 0 rgba(34, 36, 38, 0.15);
 }
 .pagination li:hover {
-  background: #e4dbd6;
+  background: #d1eaff;
 }
 .page-item a {
-  color: #666;
+  color: #000;
   text-decoration: none;
 }
 .pagination li.active {
-  background-color: #e7aa8d;
+  background-color: #90caf9;
   color: #fff;
 }
 .pagination li.active a {
