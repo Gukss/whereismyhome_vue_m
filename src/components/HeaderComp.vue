@@ -5,7 +5,11 @@
         <div class="header_container">
           <router-link to="/" class="title"
             ><img
-              style="height: 8rem; width: 14rem; image-rendering: -webkit-optimize-contrast"
+              style="
+                height: 8rem;
+                width: 14rem;
+                image-rendering: -webkit-optimize-contrast;
+              "
               src="../assets/img/logo.svg"
               alt="whereismyhome"
           /></router-link>
@@ -17,22 +21,32 @@
                 <router-link to="/" id="trade">실거래가조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/friends" id="friends">안심귀가프렌즈</router-link>
+                <router-link to="/friends" id="friends"
+                  >안심귀가프렌즈</router-link
+                >
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/safety" id="safety">안심하우스조회</router-link>
+                <router-link to="/safety" id="safety"
+                  >안심하우스조회</router-link
+                >
               </li>
               <li v-show="$store.getters.isLogin">
                 <router-link to="/interest" id="interest">관심목록</router-link>
               </li>
               <li v-show="!$store.getters.isLogin">
-                <a href="#" class="btn_open_popup" @click="popupRegist">회원가입</a>
+                <a href="#" class="btn_open_popup" @click="popupRegist"
+                  >회원가입</a
+                >
               </li>
               <li v-show="!$store.getters.isLogin">
-                <a href="#" class="login_btn_open_popup" @click="popupLogin">로그인</a>
+                <a href="#" class="login_btn_open_popup" @click="popupLogin"
+                  >로그인</a
+                >
               </li>
               <li v-show="$store.getters.isLogin">
-                <a href="#" class="mypage_btn_open_popup" @click="popupMypage">마이페이지</a>
+                <a href="#" class="mypage_btn_open_popup" @click="popupMypage"
+                  >마이페이지</a
+                >
               </li>
               <li v-show="$store.getters.isLogin">
                 <a href="#" @click="logout">로그아웃</a>
@@ -41,7 +55,9 @@
           </div>
           <div class="userinfo" v-show="$store.getters.isLogin">
             <a href="#"
-              ><div class="nickname">{{ $store.state.loginInfo.name }}님</div></a
+              ><div class="nickname">
+                {{ $store.state.loginInfo.name }}님
+              </div></a
             >
           </div>
         </div>
@@ -64,23 +80,34 @@
             <tr>
               <td>아이디</td>
               <td>
-                <input type="text" v-model="loginId" ref="loginInputId" />
+                <input
+                  type="text"
+                  v-model="loginId"
+                  ref="loginInputId"
+                  placeholder="아이디"
+                />
               </td>
             </tr>
             <tr>
               <td>비밀번호</td>
               <td>
-                <input type="password" v-model="loginPw" @keyup.enter="login()" />
+                <input
+                  type="password"
+                  v-model="loginPw"
+                  @keyup.enter="login()"
+                  placeholder="비밀번호"
+                />
               </td>
             </tr>
           </table>
         </div>
 
         <div class="login_id_remember">
-          <input type="checkbox" id="remember_check" v-model="rememberId" /><label
-            for="remember_check"
-            >아이디 기억하기</label
-          >
+          <input
+            type="checkbox"
+            id="remember_check"
+            v-model="rememberId"
+          /><label for="remember_check">아이디 기억하기</label>
         </div>
         <div class="login_btn_container_login">
           <input type="button" value="로그인" @click="login" />
@@ -101,28 +128,54 @@
             </colgroup>
             <tr>
               <td>아이디</td>
-              <td><input type="text" v-model="id" ref="regInputId" /></td>
+              <td>
+                <input
+                  type="text"
+                  v-model="id"
+                  ref="regInputId"
+                  placeholder="아이디"
+                />
+              </td>
             </tr>
             <tr>
               <td>비밀번호</td>
-              <td><input type="password" v-model="pw" /></td>
+              <td>
+                <input type="password" v-model="pw" placeholder="비밀번호" />
+              </td>
             </tr>
             <tr>
               <td>이름</td>
-              <td><input type="text" v-model="name" /></td>
+              <td><input type="text" v-model="name" placeholder="이름" /></td>
             </tr>
             <tr>
               <td>이메일</td>
-              <td><input type="text" v-model="email" /></td>
+              <td>
+                <input
+                  type="text"
+                  v-model="email"
+                  placeholder="xxxxx@xxxx.xxx"
+                />
+              </td>
             </tr>
             <tr>
               <td>전화번호</td>
-              <td><input type="text" v-model="phone" /></td>
+              <td>
+                <input
+                  type="text"
+                  v-model="phone"
+                  placeholder="010-1234-1234"
+                />
+              </td>
             </tr>
           </table>
           <div class="reg_btn_container">
             <input type="button" value="확인" @click="regist" />
-            <input type="button" value="취소" class="reg_modal_close" @click="regModalDown" />
+            <input
+              type="button"
+              value="취소"
+              class="reg_modal_close"
+              @click="regModalDown"
+            />
           </div>
         </div>
       </div>
@@ -163,7 +216,12 @@
           </table>
           <div class="mypage_btn_container">
             <input type="button" value="수정" @click="update" />
-            <input type="button" value="취소" class="mypage_modal_close" @click="mypageModalDown" />
+            <input
+              type="button"
+              value="취소"
+              class="mypage_modal_close"
+              @click="mypageModalDown"
+            />
             <input type="button" value="탈퇴" @click="deleteMember" />
           </div>
         </div>
@@ -175,7 +233,6 @@
 // import HeaderRegistModal from "../components/HeaderRegistModal.vue";
 // import HeaderLoginModal from "../components/HeaderLoginModal.vue";
 import http from "@/util/http-common";
-
 export default {
   name: "HeaderComp",
   data() {
@@ -213,16 +270,18 @@ export default {
       }
 
       console.log(this.$store.state.loginId);
-      http.get("/member", { params: { id: this.$store.state.loginId } }).then(({ data }) => {
-        console.log(data);
-        this.id = data.id;
-        this.pw = data.pw;
-        this.name = data.name;
-        this.email = data.email;
-        this.phone = data.phone;
-        // this.regModalDown();
-        // this.popupLogin();
-      });
+      http
+        .get("/member", { params: { id: this.$store.state.loginId } })
+        .then(({ data }) => {
+          console.log(data);
+          this.id = data.id;
+          this.pw = data.pw;
+          this.name = data.name;
+          this.email = data.email;
+          this.phone = data.phone;
+          // this.regModalDown();
+          // this.popupLogin();
+        });
     },
     popupLogin() {
       this.loginId = "";
@@ -273,7 +332,6 @@ export default {
       http
         .post(`${subUrl}`, userInfo)
         .then((res) => {
-          console.log(res);
           if (res.status == 200) {
             this.$refs.wrong_number = false;
             this.$store.commit("setLoginInfo", res.data);
@@ -339,18 +397,22 @@ export default {
         return;
       }
 
-      http.delete("/member", { params: { id: this.$store.state.loginId } }).then((data) => {
-        if (data.status == 200) {
-          console.log(data.status);
-          this.mypageModalDown();
-          this.$store.commit("setLogout");
+      http
+        .delete("/member", { params: { id: this.$store.state.loginId } })
+        .then((data) => {
+          if (data.status == 200) {
+            console.log(data.status);
+            this.mypageModalDown();
+            this.$store.commit("setLogout");
 
-          alert("탈퇴되었습니다.");
-        }
-      });
+            alert("탈퇴되었습니다.");
+          }
+        });
     },
     logout() {
-      http.get("/member/logout").then(console.log("로그아웃"), this.$store.commit("setLogout"));
+      http
+        .get("/member/logout")
+        .then(console.log("로그아웃"), this.$store.commit("setLogout"));
     },
   },
   components: {
