@@ -345,17 +345,13 @@ export default {
       http
         .post(`${subUrl}`, userInfo)
         .then((res) => {
-          if (res.status == 200) {
-            this.$refs.wrong_number = false;
-            console.log(res.data);
-            this.$store.commit("setLoginInfo", res.data);
-            this.loginModalDown();
-          } else {
-            this.wrongLogin = true;
-          }
+          this.$refs.wrong_number = false;
+
+          this.$store.commit("setLoginInfo", res.data);
+          this.loginModalDown();
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          this.wrongLogin = true;
         });
 
       this.loginId = "";
