@@ -137,7 +137,6 @@
 </template>
 
 <script>
-import http from "@/util/http-common";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
