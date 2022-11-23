@@ -108,24 +108,20 @@
       </div>
       <div class="form_group">
         <div class="button_container">
-          <router-link to="/search" v-show="this.$route.fullPath !== `/safety`"
-            ><input
-              type="button"
-              value="검색"
-              id="list-btn"
-              @click="asyncReqAptList"
-          /></router-link>
-          <router-link
-            to="/interest"
+          <input
+            type="button"
+            value="검색"
+            id="list-btn"
+            @click="asyncReqAptList"
             v-show="this.$route.fullPath !== `/safety`"
-          >
-            <input
-              type="button"
-              value="관심지역 등록"
-              id="interest-btn2"
-              @click="insertInterest"
-            />
-          </router-link>
+          />
+          <input
+            type="button"
+            value="관심지역 등록"
+            id="interest-btn2"
+            @click="asyncReqInsertInterest"
+            v-show="this.$route.fullPath !== `/safety`"
+          />
           <router-link to="/safety" v-show="this.$route.fullPath === `/safety`">
             <input
               type="button"
@@ -195,25 +191,13 @@ export default {
       "asyncReqDong",
       "asyncReqAptList",
       "asyncReqsafeHomeList",
+      "asyncReqInsertInterest",
     ]),
     getSido: function () {
       this.$store.dispatch("asyncReqSido");
     },
     getYear: function () {
       this.$store.getters.reqYearList;
-    },
-    /**
-     * 선택된 sido, gugun, dong으로 관심지역을 등록한다.
-     * @todo: 여기도 값이 비어있을 때 예외처리 해주기
-     */
-    insertInterest() {
-      let interest = {
-        member_no: this.$store.state.loginInfo.member_no,
-        sidoName: this.sidoName,
-        gugunName: this.gugunName,
-        dongName: this.dongName,
-      };
-      http.post("search/interest", interest).then(() => {});
     },
   },
 };

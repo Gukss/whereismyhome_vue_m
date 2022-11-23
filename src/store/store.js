@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/util/http-common";
 import createPersistedState from "vuex-persistedstate";
+import router from "@/router";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -390,19 +391,72 @@ export const store = new Vuex.Store({
      * sido, gugun, dong, year, month 값으로 아파트 리스트를 요청한다.
      * @param {*} context
      * @returns 해당하는 아파트 정보 배열 setting
-     * @todo 값이 없으면 요청 못하게 예외처리 필요하다.
      */
     asyncReqAptList: async function (context) {
       const subUrl = "search/aptlist";
-      const reqData = {
-        sido: context.getters.getSidoVal,
-        gugun: context.getters.getGugunVal,
-        dong: context.getters.getDongVal,
-        year: context.getters.getYearVal,
-        month: context.getters.getMonthVal,
-      };
-      let resAptList = await http.get(`${subUrl}`, { params: reqData });
-      return context.commit("setAptList", resAptList.data);
+      const sido = context.getters.getSidoVal;
+      const gugun = context.getters.getGugunVal;
+      const dong = context.getters.getDongVal;
+      const year = context.getters.getYearVal;
+      const month = context.getters.getMonthVal;
+      if (
+        !(
+          sido === "" ||
+          gugun === "" ||
+          dong === "" ||
+          year === "" ||
+          month === ""
+        )
+      ) {
+        const reqData = {
+          sido: sido,
+          gugun: gugun,
+          dong: dong,
+          year: year,
+          month: month,
+        };
+        let resAptList = await http.get(`${subUrl}`, { params: reqData });
+        await context.commit("setAptList", resAptList.data);
+        context.commit("setSidoVal", "");
+        context.commit("setGugunVal", "");
+        context.commit("setDongVal", "");
+        context.commit("setYearVal", "");
+        context.commit("setMonthVal", "");
+        router.push("/search");
+      } else {
+        alert("값을 모두 선택 해주세요.");
+        return;
+      }
+    },
+    /**
+     * 선택된 sido, gugun, dong으로 관심지역을 등록한다.
+     */
+    asyncReqInsertInterest: async function (context) {
+      const member_no = context.state.loginInfo.member_no;
+      const sidoName = context.getters.getSidoVal;
+      const gugunName = context.getters.getGugunVal;
+      const dongName = context.getters.getDongVal;
+      if (!(sidoName === "" || gugunName === "" || dongName === "")) {
+        let interest = {
+          member_no: member_no,
+          sidoName: sidoName,
+          gugunName: gugunName,
+          dongName: dongName,
+        };
+        await http
+          .post("search/interest", interest)
+          .then(() => {})
+          .catch(() => {});
+        context.commit("setSidoVal", "");
+        context.commit("setGugunVal", "");
+        context.commit("setDongVal", "");
+        context.commit("setYearVal", "");
+        context.commit("setMonthVal", "");
+        router.push("/interest");
+      } else {
+        alert("시/도, 구/군, 동을 선택 해주세요.");
+        return;
+      }
     },
     /**
      * member_no에 해당하는 관심지역 배열 요청
