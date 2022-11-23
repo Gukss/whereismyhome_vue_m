@@ -391,6 +391,7 @@ export const store = new Vuex.Store({
      * sido, gugun, dong, year, month 값으로 아파트 리스트를 요청한다.
      * @param {*} context
      * @returns 해당하는 아파트 정보 배열 setting
+     * @todo alert 대신 다른 경고창만들기
      */
     asyncReqAptList: async function (context) {
       const subUrl = "search/aptlist";
@@ -430,6 +431,7 @@ export const store = new Vuex.Store({
     },
     /**
      * 선택된 sido, gugun, dong으로 관심지역을 등록한다.
+     * @todo alert 대신 다른 경고창만들기
      */
     asyncReqInsertInterest: async function (context) {
       const member_no = context.state.loginInfo.member_no;
