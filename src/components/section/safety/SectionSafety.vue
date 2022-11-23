@@ -234,6 +234,10 @@ export default {
     ...mapGetters(["getSafeHomeTop3List", "getIsLoading"]),
   },
   methods: {
+    /**
+     * 배열이 비어있으면 비어있는 값 넣어주도록
+     * @todo: 비어있을 때 등수 카드말고 다른 화면 보여주도록 하기
+     */
     isEmptyArr(arr) {
       if (Array.isArray(arr) && arr.length === 0) {
         return true;

@@ -14,7 +14,12 @@
         <div class="banner_info">
           <div class="board_button_container">
             <input type="button" class="write_button" value="초기화" />
-            <input type="button" class="write_button" value="저장" @click="writeArticle" />
+            <input
+              type="button"
+              class="write_button"
+              value="저장"
+              @click="writeArticle"
+            />
           </div>
           <div class="board_write_container">
             <table class="board_write_table">
@@ -67,11 +72,9 @@ export default {
 
   methods: {
     /**
-     * 
-    * 게시글 작성
-    * 현재 로그인된 사용자 정보와 입력한 제목, 본문을 가지고 post 요청을 보낸다.
-    * 
-    */
+     * 게시글 작성
+     * 현재 로그인된 사용자 정보와 입력한 제목, 본문을 가지고 post 요청을 보낸다.
+     */
     writeArticle() {
       let article = {
         memberNo: this.$store.getters.getLoginInfo.member_no,

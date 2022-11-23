@@ -2,14 +2,10 @@ import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/util/http-common";
 import createPersistedState from "vuex-persistedstate";
-// import { SectionSelector } from "../components/SectionSelector";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  //SectionSelector 의 변수만 저장
-  modules: {
-    // SectionSelector: SectionSelector,
-  },
+  modules: {},
   plugins: [
     createPersistedState({
       // paths: [],
@@ -28,67 +24,115 @@ export const store = new Vuex.Store({
      * 리랜더링할 때 사용할 변수
      */
     rerenderKey: 1,
-    //listbox axios state
     /**
+     * @group: listbox axios state
      * @type: string[]
-     * mounted할 때 selector에 출력할 리스트
+     * @description mounted할 때 selector에 출력할 리스트
      */
     sidoList: [],
+    /**
+     * @group: listbox axios state
+     * @type: string[]
+     * @description mounted할 때 selector에 출력할 리스트
+     */
     gugunList: [],
+    /**
+     * @group: listbox axios state
+     * @type: string[]
+     * @description mounted할 때 selector에 출력할 리스트
+     */
     dongList: [],
+    /**
+     * @group: listbox axios state
+     * @type: string
+     * @description selector 선택하면 저장할 string
+     */
     sidoVal: "",
+    /**
+     * @group: listbox axios state
+     * @type: string
+     * @description selector 선택하면 저장할 string
+     */
     gugunVal: "",
+    /**
+     * @group: listbox axios state
+     * @type: string
+     * @description selector 선택하면 저장할 string
+     */
     dongVal: "",
-    //---
-    //
+    /**
+     * @group: listbox axios state
+     * @type: string[]
+     * @description mounted할 때 selector에 출력할 리스트
+     */
     yearList: [],
+    /**
+     * @group: listbox axios state
+     * @type: string[]
+     * @description mounted할 때 selector에 출력할 리스트
+     */
     monthList: [],
+    /**
+     * @group: listbox axios state
+     * @type: string
+     * @description selector 선택하면 저장할 string
+     */
     yearVal: "",
+    /**
+     * @group: listbox axios state
+     * @type: string
+     * @description selector 선택하면 저장할 string
+     */
     monthVal: "",
-    //---
     /* =========================== */
     /* =                         = */
     /* =      SectionSearch      = */
     /* =                         = */
     /* =========================== */
-    //search state
     /**
-     * 거래내역 조회할 때 표에 출력하고, 지도에 출력하는 리스트
+     * @gourp: search state
+     * 거래내역 조회할 때 표에 출력하고, 지도에 마커출력할 때 사용하는 리스트
      */
     aptList: [],
-    //---
-    // login
     /**
-     * 로그인 확인을 위한 변수
-     * @todo 로그인 할 때 객체로 받아서 모든 정보 저장해놓기, string => object
      * @type: string
+     * @group: login
+     * 로그인 확인을 위한 변수, 로그인 정보를 저장한다.
      */
     loginInfo: "",
-    // Interest
     /**
-     * 관심지역 출력을 위한 리스트
+     * 관심지역 출력을 위한 리스트, {sido, gugun, dong}을 요소로 한다.
      * @type: string[]
+     * @group: interest
      */
     interestList: [],
-
-    //comment
     /**
      * 댓글 출력을 위한 list
      * @type: string[]
+     * @group: comment
      */
     commentList: [],
-
-    //Article
+    /**
+     * @group: article
+     * 게시글 하나 정보를 담고있는 객체
+     */
     article: {},
 
-    /*
-     * 안심하우스 리스트
-     * Object[]
+    /**
+     * 안심하우스 정보 객체를 담고있는 리스트
+     * @group: safety
+     * @type: Object[]
      */
     safeHomeList: [],
-    // 안심하우스 Top3만 담은 리스트
+    /**
+     * 안심하우스 Top3만 담은 리스트
+     * @group: safety
+     */
     safeHomeTop3List: [],
-    // 로딩중인지
+    /**
+     * 로딩중인지 확인하는 변수
+     * @group: safety
+     */
     isLoading: false,
 
     /**
@@ -137,18 +181,19 @@ export const store = new Vuex.Store({
     getMonthList(state) {
       return state.monthList;
     },
+    /**
+     * @param {*} state
+     * @returns 현재 년도부터 10년 전 년도까지 담은 배열 반환
+     */
     reqYearList(state) {
       let date = new Date();
       let year = date.getFullYear();
       state.yearList = [];
-      // this.$store.commit("setYearList", []);
       for (let i = year; i > year - 10; i--) {
         state.yearList.push(i);
       }
       return state.yearList;
     },
-
-    //---
     /* =========================== */
     /* =                         = */
     /* =      SectionSearch      = */
@@ -161,11 +206,8 @@ export const store = new Vuex.Store({
       return state.loginInfo;
     },
     isLogin(state) {
-      // let id = jwt.verify(state.loginInfo.id, process.env.VUE_APP_SECRET_KEY);
-      // console.log(id);
       return state.loginInfo !== "";
     },
-
     getInterestList(state) {
       return state.interestList;
     },
@@ -242,12 +284,16 @@ export const store = new Vuex.Store({
     setAptList(state, payload) {
       return (state.aptList = payload);
     },
+    /**
+     *
+     * @param {*} state
+     * @returns 현재 년도와 선택된 년도가 같으면 현재월-1만큼 리스트에 넣어주고, 아니면 12월 까지 출려해 주기
+     */
     reqMonthList(state) {
       let date = new Date();
       let month = date.getMonth() + 1;
       let m = state.yearVal == date.getFullYear() ? month : 13;
       state.monthList = [];
-      // this.$store.commit("setMonthList", []);
       for (let i = 1; i < m; i++) {
         // let temp = i < 10 ? "0" + i : i;
         state.monthList.push(i);
@@ -304,19 +350,35 @@ export const store = new Vuex.Store({
     /* =     SectionSelector     = */
     /* =                         = */
     /* =========================== */
+    /**
+     * 백엔드에게 인자없이 sidoList를 요청해 받고, setting 해준다.
+     * @param {*} context
+     * @returns 시도 배열
+     */
     asyncReqSido: async function (context) {
       const subUrl = "search/sido";
       let resSido = await http.get(`${subUrl}`);
-      //mutations불러서 사용하기
       return context.commit("setSidoList", resSido.data);
       // this.$store.getter.getSidoList = resSido.data;
     },
+    /**
+     * 백엔드에게 sido값으로 gugunList를 요청해 받고, setting해준다.
+     * @param {*} context
+     * @param {*} payload sido 값이 string으로 담겨있다.
+     * @returns 구군 배열
+     */
     asyncReqGugun: async function (context, payload) {
       const subUrl = "search/gugun";
       const reqData = { sido: payload };
       let resGugun = await http.get(`${subUrl}`, { params: reqData });
       return context.commit("setGugunList", resGugun.data);
     },
+    /**
+     * 백엔드에게 sido, gugun 값으로 dongList를 요청해 받고, setting해준다.
+     * @param {*} context
+     * @param {*} payload sido, gugun 값이 string으로 담겨있다.
+     * @returns 동 배열
+     */
     asyncReqDong: async function (context, payload) {
       const subUrl = "search/dong";
       const sidoVal = context.getters.getSidoVal;
@@ -324,6 +386,12 @@ export const store = new Vuex.Store({
       let resDong = await http.get(`${subUrl}`, { params: reqData });
       return context.commit("setDongList", resDong.data);
     },
+    /**
+     * sido, gugun, dong, year, month 값으로 아파트 리스트를 요청한다.
+     * @param {*} context
+     * @returns 해당하는 아파트 정보 배열 setting
+     * @todo 값이 없으면 요청 못하게 예외처리 필요하다.
+     */
     asyncReqAptList: async function (context) {
       const subUrl = "search/aptlist";
       const reqData = {
@@ -336,19 +404,36 @@ export const store = new Vuex.Store({
       let resAptList = await http.get(`${subUrl}`, { params: reqData });
       return context.commit("setAptList", resAptList.data);
     },
+    /**
+     * member_no에 해당하는 관심지역 배열 요청
+     * @param {*} context
+     * @returns member_no에 해당하는 관심지역 배열 반환
+     */
     asyncReqInterests: async function (context) {
       const subUrl = "/search/interest";
       const pathVar = context.getters.getLoginInfo.member_no;
-      let resInterestsList = await http.get(`${subUrl}` + "?member_no=" + pathVar);
+      let resInterestsList = await http.get(
+        `${subUrl}` + "?member_no=" + pathVar
+      );
       return context.commit("setinterestList", resInterestsList.data);
     },
-    //comment
+    /**
+     * 게시글에 달려있는 댓글을 모두 가져온다.
+     * @param {*} context
+     * @param {*} payload 게시글 번호 articleNo
+     * @returns
+     */
     asyncReqCommentList: async function (context, payload) {
       const subUrl = `/comment/${payload}`;
       let resCommentList = await http.get(`${subUrl}`);
       return context.commit("setCommentList", resCommentList.data);
     },
-    //article
+    /**
+     * 멤버 번호에 해당하는 게시글을 모두 가져온다.
+     * @param {*} context
+     * @param {*} payload  member_no
+     * @returns
+     */
     asyncReqArticle: async function (context, payload) {
       const subUrl = `/friends/${payload}`;
       let resArticle = await http.get(`${subUrl}`);
@@ -429,7 +514,11 @@ export const store = new Vuex.Store({
       context.commit("setIsLoading", false);
       return context.commit("setSafeHomeList", res.data);
     },
-
+    /**
+     * 토큰이 유효한지 검증
+     * @param {*} context
+     * @returns t,f
+     */
     asyncValidateToken: async function (context) {
       const subUrl = "member/validation";
       const reqData = {
@@ -447,6 +536,11 @@ export const store = new Vuex.Store({
         });
       return res;
     },
+    /**
+     * 게시판에 글을 받아온다. 글을 setting해주고, 페이징을 위해 전체 페이지 개수를 setting해준다.
+     * @param {*} context
+     * @param {*} payload
+     */
     asyncReqArticleList: async function (context, payload) {
       const subUrl = "friends";
       let res = await http.get(`${subUrl}`, {

@@ -29,6 +29,9 @@ export default {
     };
   },
   methods: {
+    /**
+     * 페이징 번호를 누르면 pageNum이 바뀌고 이 함수가 실행된다.
+     */
     changePage: function (pageNum) {
       this.selectPage = pageNum;
       this.$store.dispatch("asyncReqArticleList", this.selectPage);

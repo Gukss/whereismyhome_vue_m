@@ -4,7 +4,11 @@
       <div class="banner_container">
         <div class="banner_info">
           <div class="banner_title_container">
-            <img src="@/assets/img/homework.png" alt="aa" style="width: 4rem; margin-right: 2rem" />
+            <img
+              src="@/assets/img/homework.png"
+              alt="aa"
+              style="width: 4rem; margin-right: 2rem"
+            />
             <div class="banner_text_container">
               <div class="title">안심귀가프렌즈</div>
               <div class="subtitle">안심귀가 프렌즈를 찾아보세요.</div>
@@ -43,23 +47,10 @@
               </tr>
             </table>
           </div>
-          <!-- <img src="../img/" alt="실거래가조회" class="banner_img" /> -->
         </div>
-        <!-- <div v-for="(item, index) in this.articleList"></div> -->
-        <!-- https://onethejay.tistory.com/68 -->
         <div class="banner_info">
           <div class="page_button_container">
             <section-friends-board-paginate></section-friends-board-paginate>
-            <!-- <div class="page_button_content">&lt;</div>
-            <div
-              class="page_button_content"
-              v-for="(item, index) in this.totalPageCount"
-              :key="index"
-              @click="asyncReqArticleList(item)"
-            >
-              {{ item }}
-            </div>
-            <div class="page_button_content">&gt;</div> -->
           </div>
         </div>
       </div>
@@ -68,7 +59,6 @@
 </template>
 
 <script>
-// import http from "@/util/http-common";
 import SectionFriendsBoardPaginate from "@/components/section/board/SectionFriendsBoardPaginate";
 import { mapActions } from "vuex";
 export default {

@@ -16,7 +16,11 @@
         >
           <!-- Todo: focus가면 시도선택 없어지게 하기 -->
           <option value="">시도선택</option>
-          <option :value="item" v-for="(item, index) in $store.getters.getSidoList" :key="index">
+          <option
+            :value="item"
+            v-for="(item, index) in $store.getters.getSidoList"
+            :key="index"
+          >
             {{ item }}
           </option>
         </select>
@@ -35,7 +39,11 @@
           "
         >
           <option value="">구군선택</option>
-          <option :value="item" v-for="(item, index) in $store.getters.getGugunList" :key="index">
+          <option
+            :value="item"
+            v-for="(item, index) in $store.getters.getGugunList"
+            :key="index"
+          >
             {{ item }}
           </option>
         </select>
@@ -65,11 +73,18 @@
           name="year"
           id="year"
           @change="
-            [$store.commit('setYearVal', $event.target.value), $store.commit('reqMonthList')]
+            [
+              $store.commit('setYearVal', $event.target.value),
+              $store.commit('reqMonthList'),
+            ]
           "
         >
           <option value="">매매년도선택</option>
-          <option :value="item" v-for="(item, index) in $store.getters.getYearList" :key="index">
+          <option
+            :value="item"
+            v-for="(item, index) in $store.getters.getYearList"
+            :key="index"
+          >
             {{ item }} 년
           </option>
         </select>
@@ -82,7 +97,11 @@
           @change="$store.commit('setMonthVal', $event.target.value)"
         >
           <option value="">매매월선택</option>
-          <option :value="item" v-for="(item, index) in $store.getters.getMonthList" :key="index">
+          <option
+            :value="item"
+            v-for="(item, index) in $store.getters.getMonthList"
+            :key="index"
+          >
             {{ item }} 월
           </option>
         </select>
@@ -90,10 +109,22 @@
       <div class="form_group">
         <div class="button_container">
           <router-link to="/search" v-show="this.$route.fullPath !== `/safety`"
-            ><input type="button" value="검색" id="list-btn" @click="asyncReqAptList"
+            ><input
+              type="button"
+              value="검색"
+              id="list-btn"
+              @click="asyncReqAptList"
           /></router-link>
-          <router-link to="/interest" v-show="this.$route.fullPath !== `/safety`">
-            <input type="button" value="관심지역 등록" id="interest-btn2" @click="insertInterest" />
+          <router-link
+            to="/interest"
+            v-show="this.$route.fullPath !== `/safety`"
+          >
+            <input
+              type="button"
+              value="관심지역 등록"
+              id="interest-btn2"
+              @click="insertInterest"
+            />
           </router-link>
           <router-link to="/safety" v-show="this.$route.fullPath === `/safety`">
             <input
@@ -171,12 +202,10 @@ export default {
     getYear: function () {
       this.$store.getters.reqYearList;
     },
-    //아파트 리스트를 props로 넘긴다.
-    reqAplList: async function () {
-      const subUrl = "search/aptlist";
-      let resAptList = await http.get(`${subUrl}`);
-      this.sidoList = resAptList.data;
-    },
+    /**
+     * 선택된 sido, gugun, dong으로 관심지역을 등록한다.
+     * @todo: 여기도 값이 비어있을 때 예외처리 해주기
+     */
     insertInterest() {
       let interest = {
         member_no: this.$store.state.loginInfo.member_no,
@@ -184,13 +213,9 @@ export default {
         gugunName: this.gugunName,
         dongName: this.dongName,
       };
-
       http.post("search/interest", interest).then(() => {});
     },
   },
-  // watch: {
-  //
-  // },
 };
 </script>
 
