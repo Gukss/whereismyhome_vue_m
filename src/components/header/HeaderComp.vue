@@ -254,12 +254,11 @@ export default {
     ...mapGetters(["getLoginInfo"]),
   },
   methods: {
-
     /**
-     * 
-    * 회원가입 모달 창을 띄운다.
-    * 
-    */
+     *
+     * 회원가입 모달 창을 띄운다.
+     *
+     */
     popupRegist() {
       const body = document.querySelector("body");
       const reg_modal = document.querySelector(".reg_modal");
@@ -272,11 +271,11 @@ export default {
     },
 
     /**
-     * 
-    * 마이페이지 모달 창을 띄운다.
-    * 현재 로그인된 사용자의 정보를 보여준다.
-    *
-    */
+     *
+     * 마이페이지 모달 창을 띄운다.
+     * 현재 로그인된 사용자의 정보를 보여준다.
+     *
+     */
     popupMypage() {
       const body = document.querySelector("body");
       const mypage_modal = document.querySelector(".mypage_modal");
@@ -286,9 +285,11 @@ export default {
         body.style.overflow = "hidden";
       }
       // id로 회원정보 get해오게 했는데 토큰으로 되어있음
-      console.log(this.$store.state.loginInfo.id);
+      console.log(this.$store.state.loginInfo.member_no);
       http
-        .get("/member", { params: { id: this.$store.getters.getLoginInfo.id } })
+        .get("/member", {
+          params: { member_no: this.$store.getters.getLoginInfo.member_no },
+        })
         .then(({ data }) => {
           console.log(data);
           this.id = data.id;
@@ -302,10 +303,10 @@ export default {
     },
 
     /**
-     * 
-    * 로그인 모달 창을 띄운다.
-    *
-    */
+     *
+     * 로그인 모달 창을 띄운다.
+     *
+     */
     popupLogin() {
       this.loginId = "";
       this.loginPw = "";
@@ -320,10 +321,10 @@ export default {
     },
 
     /**
-     * 
-    * 로그인 모달 창을 닫는다.
-    *
-    */
+     *
+     * 로그인 모달 창을 닫는다.
+     *
+     */
     loginModalDown() {
       const login_modal = document.querySelector(".login_modal");
       const body = document.querySelector("body");
@@ -335,10 +336,10 @@ export default {
     },
 
     /**
-     * 
-    * 마이페이지 모달 창을 닫는다.
-    *
-    */
+     *
+     * 마이페이지 모달 창을 닫는다.
+     *
+     */
     mypageModalDown() {
       const mypage_modal = document.querySelector(".mypage_modal");
       const body = document.querySelector("body");
@@ -350,10 +351,10 @@ export default {
     },
 
     /**
-     * 
-    * 회원가입 모달 창을 닫는다.
-    *
-    */
+     *
+     * 회원가입 모달 창을 닫는다.
+     *
+     */
     regModalDown() {
       const reg_modal = document.querySelector(".reg_modal");
       const body = document.querySelector("body");
@@ -365,13 +366,13 @@ export default {
     },
 
     /**
-     * 
-    * 로그인 
-    * 아이디, 비밀번호를 입력받아 post 요청을 보낸다.
-    * 성공했을 경우 로그인 정보를 vuex에 저장한다.
-    * 실패했을 경우 실패했다는 메시지를 보여준다.
-    * 
-    */
+     *
+     * 로그인
+     * 아이디, 비밀번호를 입력받아 post 요청을 보낸다.
+     * 성공했을 경우 로그인 정보를 vuex에 저장한다.
+     * 실패했을 경우 실패했다는 메시지를 보여준다.
+     *
+     */
     login() {
       //   const baseUrl = "http://localhost:8080";
       const subUrl = "member/login";
@@ -398,12 +399,12 @@ export default {
     },
 
     /**
-     * 
-    * 회원가입
-    * 아이디, 비밀번호, 이름, 이메일, 전화번호를 입력받아 post 요청을 보낸다.
-    * 정상적으로 등록이 됐으면 회원가입 창을 닫고 로그인 창을 연다.
-    * 
-    */
+     *
+     * 회원가입
+     * 아이디, 비밀번호, 이름, 이메일, 전화번호를 입력받아 post 요청을 보낸다.
+     * 정상적으로 등록이 됐으면 회원가입 창을 닫고 로그인 창을 연다.
+     *
+     */
     regist() {
       let member = {
         id: this.id,
@@ -428,11 +429,11 @@ export default {
     },
 
     /**
-     * 
-    * 회원정보 수정
-    * 아이디, 비밀번호, 이름, 이메일, 전화번호를 입력받아 put 요청을 보낸다.
-    * 
-    */
+     *
+     * 회원정보 수정
+     * 아이디, 비밀번호, 이름, 이메일, 전화번호를 입력받아 put 요청을 보낸다.
+     *
+     */
     update() {
       let result = confirm("수정하시겠습니까?");
 
@@ -455,11 +456,11 @@ export default {
     },
 
     /**
-     * 
-    * 회원 탈퇴
-    * 현재 로그인한 사용자의 id 값을 가지고 delete 요청을 보낸다.
-    * 
-    */
+     *
+     * 회원 탈퇴
+     * 현재 로그인한 사용자의 id 값을 가지고 delete 요청을 보낸다.
+     *
+     */
     deleteMember() {
       let result = confirm("탈퇴하시겠습니까?");
 
@@ -468,7 +469,9 @@ export default {
       }
 
       http
-        .delete("/member", { params: { id: this.$store.getters.getLoginInfo.id } })
+        .delete("/member", {
+          params: { id: this.$store.getters.getLoginInfo.id },
+        })
         .then((data) => {
           if (data.status == 200) {
             console.log(data.status);
@@ -481,12 +484,12 @@ export default {
     },
 
     /**
-     * 
-    * 로그아웃
-    * /logout 경로로 get 요청을 보낸다.
-    * 성공했을 경우 vuex에 저장된 로그인 정보를 초기화한다.
-    *
-    */
+     *
+     * 로그아웃
+     * /logout 경로로 get 요청을 보낸다.
+     * 성공했을 경우 vuex에 저장된 로그인 정보를 초기화한다.
+     *
+     */
     logout() {
       http
         .get("/member/logout")
