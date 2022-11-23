@@ -10,7 +10,7 @@
                 width: 14rem;
                 image-rendering: -webkit-optimize-contrast;
               "
-              src="../assets/img/logo.svg"
+              src="../../assets/img/logo.svg"
               alt="whereismyhome"
           /></router-link>
           <!-- <a href="#" class="title"><h1>title</h1></a> -->
@@ -102,13 +102,13 @@
           </table>
         </div>
 
-        <!-- <div class="login_id_remember">
+        <div class="login_id_remember">
           <input
             type="checkbox"
             id="remember_check"
             v-model="rememberId"
           /><label for="remember_check">아이디 기억하기</label>
-        </div> -->
+        </div>
         <div class="login_btn_container_login">
           <input type="button" value="로그인" @click="login" />
         </div>
@@ -233,6 +233,8 @@
 // import HeaderRegistModal from "../components/HeaderRegistModal.vue";
 // import HeaderLoginModal from "../components/HeaderLoginModal.vue";
 import http from "@/util/http-common";
+import { mapGetters } from "vuex";
+
 export default {
   name: "HeaderComp",
   data() {
@@ -248,8 +250,16 @@ export default {
       wrongLogin: false,
     };
   },
-
+  computed: {
+    ...mapGetters(["getLoginInfo"]),
+  },
   methods: {
+
+    /**
+     * 
+    * 회원가입 모달 창을 띄운다.
+    * 
+    */
     popupRegist() {
       const body = document.querySelector("body");
       const reg_modal = document.querySelector(".reg_modal");
@@ -260,6 +270,13 @@ export default {
         this.$refs.regInputId.focus();
       }
     },
+
+    /**
+     * 
+    * 마이페이지 모달 창을 띄운다.
+    * 현재 로그인된 사용자의 정보를 보여준다.
+    *
+    */
     popupMypage() {
       const body = document.querySelector("body");
       const mypage_modal = document.querySelector(".mypage_modal");
@@ -268,12 +285,10 @@ export default {
       if (mypage_modal.classList.contains("show")) {
         body.style.overflow = "hidden";
       }
-
+      // id로 회원정보 get해오게 했는데 토큰으로 되어있음
       console.log(this.$store.state.loginInfo.id);
       http
-        .get("/member", {
-          params: { member_no: this.$store.state.loginInfo.member_no },
-        })
+        .get("/member", { params: { id: this.$store.getters.getLoginInfo.id } })
         .then(({ data }) => {
           console.log(data);
           this.id = data.id;
@@ -285,6 +300,12 @@ export default {
           // this.popupLogin();
         });
     },
+
+    /**
+     * 
+    * 로그인 모달 창을 띄운다.
+    *
+    */
     popupLogin() {
       this.loginId = "";
       this.loginPw = "";
@@ -298,6 +319,11 @@ export default {
       }
     },
 
+    /**
+     * 
+    * 로그인 모달 창을 닫는다.
+    *
+    */
     loginModalDown() {
       const login_modal = document.querySelector(".login_modal");
       const body = document.querySelector("body");
@@ -307,6 +333,12 @@ export default {
         body.style.overflow = "auto";
       }
     },
+
+    /**
+     * 
+    * 마이페이지 모달 창을 닫는다.
+    *
+    */
     mypageModalDown() {
       const mypage_modal = document.querySelector(".mypage_modal");
       const body = document.querySelector("body");
@@ -315,13 +347,13 @@ export default {
       if (!mypage_modal.classList.contains("show")) {
         body.style.overflow = "auto";
       }
-      this.id = "";
-      this.pw = "";
-      this.rememberId = "";
-      this.name = "";
-      this.email = "";
-      this.phone = "";
     },
+
+    /**
+     * 
+    * 회원가입 모달 창을 닫는다.
+    *
+    */
     regModalDown() {
       const reg_modal = document.querySelector(".reg_modal");
       const body = document.querySelector("body");
@@ -330,13 +362,16 @@ export default {
       if (!reg_modal.classList.contains("show")) {
         body.style.overflow = "auto";
       }
-      this.id = "";
-      this.pw = "";
-      this.name = "";
-      this.email = "";
-      this.phone = "";
     },
 
+    /**
+     * 
+    * 로그인 
+    * 아이디, 비밀번호를 입력받아 post 요청을 보낸다.
+    * 성공했을 경우 로그인 정보를 vuex에 저장한다.
+    * 실패했을 경우 실패했다는 메시지를 보여준다.
+    * 
+    */
     login() {
       //   const baseUrl = "http://localhost:8080";
       const subUrl = "member/login";
@@ -345,22 +380,32 @@ export default {
       http
         .post(`${subUrl}`, userInfo)
         .then((res) => {
-          this.$refs.wrong_number = false;
-
-          this.$store.commit("setLoginInfo", res.data);
-          this.loginModalDown();
+          if (res.status == 200) {
+            this.$refs.wrong_number = false;
+            this.$store.commit("setLoginInfo", res.data);
+            this.loginModalDown();
+          } else {
+            this.wrongLogin = true;
+          }
         })
-        .catch(() => {
-          this.wrongLogin = true;
+        .catch((err) => {
+          console.log(err);
         });
 
       this.loginId = "";
       this.loginPw = "";
       this.wrongLogin = false;
     },
+
+    /**
+     * 
+    * 회원가입
+    * 아이디, 비밀번호, 이름, 이메일, 전화번호를 입력받아 post 요청을 보낸다.
+    * 정상적으로 등록이 됐으면 회원가입 창을 닫고 로그인 창을 연다.
+    * 
+    */
     regist() {
       let member = {
-        member_no: this.$store.state.loginInfo.member_no,
         id: this.id,
         pw: this.pw,
         name: this.name,
@@ -373,7 +418,21 @@ export default {
         this.regModalDown();
         this.popupLogin();
       });
+
+      this.id = "";
+      this.pw = "";
+      this.rememberId = "";
+      this.name = "";
+      this.email = "";
+      this.phone = "";
     },
+
+    /**
+     * 
+    * 회원정보 수정
+    * 아이디, 비밀번호, 이름, 이메일, 전화번호를 입력받아 put 요청을 보낸다.
+    * 
+    */
     update() {
       let result = confirm("수정하시겠습니까?");
 
@@ -382,7 +441,6 @@ export default {
       }
 
       let member = {
-        member_no: this.$store.state.loginInfo.member_no,
         id: this.id,
         pw: this.pw,
         name: this.name,
@@ -390,12 +448,18 @@ export default {
         phone: this.phone,
       };
 
-      http.put("/member", member).then(() => {
-        console.log(member);
-        this.$store.commit("setLoginInfo", member);
+      http.put("/member", member).then(({ data }) => {
+        console.log(data);
         this.mypageModalDown();
       });
     },
+
+    /**
+     * 
+    * 회원 탈퇴
+    * 현재 로그인한 사용자의 id 값을 가지고 delete 요청을 보낸다.
+    * 
+    */
     deleteMember() {
       let result = confirm("탈퇴하시겠습니까?");
 
@@ -404,7 +468,7 @@ export default {
       }
 
       http
-        .delete("/member", { params: { id: this.$store.state.loginId } })
+        .delete("/member", { params: { id: this.$store.getters.getLoginInfo.id } })
         .then((data) => {
           if (data.status == 200) {
             console.log(data.status);
@@ -415,6 +479,14 @@ export default {
           }
         });
     },
+
+    /**
+     * 
+    * 로그아웃
+    * /logout 경로로 get 요청을 보낸다.
+    * 성공했을 경우 vuex에 저장된 로그인 정보를 초기화한다.
+    *
+    */
     logout() {
       http
         .get("/member/logout")

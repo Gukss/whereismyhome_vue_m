@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import HeaderComp from "@/components/HeaderComp.vue";
-import FooterComp from "@/components/FooterComp.vue";
+import HeaderComp from "@/components/header/HeaderComp.vue";
+import FooterComp from "@/components/footer/FooterComp.vue";
 
 export default {
   name: "App",

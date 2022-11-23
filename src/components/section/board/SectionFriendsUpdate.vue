@@ -6,15 +6,14 @@
           <div class="banner_title_container">
             <img src="@/assets/img/jam_write.svg" alt="aa" />
             <div class="banner_text_container">
-              <div class="title">글쓰기</div>
-              <div class="subtitle">안심귀가 프렌즈를 찾아보세요.</div>
+              <div class="title">글 수정</div>
+              <!-- <div class="subtitle">안심귀가 프렌즈를 찾아보세요.</div> -->
             </div>
           </div>
         </div>
         <div class="banner_info">
           <div class="board_button_container">
-            <input type="button" class="write_button" value="초기화" />
-            <input type="button" class="write_button" value="저장" @click="writeArticle" />
+            <input type="button" class="write_button" value="저장" @click="updateArticle"/>
           </div>
           <div class="board_write_container">
             <table class="board_write_table">
@@ -24,14 +23,7 @@
               </colgroup>
               <tr>
                 <td class="board_write_title">제목</td>
-                <td>
-                  <input
-                    class="board_write_title_input"
-                    type="text"
-                    v-model="title"
-                    placeholder="제목을 입력하세요."
-                  />
-                </td>
+                <td><input class="board_write_title_input" type="text" v-model="title"/></td>
               </tr>
               <tr>
                 <td class="board_write_title">본문</td>
@@ -41,7 +33,6 @@
                     class="board_write_content_input"
                     type="text"
                     v-model="content"
-                    placeholder="본문을 입력하세요."
                   ></textarea>
                 </td>
               </tr>
@@ -54,31 +45,43 @@
 </template>
 
 <script>
-import http from "@/util/http-common";
+import http from '@/util/http-common';
 
 export default {
-  name: "SectionFriendsWrite",
-  data() {
-    return {
-      title: "",
-      content: "",
+  name: "SectionFriendsUpdate",
+  data(){
+    return{
+      title : "",
+      content : "",
     };
   },
-
-  methods: {
-    writeArticle() {
-      let article = {
-        memberNo: this.$store.getters.getLoginInfo.member_no,
-        memberName: this.$store.getters.getLoginInfo.name,
-        title: this.title,
-        content: this.content,
-      };
-      console.log(article);
-      http.post("/friends", article);
-
-      this.$router.push("/friends");
-    },
+  created(){
+    // 제목, 본문에 내용 넣어놓기
+    this.title = this.$store.getters.getArticle.title;
+    this.content = this.$store.getters.getArticle.content;
   },
+  methods:{
+    /**
+    *
+    *  게시글 수정
+    *  현재 로그인된 사용자 정보와 수정한 제목, 본문을 가지고 put 요청을 보낸다.
+    *  수정 후 게시글 페이지로 이동한다.
+    *
+    */
+    updateArticle(){
+      let article = {
+        memberNo : this.$store.getters.getLoginInfo.member_no,
+        memberId : this.$store.getters.getLoginInfo.id,
+        title : this.title,
+        content : this.content,
+      };
+      // console.log(article);/
+      http.put(`/friends/${this.$store.getters.getArticle.friendsArticleNo}`,article);
+      this.$router.push(`/friendsDetail/${this.$store.getters.getArticle.friendsArticleNo}`);
+      this.$store.commit("setArticle", article);
+    },
+  }
+  
 };
 </script>
 

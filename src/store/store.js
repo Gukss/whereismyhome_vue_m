@@ -98,7 +98,7 @@ export const store = new Vuex.Store({
     /**
      * 페이징에 사용할 totalPageCount
      */
-    totalPageCount: "",
+    totalPageCount: 0,
   },
   getters: {
     /* =========================== */
@@ -370,11 +370,14 @@ export const store = new Vuex.Store({
       let resArticle = await http.post(`${subUrl}`, reqData);
       return context.commit("setArticle", resArticle.data);
     },
+
     /**
-		 	시도,구군,동 선택하고 검색하면 안심하우스 리스트를 저장
-      Top3도 따로 저장
-		
-		 */
+     *
+     * 시도,구군,동 선택하고 검색하면 안심하우스 리스트를 저장한다.
+     * Top3의 리스트도 별도로 저장한다.
+     * 데이터를 불러오는 동안 로딩 스피너를 동작시키기 위해 setIsLoading을 세팅한다.
+     *
+     */
     asyncReqsafeHomeList: async function (context) {
       context.commit("setIsLoading", true);
       const subUrl = "search/safety";

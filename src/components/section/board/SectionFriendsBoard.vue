@@ -69,7 +69,7 @@
 
 <script>
 // import http from "@/util/http-common";
-import SectionFriendsBoardPaginate from "@/components/SectionFriendsBoardPaginate";
+import SectionFriendsBoardPaginate from "@/components/section/board/SectionFriendsBoardPaginate";
 import { mapActions } from "vuex";
 export default {
   name: "SectionFriends",
@@ -89,22 +89,6 @@ export default {
   },
   methods: {
     ...mapActions(["asyncReqArticleList"]),
-    // asyncReqArticleList: async function (pgno) {
-    //   const subUrl = "friends";
-    //   let res = await http.get(`${subUrl}`, {
-    //     params: { pgno: pgno, key: "", word: "" },
-    //   });
-    //   this.articleList = res.data.articles;
-    //   this.articleListSize = this.articleList.length;
-    //   // console.log("article 사이즈 " + this.articleListSize);
-    //   // console.log(this.articleList);
-    //   console.log(res.data.navigation);
-    //   this.pgNavigation = res.data.navigation;
-    //   this.totalPageCount = res.data.navigation.totalPageCount;
-    //   this.totalArticleCount = res.data.navigation.totalCount;
-    //   this.currentPage = res.data.navigation.currentPage;
-    //   console.log(this.totalArticleCount);
-    // },
   },
 };
 </script>

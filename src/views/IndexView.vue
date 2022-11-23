@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SectionComp from "@/components/SectionComp.vue";
+import SectionComp from "@/components/section/SectionComp.vue";
 
 export default {
   name: "IndexView",

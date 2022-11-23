@@ -211,10 +211,10 @@
 </template>
 
 <script>
-import SectionSelector from "@/components/SectionSelector.vue";
+import SectionSelector from "@/components/section/SectionSelector.vue";
 import { mapGetters } from "vuex";
 // import http from "@/util/http-common";
-import SpinnerTest from "@/components/SpinnerTest";
+import SpinnerTest from "@/components/LoadingSpinner";
 
 export default {
   name: "SectionSafety",
@@ -225,16 +225,6 @@ export default {
     };
   },
   created() {
-    // let nullhouse = {
-    //   aptName : "",
-    //   roadName : "",
-    //   roadNameBonbun : "",
-    //   area : "",
-    //   dealAmount : "",
-    //   lampCount : "",
-    //   cctvcount : "",
-    //   policeCount : "",
-    // };
     let nullhouseList = [[], [], []];
     this.$store.commit("setSafeHomeTop3List", nullhouseList);
     console.log(this.$store.getters.getSafeHomeTop3List);

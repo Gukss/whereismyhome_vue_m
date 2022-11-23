@@ -235,6 +235,16 @@ export default {
         });
     },
 
+    /**
+     * 
+    * 관심지역의 아파트 리스트를 불러온다.
+    * 최근 년도의 1월의 정보를 가져온다. 
+    * 
+    * @param sidoName 시/도
+    * @param gugunName 구/군
+    * @param dongName 동
+    * 
+    */
     asyncReqInterestAptList: async function (sidoName, gugunName, dongName) {
       const subUrl = "search/aptlist";
       let now = new Date();

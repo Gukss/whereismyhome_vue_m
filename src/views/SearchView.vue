@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SectionSearch from "@/components/SectionSearch.vue";
+import SectionSearch from "@/components/section/search/SectionSearch.vue";
 
 export default {
   name: "SearchView",
