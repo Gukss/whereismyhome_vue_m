@@ -5,11 +5,7 @@
         <div class="header_container">
           <router-link to="/" class="title"
             ><img
-              style="
-                height: 8rem;
-                width: 14rem;
-                image-rendering: -webkit-optimize-contrast;
-              "
+              style="height: 8rem; width: 14rem; image-rendering: -webkit-optimize-contrast"
               src="../../assets/img/logo.svg"
               alt="whereismyhome"
           /></router-link>
@@ -21,32 +17,22 @@
                 <router-link to="/" id="trade">실거래가조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/friends" id="friends"
-                  >안심귀가프렌즈</router-link
-                >
+                <router-link to="/friends" id="friends">안심귀가프렌즈</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
-                <router-link to="/safety" id="safety"
-                  >안심하우스조회</router-link
-                >
+                <router-link to="/safety" id="safety">안심하우스조회</router-link>
               </li>
               <li v-show="$store.getters.isLogin">
                 <router-link to="/interest" id="interest">관심목록</router-link>
               </li>
               <li v-show="!$store.getters.isLogin">
-                <a href="#" class="btn_open_popup" @click="popupRegist"
-                  >회원가입</a
-                >
+                <a href="#" class="btn_open_popup" @click="popupRegist">회원가입</a>
               </li>
               <li v-show="!$store.getters.isLogin">
-                <a href="#" class="login_btn_open_popup" @click="popupLogin"
-                  >로그인</a
-                >
+                <a href="#" class="login_btn_open_popup" @click="popupLogin">로그인</a>
               </li>
               <li v-show="$store.getters.isLogin">
-                <a href="#" class="mypage_btn_open_popup" @click="popupMypage"
-                  >마이페이지</a
-                >
+                <a href="#" class="mypage_btn_open_popup" @click="popupMypage">마이페이지</a>
               </li>
               <li v-show="$store.getters.isLogin">
                 <a href="#" @click="logout">로그아웃</a>
@@ -55,9 +41,7 @@
           </div>
           <div class="userinfo" v-show="$store.getters.isLogin">
             <a href="#"
-              ><div class="nickname">
-                {{ $store.state.loginInfo.name }}님
-              </div></a
+              ><div class="nickname">{{ $store.state.loginInfo.name }}님</div></a
             >
           </div>
         </div>
@@ -80,12 +64,7 @@
             <tr>
               <td>아이디</td>
               <td>
-                <input
-                  type="text"
-                  v-model="loginId"
-                  ref="loginInputId"
-                  placeholder="아이디"
-                />
+                <input type="text" v-model="loginId" ref="loginInputId" placeholder="아이디" />
               </td>
             </tr>
             <tr>
@@ -102,13 +81,13 @@
           </table>
         </div>
 
-        <div class="login_id_remember">
+        <!-- <div class="login_id_remember">
           <input
             type="checkbox"
             id="remember_check"
             v-model="rememberId"
           /><label for="remember_check">아이디 기억하기</label>
-        </div>
+        </div> -->
         <div class="login_btn_container_login">
           <input type="button" value="로그인" @click="login" />
         </div>
@@ -129,12 +108,7 @@
             <tr>
               <td>아이디</td>
               <td>
-                <input
-                  type="text"
-                  v-model="id"
-                  ref="regInputId"
-                  placeholder="아이디"
-                />
+                <input type="text" v-model="id" ref="regInputId" placeholder="아이디" />
               </td>
             </tr>
             <tr>
@@ -150,32 +124,19 @@
             <tr>
               <td>이메일</td>
               <td>
-                <input
-                  type="text"
-                  v-model="email"
-                  placeholder="xxxxx@xxxx.xxx"
-                />
+                <input type="text" v-model="email" placeholder="xxxxx@xxxx.xxx" />
               </td>
             </tr>
             <tr>
               <td>전화번호</td>
               <td>
-                <input
-                  type="text"
-                  v-model="phone"
-                  placeholder="010-1234-1234"
-                />
+                <input type="text" v-model="phone" placeholder="010-1234-1234" />
               </td>
             </tr>
           </table>
           <div class="reg_btn_container">
             <input type="button" value="확인" @click="regist" />
-            <input
-              type="button"
-              value="취소"
-              class="reg_modal_close"
-              @click="regModalDown"
-            />
+            <input type="button" value="취소" class="reg_modal_close" @click="regModalDown" />
           </div>
         </div>
       </div>
@@ -216,12 +177,7 @@
           </table>
           <div class="mypage_btn_container">
             <input type="button" value="수정" @click="update" />
-            <input
-              type="button"
-              value="취소"
-              class="mypage_modal_close"
-              @click="mypageModalDown"
-            />
+            <input type="button" value="취소" class="mypage_modal_close" @click="mypageModalDown" />
             <input type="button" value="탈퇴" @click="deleteMember" />
           </div>
         </div>
@@ -451,6 +407,7 @@ export default {
 
       http.put("/member", member).then(({ data }) => {
         console.log(data);
+        this.$store.commit("setLoginInfo", member);
         this.mypageModalDown();
       });
     },
@@ -470,7 +427,7 @@ export default {
 
       http
         .delete("/member", {
-          params: { id: this.$store.getters.getLoginInfo.id },
+          params: { member_no: this.$store.state.loginInfo.member_no },
         })
         .then((data) => {
           if (data.status == 200) {
@@ -491,9 +448,7 @@ export default {
      *
      */
     logout() {
-      http
-        .get("/member/logout")
-        .then(console.log("로그아웃"), this.$store.commit("setLogout"));
+      http.get("/member/logout").then(console.log("로그아웃"), this.$store.commit("setLogout"));
     },
   },
   components: {
